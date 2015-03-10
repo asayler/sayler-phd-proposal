@@ -1,0 +1,114 @@
+\documentclass[defaultstyle,11pt]{thesis}
+
+\usepackage{array}
+\usepackage{epsfig}
+\usepackage{url}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tabu}
+\usepackage{tikz-qtree}
+\usepackage{fancyvrb}
+
+\usepackage{listings}
+\lstset{
+  language={},
+  basicstyle=\footnotesize,
+  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=4,
+  captionpos=b,
+  breaklines=true,
+  breakatwhitespace=false,
+  frame=single,
+  frameround=tttt
+}
+\lstdefinelanguage{JavaScript}{
+  keywords={break, case, catch, continue, debugger, default, delete,
+    do, else, finally, for, function, if, in, instanceof, new, return,
+    switch, this, throw, try, typeof, var, void, while, with, true,
+    false, null},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]'',
+  sensitive=true
+}
+
+\clubpenalty = 10000
+\widowpenalty = 10000
+
+%%%%%%%%%%%%   All the preamble material:   %%%%%%%%%%%%
+
+\title{Securing and Managing Trust in Modern Computing Applications}
+
+\author{Andy}{Sayler}
+
+\otherdegrees{B.S.E.E., Tufts University, 2011 \\
+              M.S.C.S., University of Colorado, 2013}
+
+\degree{Doctor of Philosophy}   %  #1 {long descr.}
+	   {Dissertation Proposal}  %  #2 {short descr.}
+
+\dept{Department of}		    %  #1 {designation}
+     {Computer Science}         %  #2 {name}
+
+\advisor{Prof.}                 %  #1 {title}
+        {Dirk Grunwald}         %  #2 {name}
+
+\reader{John Black}             %  2nd person to sign thesis
+\readerThree{Eric Keller}       %  3rd person to sign thesis
+\readerFour{Blake Reid}         %  4th person to sign thesis
+\readerFive{Sangtae Ha}         %  5th person to sign thesis
+
+\abstract{
+  \OnePageChapter
+  TBD
+}
+
+\dedication[Dedication]{
+  TBD
+}
+
+\acknowledgements{
+  \OnePageChapter
+  TBD
+}
+
+%\ToCisShort % use this only for 1-page Table of Contents
+
+\LoFisShort	% use this only for 1-page Table of Figures
+% \emptyLoF	% use this if there is no List of Figures
+
+\LoTisShort	% use this only for 1-page Table of Tables
+% \emptyLoT	% use this if there is no List of Tables
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%       BEGIN DOCUMENT...         %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\input macros.tex
+
+Coming soon...
+
+%\input chap_intro.tex
+
+%%%%%%%%%   then the Bibliography, if any   %%%%%%%%%
+\bibliographystyle{plain} % or "siam", or "alpha", etc.
+\nocite{*}                % list all refs in database, cited or not
+\bibliography{refs}       % Bib database in "refs.bib"
+
+%%%%%%%%%   then the Appendices, if any   %%%%%%%%%
+\appendix
+%\singlespacing
+%\input appx_messages.tex
+%\input appx_libcustos.tex
+
+\end{document}
