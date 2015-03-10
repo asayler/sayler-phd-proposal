@@ -1,0 +1,14 @@
+# Editor Cruft
+*~
+
+# LaTeX Cruft
+*.aux
+*.bbl
+*.blg
+*.lof
+*.log
+*.lot
+*.toc
+
+# LaTeX Output
+proposal.pdf
