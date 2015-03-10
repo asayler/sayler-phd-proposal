@@ -18,4 +18,4 @@ pdf: $(SRCS) $(CLS)
 
 clean:
 	$(RM) *.dvi *.aux *.log *.blg *.bbl *.out *.lof *.lot *.toc
-	$(RM) *~
+	$(RM) *~ .*~
