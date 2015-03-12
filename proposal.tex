@@ -70,33 +70,46 @@
 
   \OnePageChapter
 
-  Today, users routinely push vast troves of data into a myriad of
-  cloud services, from cloud storage platforms to cloud-based email
-  clients to social networks. Unfortunately, controlling this data
-  once it leaves a user's hands and passes into the cloud is an
-  extremely difficult process. The user is often forced to choose
-  between leveraging modern cloud services (and the high degree of
-  trust that entails) and maintaining privacy and control of their own
-  data. We feel these two choice represent a false dichotomy that can
-  be resolved by disentangling the security and access control
-  mechanisms for cloud-stored data from the cloud service providers
-  that utilize and act on this data. We propose a new class of cloud
-  service, Secret Storage as a Service (SSaaS), that allows users to
-  reduce the trust they must place in individual third parties by
-  storing sensitive user secrets (e.g. encryption keys) with a
-  dedicated set of Secret Storage Providers while only storing less
-  sensitive user data with the feature providers whose cloud-based
-  services they wish to leverage.
+  Today, users routinely push vast troves of private data into a
+  myriad of cloud services, store personal information on mobile
+  devices, and communicate about sensitive topics over public
+  networks. These uses, while convenient, demonstrate a growing gap
+  between users' desired use cases and their ability to control and
+  protect their data. Today, users are often forced to choose between
+  leveraging modern technologies and services, potentially exposing
+  their data to a variety of third parties in the process, and
+  maintaining privacy and control of their data.
 
-  We introduce a framework for evaluating the degree to which we must
-  trust various third parties in the cloud, as well as the mechanisms
-  by which this trust can be violated, potentially resulting in a loss
-  of user privacy. We explore the problems with the traditional cloud
+  I feel these two choices represent a false dichotomy that can be
+  resolved by disentangling the security and access control mechanisms
+  used to protect user data from the underlying technologies and third
+  parties that store and act on this data. In particular, I propose
+  isolating the set of core user secrets (e.g. passwords,
+  cryptographic keys, etc) that can be used to bootstrap the
+  protection of all other user data and storing these core secrets
+  with a dedicated, standardized, and service-oriented secret storage
+  system. Such a Secret Storage as a Service (SSaaS) architecture
+  allows users to reduce the trust they must place in individual
+  technologies or third parties while still providing mechanisms to
+  support the range of multi-user, multi-device use-cases popular
+  today.
+
+  In this dissertation proposal, I present an overview of the
+  challenges to the security and privacy of user data inherent
+  today. I introduce a framework for evaluating the degree to which we
+  must trust various third parties inherent in a range of popular use
+  cases, as well as the mechanisms by which this trust can be
+  violated. I explore the problems with the traditional third party
   trust model and discuss ways in which SSaaS helps alleviate these
-  issues. We discuss the qualities a desirable SSaaS ecosystem would
+  issues. I discuss the qualities a desirable SSaaS ecosystem would
   have, present an SSaaS prototype, and propose several applications
-  where the SSaaS model can significantly increase user privacy while
-  also support a variety of modern cloud use cases.
+  where the SSaaS model can significantly increase user security and
+  privacy while also supporting a variety of modern use
+  cases. Finally, I propose the additional research I will undertake
+  to complete this dissertation, including a survey of modern services
+  and technologies using the proposed trust-analysis framework, a more
+  robust SSaaS survey implementation, and a variety of useful SSaaS
+  client implementations.
 
 }
 
@@ -208,3 +221,5 @@
 %\input appx_libcustos.tex
 
 \end{document}
+
+%%  LocalWords:  SSaaS tex Custos

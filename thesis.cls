@@ -1074,16 +1074,16 @@
 	\clearpage
 	\th@AbstractPageStyle
 	\doublespacing	% 1998 revision of Grad School Specs
-	\begin{list}{}{\setlength{\leftmargin}{2em}
-			\setlength{\itemindent}{-2em}
-			\setlength{\topsep}{0pt}
-			\setlength{\itemsep}{0pt}}
-		\item \th@revname\ (\th@degree)
-		\item \th@title
-        \item Proposal directed by \th@advisortitle\ \th@advisor
-	\end{list}
-	\par
-	\vspace*{4\parsep}
+	%% \begin{list}{}{\setlength{\leftmargin}{2em}
+	%% 		\setlength{\itemindent}{-2em}
+	%% 		\setlength{\topsep}{0pt}
+	%% 		\setlength{\itemsep}{0pt}}
+	%% 	\item \th@revname\ (\th@degree)
+	%% 	\item \th@title
+    %%     \item Proposal directed by \th@advisortitle\ \th@advisor
+	%% \end{list}
+	%% \par
+	%% \vspace*{4\parsep}
 	\th@abstractStash	% finally, the actual abstract
 }
 \newcommand{\th@Dedicationpage}{
