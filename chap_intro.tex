@@ -1,8 +1,6 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-
-
 \section{Overview}
 
 Over the last decade, computing has undergone a monumental shift from
@@ -83,7 +81,110 @@ access to user data. In particular:
   benefits without having to forgo common and popular use cases.
 \end{packed_desc}
 
-\section{Motivating Example}
+\section{Motivating Examples}
+
+As a motivating example, consider the Dropbox cloud file locker
+service~\cite{dropbox}. Dropbox provides a service through which users
+may upload arbitrary files in order to sync them between multiple
+devices and to share them with other users. In order to support this
+functionally, Dropbox stores a copy of each user's uploaded files on
+the Dropbox servers. This ensures that Dropbox can provide copies of
+the files to new user devices or to other users when asked to sync or
+share a file on the user's behalf.
+
+But how Private are a user's files once uploaded to Dropbox? While
+Dropbox does encrypt files while they are stored on the Dropbox
+servers as well as while they are in transit between the Dropbox
+servers and a client machine~\cite{dropbox-security}, Dropbox also
+holds a copy of the associated encryption keys, enabling them to
+decrypt a user's files whenever they desire. This also means that an
+adversary may gain access to the cleartext user files if they are able
+to compromise Dropbox's servers. The government could also access
+cleartext user files should a court or other entity compel Dropbox to
+provide both the files and the associated encryption keys. Clearly
+Dropbox's practice of storing both a user's encrypted files as well as
+a copy of the associated encryption keys provides only marginally more
+security and privacy of the user data then not using encryption at
+all.
+
+An alternative approach would be for Dropbox to put the user in charge
+of encrypting/decrypting files and storing all necessary encryption
+keys, ensuring the Dropbox itself never has direct access to
+unencrypted user files. While this form of client-side encryption
+could potentially increase the privacy and security of user data in
+the event that Dropbox's data stores are compromised, searched,
+monitored, or simply misused, is also has some significant downsides:
+
+\begin{packed_enum}
+\item It breaks Dropbox's sharing use case. While user's can still
+  share encrypted version of their files, they would then have to
+  exchange the associated encryption key out of band in order to
+  effectively decrypt, read, or update any shared file. This
+  essentially nullifies Dropbox's appeal as a simple method for
+  sharing files with other users.
+\item It complicates Dropbox's syncing use case. Whereas before a
+  Dropbox user can bootstrap a new Dropbox client device simply by
+  signing into their Dropbox account, users must now both sign into
+  their Dropbox account and provide a copy of their encryption
+  key/keys in order for the Dropbox client to successfully perform the
+  required client-side encryption operations. This adds an additional
+  step to the Dropbox setup process, potentially driving away novice
+  and lay-users.
+\item If the user ever losses their encryption keys, they will
+  effectively lose access to all of their Dropbox-stored
+  files. Similarly, if a user mishandles their keys in a manner that
+  allows others to access them, they have effectively negated the
+  additional privacy or security client-side encryption provides. A
+  user would have to be diligent about ensuring they maintain access
+  to their keys via backups, etc, while also ensuring their keys do
+  not fall into the wrong hands. Again, this is a non-trivial burden
+  for many users.
+\end{packed_enum}
+
+Thus, we're left in a situation where the user must chose between the
+convenience of using Dropbox as it exists today while also sacrificing
+a significant degree of privacy over the files they upload to Dropbox
+or the burden of traditional client-side encryption models where the
+trust they must place in Dropbox is reduced, but where many core
+Dropbox uses cases (e.g. sharing) are also no longer feasible and the
+burden of using Dropbox is significantly increased. Neither of these
+are ideal solutions. We would like a solution that allows the user to
+leverage the existing convenience and benefits of using Dropbox while
+also reducing the trust they must place in the Dropbox corporation (or
+those with power over it).
+
+These challenges are not unique to Dropbox. There are many modern
+technologies and services that force the user to chose between
+convenience of use and feature set or privacy and control of their
+data. For example:
+
+\begin{packed_desc}
+\item[Mobile Computing Devices] \hfill \\ Phones, tablets, and laptops
+  have become ubiquitous modes of modern computing, storing large
+  fractions of our personal data and carrying out computations on our
+  behave. But these devices, while convenient, are also prone to loss,
+  theft, and remote exploitation, exposing the data they store and
+  computations they undertake to a range of external actors.
+\item[Cloud Computing Infrastructure] \hfill
+  \\ Infrastructure-as-a-Service (IaaS) systems such as Amazon's
+  EC2~\cite{amazon-ec2} or Google's Compute
+  Engine~\cite{google-compute} are popular mechanisms for hosting
+  modern compute services. Unfortunately these services require the
+  user to fully trust the backing infrastructure provider and make it
+  difficult to deploy security-enhancing systems like full disk
+  encryption due to the user's lack of physical server access.
+\item[User Account Registration] \hfill \\ We're constantly being asked to
+  register for services available online. This means proving the same
+  identity-confirming personal data to third party after third party
+  with little ability to police how this data is stored or used after
+  it is provided.
+\end{packed_desc}
+
+All of these examples share a common deficiency: they force the user
+into a position of choosing between desirable feature sets or desirable
+security and privacy qualities. It is this deficiency that I seek to
+quantify and resolve.
+
 \section{Background}
 
-%%  LocalWords:  SSaaS SSP Lenovo SSPs
+%%  LocalWords:  SSaaS SSP Lenovo SSPs IaaS
