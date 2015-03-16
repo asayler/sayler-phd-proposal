@@ -333,6 +333,105 @@ described in~\cite{Goyal2006}.
 
 \subsection{Usability}
 
+Strong cryptography provides the basis for all of the secure systems
+we build today. Unfortunately, strong cryptography has a rather
+checkered history when it comes to the usability to securely
+cryptographic systems. Since most cryptographic systems merely reduce
+the security of a system to the security of the cryptographic keys
+protecting a system, how one manages such keys is of the utmost
+importance. Manual key management, the de-facto key management
+standard for many cryptographic systems, tends to be extremely
+challenging for the average user to execute properly - often leading
+to security failures that have little to do with the quality of the
+cryptography itself.
+
+PGP, one of the longest-running cryptographic security projects, is
+known to have major usability challenges, making it largely
+incomprehensible to all but the most highly-trained
+users~\cite{Whitten1999}. These challenge are largely relates to the
+average user's inability to properly mange the various cryptographic
+keys required for the proper use of PGP~\cite{green-challenge}. This
+has led multiple parties to call for the retirement of PGP and/or to
+suggest alternatives. It remains to be seen if any of the purposed
+alternatives will be able to provide the level of security offered by
+PGP while avoiding the usability pitfalls leveraging PGP traditionally
+entails~\cite{green-pgp}.
+
+Similar challenges have been observed with other end-user
+cryptographic systems, ranging from secure storage devices to various
+communication mediums~\cite{Sweikata2009}. In all cases, properly
+obtaining, storing, and controlling access to cryptographic keys and
+related cryptographic secrets tends to be a task for which the typical
+user is ill-suited. Thus, while cryptographic systems like S/MIME have
+seen limited success in the enterprise where a central authority and
+staff can handle all key management duties, they have largely failed
+for individual computer users~\cite{ramsdell-rfc5751}.
+
+---
+
+It is the key management challenges that leads to many of the known
+usability problems with modern encryption systems. Modern encryption systems tend to be
+inflexible. They force the user into a pre-defined security paradigm
+and use case. For example, today we use systems like
+Dropbox~\cite{dropbox} or Google Drive~\cite{google-drive} to store
+and sync our files across a range of computers and mobile devices, but
+key management limitations mean that few existing encryption schemes
+support this kind of multi-device access. When we wish to transfer and
+share files, we often do it via e-mail attachments or removable media,
+but these forms of ``out-of-band'' sharing are not supported by most
+existing key management and data encryption systems. Many of our
+modern (and legacy) computing services are designed to run in the
+background, devoid of interactive input, but many existing encryption
+solutions rely on authentication primitives that require interactive
+input in order to securely access encrypted data.
+
+Most modern encryption systems are built around a ``one size fits
+all'' mentality, leaving the user with very little flexibility to
+control the manner in which her encrypted data might be accessed,
+used, or shared. Nor do such systems acknowledge the fact that not all
+encrypted data need be protected with the same level of security. Some
+data, like social security numbers, must be shared with a multitude of
+3rd parties. Other data, like personal photos, should be shared, but
+only with specific friends or family members. Still other data is
+completely private, and should never be shared at all. The user knows
+how sensitive each piece of data is, and how it should be used, but
+most encryption systems fail to expose a flexible method for allowing
+the user to protect data on the basis of sensitivity and desired use.
+
+It is often said that security and accessibility are at odds. That one
+can not be improved except at the expense of the other, and that this
+fact makes secure systems inherently challenging to use. While I do
+not believe that security vs accessibility is truly a zero sum game,
+there is some truth to the fact that security and accessibility are
+often at odds. Security and accessibility exist on a continuum, with
+fully accessible, minimally secure systems on one side, and minimally
+accessible, highly secure systems on the other. Many will say that
+this inherent security vs accessibility trade-off means that secure
+systems will never be easily usable. But it is not this security vs
+accessibility trade-off that leads to usability issues. Rather it is
+the fact that many secure systems lock the user into a specific point
+on the security vs accessibility spectrum that causes usability
+problems. Such inflexibility forces
+a user to surmount unnecessary hurdles and forgo certain ease of
+access for data that need only be minimally secure while also denying
+users the means to fully secure highly sensitive data. This mismatch
+between user requirements and system capabilities is a sure recipe for
+usability challenges.
+
+The inability of existing encryption systems to accommodate a diverse
+range of use cases and to grant the user the flexibility to properly
+place various pieces of data at various points on the security vs
+accessibility spectrum leads to such systems being very difficult to
+use. Fortunately, this inflexibility is not due to the underlying
+encryption itself, but to the inadequate methods by which encryption
+keys are managed and stored. Today, most data encryption solutions
+tightly couple key storage with the underlying encryption system. This
+is a mistake that has lead to a growing usability gap, and the
+corresponding underutilization, of encryption as a tool for securing
+and controlling our data. If encryption is going to provide a
+mechanism for controlling access to our data, it needs a flexible key
+storage and access control mechanism.
+
 \subsection{Storage}
 
 \subsection{The Cloud}
