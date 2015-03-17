@@ -341,8 +341,8 @@ the security of a system to the security of the cryptographic keys
 protecting a system, how one manages such keys is of the utmost
 importance. Manual key management, the de-facto key management
 standard for many cryptographic systems, tends to be extremely
-challenging for the average user to execute properly - often leading
-to security failures that have little to do with the quality of the
+challenging for the average user to execute properly: often leading to
+security failures that have little to do with the quality of the
 cryptography itself.
 
 PGP, one of the longest-running cryptographic security projects, is
@@ -352,9 +352,10 @@ users~\cite{Whitten1999}. These challenge are largely relates to the
 average user's inability to properly mange the various cryptographic
 keys required for the proper use of PGP~\cite{green-challenge}. This
 has led multiple parties to call for the retirement of PGP and/or to
-suggest alternatives. It remains to be seen if any of the purposed
-alternatives will be able to provide the level of security offered by
-PGP while avoiding the usability pitfalls leveraging PGP traditionally
+suggest alternatives~\cite{mailpile, openwhisper, google-endtoend}. It
+remains to be seen if any of the purposed alternatives will be able to
+provide the level of security offered by PGP while avoiding the
+usability pitfalls leveraging PGP traditionally
 entails~\cite{green-pgp}.
 
 Similar challenges have been observed with other end-user
@@ -367,76 +368,134 @@ seen limited success in the enterprise where a central authority and
 staff can handle all key management duties, they have largely failed
 for individual computer users~\cite{ramsdell-rfc5751}.
 
----
-
-It is the key management challenges that leads to many of the known
-usability problems with modern encryption systems. Modern encryption systems tend to be
-inflexible. They force the user into a pre-defined security paradigm
-and use case. For example, today we use systems like
-Dropbox~\cite{dropbox} or Google Drive~\cite{google-drive} to store
-and sync our files across a range of computers and mobile devices, but
-key management limitations mean that few existing encryption schemes
-support this kind of multi-device access. When we wish to transfer and
-share files, we often do it via e-mail attachments or removable media,
-but these forms of ``out-of-band'' sharing are not supported by most
-existing key management and data encryption systems. Many of our
-modern (and legacy) computing services are designed to run in the
-background, devoid of interactive input, but many existing encryption
-solutions rely on authentication primitives that require interactive
-input in order to securely access encrypted data.
-
-Most modern encryption systems are built around a ``one size fits
-all'' mentality, leaving the user with very little flexibility to
-control the manner in which her encrypted data might be accessed,
-used, or shared. Nor do such systems acknowledge the fact that not all
-encrypted data need be protected with the same level of security. Some
-data, like social security numbers, must be shared with a multitude of
-3rd parties. Other data, like personal photos, should be shared, but
-only with specific friends or family members. Still other data is
-completely private, and should never be shared at all. The user knows
-how sensitive each piece of data is, and how it should be used, but
-most encryption systems fail to expose a flexible method for allowing
-the user to protect data on the basis of sensitivity and desired use.
-
-It is often said that security and accessibility are at odds. That one
-can not be improved except at the expense of the other, and that this
-fact makes secure systems inherently challenging to use. While I do
-not believe that security vs accessibility is truly a zero sum game,
-there is some truth to the fact that security and accessibility are
-often at odds. Security and accessibility exist on a continuum, with
-fully accessible, minimally secure systems on one side, and minimally
-accessible, highly secure systems on the other. Many will say that
-this inherent security vs accessibility trade-off means that secure
-systems will never be easily usable. But it is not this security vs
-accessibility trade-off that leads to usability issues. Rather it is
-the fact that many secure systems lock the user into a specific point
-on the security vs accessibility spectrum that causes usability
-problems. Such inflexibility forces
-a user to surmount unnecessary hurdles and forgo certain ease of
-access for data that need only be minimally secure while also denying
-users the means to fully secure highly sensitive data. This mismatch
-between user requirements and system capabilities is a sure recipe for
-usability challenges.
-
-The inability of existing encryption systems to accommodate a diverse
-range of use cases and to grant the user the flexibility to properly
-place various pieces of data at various points on the security vs
-accessibility spectrum leads to such systems being very difficult to
-use. Fortunately, this inflexibility is not due to the underlying
-encryption itself, but to the inadequate methods by which encryption
-keys are managed and stored. Today, most data encryption solutions
-tightly couple key storage with the underlying encryption system. This
-is a mistake that has lead to a growing usability gap, and the
-corresponding underutilization, of encryption as a tool for securing
-and controlling our data. If encryption is going to provide a
-mechanism for controlling access to our data, it needs a flexible key
-storage and access control mechanism.
-
 \subsection{Storage}
+
+Data storage has long been one of the core use cases of the digital
+age. And the amount of data we generate, process, and store is greater
+today then ever before. Tied tightly with data storage mechanism are
+the access control mechanisms required to protect the digital data we
+store. Digital data storage and access control techniques have morphed
+and changed over the last 50 years, and many of these changes have
+bearing on the work presented in this proposal.
+
+Early storage and file system technologies often simply neglected
+security, lacking robust encryption and access control primitives. The
+rise of multi-user operating systems like Unix mandated the creation
+of basic file-system access control schemes. Thus we gained the
+traditional Unix file access control and permissioning scheme as part
+of the virtual file system (VFS) abstraction inherent in all legacy
+and modern Unix-like operating systems. This system, however, has a
+number of limitations: it supports only a single, basic access control
+model (owner, group, R/W/E permissions), it requires a trusted system
+for enforcement, and it is strongly coupled to a local system. Systems
+like NFS attempt to extend Unix file security semantics beyond the
+local machine allowing remote sharing of files, but even these systems
+are limited to singular administrative domains and trusted systems.
+
+The Windows NT file system access control model (implemented via the
+NTFS file system) extends the flexibility of the traditional Unix
+model by adding support for more expressive ACLs. These both allow the
+control of additional permissions (e.g. delete, create directory, etc)
+as well as more expressive user to permission mappings beyond the
+basic owner/group/other Unix model. Furthermore, the Windows NT model
+has the ability to delegate user authentication to a local Domain
+Controller (DC) capable of centrally managing all users from a single
+location. This expands the ability to control file access beyond the
+users associated with the local system to the users associated with an
+entire administrative domain. Still, this system still has many of the
+same limitations as the Unix model: the requirement for a trusted
+system for enforcement and the tight coupling to the local
+administrative domain.
+
+The rise of the Internet as a reliable and high speed system for
+connecting multiple machines across the world as well as the move
+toward cloud computing models where computational resources are
+outsourced to dedicated providers has increased the demand for secure
+storage systems capable of spanning multiple systems and domains. In
+order to overcome the limitations posed by traditional file system
+security models and accommodate modern multi-user, multi-system use
+cases, researchers have proposed a number of newer systems. These
+systems try to address one or more of the limitations mentioned
+above. Some of them employ cryptographic security models to overcome
+the need for a trusted enforcement system. Others are designed to
+extend access control semantics beyond the local machine to large
+networks or even the global internet. Still others explore the use of
+novel access control models more expressive then Unix permissions or
+Windows NT ACLs. Many system combine more than one of these approaches
+to build a fully featured next generation secure storage system.
+
+\cite{Kher2005} presents a survey of the security models of various
+storage systems, sorting such systems into basic networked file
+systems, single-user cryptographic file systems, and multi-user
+cryptographic file systems. As previously mentioned, basic networked
+file systems rely on trusted systems and administrators for the
+enforcement of security rules. Examples of such systems include the
+Sun Network File System (NFS)~\cite{Sandberg1985}, the Andrew File
+Systems (AFS)~\cite{Howard1988}, and the Common Internet File System
+(CIFS/SMB)~\cite{microsoft-smb2}. All of these systems are designed
+for use within local administrative domains and do not scale well to
+global, loosely-coupled distributed systems. To deal with the
+scalability issues, researchers have built system like
+SFS~\cite{Mazieres1999} or OceanStore~\cite{Kubiatowicz2000} which aim
+to reduce the administrative burden of large scale distributed file
+systems.
+
+All of these systems, however, rely on some degree of system or
+administrator trust. In order to accommodate situations where users do
+not wish to place trust on the underlying system or remote servers,
+there exist a handful of cryptographically-secure file systems. The
+best of these systems offer end-to-end cryptography, meaning that data
+is encrypted and decrypted on the client side and the server never has
+access to the unencrypted data.  Systems like the Cryptographic File
+Systems (CFS)~\cite{Blaze1993} provide basic single-user end-to-end
+file encryption. While end-to-end encryption is a powerful security
+model for enabling secure storage atop untrusted systems, it does pose
+challenges with respect to multi-user, multi-device use cases since it
+generally requires that all clients have access to private
+cryptographic credentials in order to effectively read or write
+files. In order to support both end-to-end encryption and multi-user
+scenarios, researchers have proposed multi-user cryptographic storage
+systems like SiRiUS~\cite{Goh2003}, Cepheus~\cite{Fu1998}, or
+Plutus~\cite{Kallahalla2003}.
+
+Miltchev, et al.~\cite{Miltchev2008} presents a framework for
+analyzing the suitability of various distributed file systems for
+modern multi-user, multi-domain use cases by analyzing five underlying
+file system qualities: authentication, authorization, granularity,
+delegation, and revocation. Miltchev, et al. suggests that any secure
+large scale file system must successfully address the functionality of
+all five of these factors across multiple administrative domains in
+order to be an effective multi-user, multi-domain file
+system. Miltchev, et al. reach the following conclusions regrading
+successful secure multi-user, multi-domain file systems: the use of
+public-key cryptography for user authentication is an effective way to
+support autonomous delegation, capability-based access control systems
+tend to lack support for auditing and accountability, ACL-based access
+control systems pose scalability challenges when used across
+administrative domains, and revocation and user autonomy are often at
+odds.
+
+Beyond traditional local and networked file systems, many users have
+turned to cloud-backed storage technologies today. System like
+Dropbox~\cite{dropbox} or Google Drive~\cite{google-drive} offer
+mechanism for storing arbitrary files on third-party cloud
+servers. Such files can either be accessed via a web browser or synced
+to a local machine via various client-side utilities. Other cloud
+services exchange the traditional file storage model all together in
+favor of various object storage abstractions: Amazon's S3 is an
+example of such a system~\cite{amazon-s3}. Such systems can either be
+used for raw key:object data storage or as a block-device-like basis
+for higher level file storage abstractions such as Dropbox or Google
+Drive. While system live Dropbox, Google Drive, or Amazon S3 rely on a
+centralized, trusted third party storage provider, distributed systems
+such as Tahoe-LAFS~\cite{Wilcox-O'Hearn2008} propose an alternate
+model where trust in any single system is reduced and storage is
+spread across a variety of providers.
 
 \subsection{The Cloud}
 
 \subsection{Privacy and Security}
 
-%%  LocalWords:  SSaaS SSP Lenovo SSPs IaaS Diffie Hellman's Adi
-%%  LocalWords:  Shamir
+%%  LocalWords:  SSaaS SSP Lenovo SSPs IaaS Diffie Hellman's Adi VFS
+%%  LocalWords:  Shamir NTFS AFS CIFS SMB SFS OceanStore CFS SiRiUS
+%%  LocalWords:  Plutus Miltchev ACL LAFS
