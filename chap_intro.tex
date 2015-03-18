@@ -605,14 +605,71 @@ provide. The common cloud services in use today include:
 
 It is not uncommon for one layer of cloud services to be built atop a
 lower layer. E.g. an SaaS system might be built atop a PaaS system,
-itself built atop an IaaS system.
+itself built atop an IaaS system. Furthermore, the ``...aaS'' inherent
+in the names of each of these layers reflects another cloud trend: the
+ubiquity of service oriented architectures. Such architectures
+abstract any singular useful action into a service that can be
+consumed by users. Such systems encourage the standardization and
+commoditization of a wide range of useful computing jobs. This allows
+developers of new services to lean heavily on other services that have
+already been built: adding only the specific new functionality they
+need without having to build the supporting infrastructure form
+scratch. The end result is yet another mechanisms for accelerating the
+rate of advancement when building systems and services atop the cloud.
 
-%% + virtualization
-%% + service-oriented architectures
+It's also important to note the technologies underlying the shift
+toward cloud-backed computing infrastructure. In particular, several
+core advances have enabled the modern cloud as we know it. These
+include:
+
+\begin{packed_desc}
+\item[Commoditization of Hardware] \hfill \\ The cloud, by and large,
+  is built using cheap, off-the-shelf commodity hardware. High-end,
+  specially hardware is rare to find in most cloud data
+  centers. Instead, Google, Amazon, etc leverage more or less the same
+  computing components used in most consumer hardware, but in much
+  larger numbers. Cloud providers have discovered that it is more cost
+  effective to utilize cheap consumer parts and simply design systems
+  to cope with the higher rates of failure such parts exhibit then it
+  is to buy ultra-high end parts with lower failures rates but
+  disproportionately higher costs~\cite{}. This shift has made
+  hardware a an easily replaceable and interchangeable commodity in
+  modern data center design, lower the cost and barriers to entry
+  involved in constructing and maintaining such data centers.
+\item[Virtualization] \hfill \\ Virtualization, the ability to
+  simulate one or more ``virtual computers'' running atop a single
+  physical computer, is not a new concept~\cite{Goldberg1974}. But the
+  previous 10 to 20 years have seen the use of virtualization become a
+  commonplace occurrence, well supported by commodity hardware and
+  software alike. Virtualization is what has made it simple and cost
+  effective for cloud-providers to offer their services, slicing
+  discreet physical systems between many users. Virtualization also
+  allows providers to separate users form any singular piece of
+  hardware --- providers can now be migrate users between physical
+  systems in order to meet up-time and load balancing goals without
+  the user even being aware of such a process.
+\item[Free and Open Source Software] \hfill \\ The rise of Linux and
+  related Free and Open Source Software (FOSS) systems has closely
+  tracked the rise of the cloud. This is no coincidence. FOSS systems
+  allow users to quickly and cheaply deploy a range of applications
+  without having to worry about purchasing specialty high-cost
+  software, vendor lock-in, or any number of other barriers to
+  deployment mobility. While the cloud provide cheap, commodity
+  hardware resources, FOSS provides cheap, commodity software to make
+  such resources do useful things.
+\end{packed_desc}
+
+The success of the ``cloud'' is not due to any singular new idea or
+major breakthrough in computing. Instead, it represents the confluence
+of a number of discreet technologies, business cases, and user demands
+that have just so happened to coincide at a mutually beneficial moment
+in time. In doing so, these events have fundamentally shifted the way
+developers and end-users alike consume and interact with the available
+computing systems of the 21st century.
 
 \subsection{Privacy and Security}
 
 %%  LocalWords:  SSaaS SSP Lenovo SSPs IaaS Diffie Hellman's Adi VFS
 %%  LocalWords:  Shamir NTFS AFS CIFS SMB SFS OceanStore CFS SiRiUS
 %%  LocalWords:  Plutus Miltchev ACL LAFS Rackspace CAPEX OPEX PUE
-%%  LocalWords:  PaaS Heroku SaaS
+%%  LocalWords:  PaaS Heroku SaaS aaS FOSS
