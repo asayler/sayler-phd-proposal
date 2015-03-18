@@ -233,7 +233,7 @@ secure communication channel.
 
 The major breakthrough in solving this challenge came in 1976 with
 Diffie and Hellman's publication of ``New Directions in
-Cryptography''~\cite{Diffie1976}. Diffe and Hellman proposed a system
+Cryptography''~\cite{Diffie1976}. Diffie and Hellman proposed a system
 for asymmetric cryptography: a cryptography system in which one key is
 used for encryption while a second related key is used for
 decryption. When properly designed, it is computationally unfeasible
@@ -494,10 +494,125 @@ spread across a variety of providers.
 
 \subsection{The Cloud}
 
+The previous 10 years have seen a major shift in the manner in which
+users and developers obtain various compute resources. Gone are the
+days where one must purchase there own hardware or operate their own
+computing systems. Instead, numerous companies are more then happy to
+sell you any compute service you require for a pre-established
+time-metered rate. This ``Cloud'' computing model significantly lowers
+the barrier to entry to those needing to leverage compute resources,
+increasing the available compute-backed services and has driving a
+vast shifts in the way we use the Internet, store our data, obtain our
+entertainment, interact with our friends, and more.
 
+Today cloud-services providers like Amazon, Google, Microsoft,
+Rackspace, and IBM globally sell over \$150 billion in cloud services
+annually~\cite{Flood2013}. The rapid rise of the cloud computing model
+is supported by a number of desirable qualities the cloud can provide
+more effectively then traditional self-hosted computing
+systems. Namely:
+
+\begin{packed_desc}
+\item[OPEX vs CAPEX] \hfill \\ Using cloud-based compute services
+  allows companies to shift what are traditionally one-time up-front
+  capitol expenditures (CAPEX, e.g. large arrays of servers) to
+  regular operational expenditures (OPEX, e.g. a monthly fee). This
+  fact leads to a number of potential benefits to cloud
+  computing. Where as spinning up traditional compute infrastructure
+  requires a large initial investment, cloud compute infrastructure
+  can be purchased for as low as a few cents each month. This
+  drastically lowers the barrier of entry to those requiring such
+  services by eliminating any large up-front costs. Furthermore,
+  moving to the cloud makes compute infrastructure a regular,
+  predictable expense, easily accounted for when planning
+  budgets. Finally, operational expenditures are often more easily
+  justified at many organizations without requiring major internal
+  review processes, allowing those that purchase compute services via
+  the cloud to retain more direct control over how, when, and what
+  they purchase. All of these factors collaborate to make the OPEX
+  cloud model a more desirable compute purchasing model then the
+  traditional CAPEX model.
+\item[Flexibility] \hfill \\ The ``pay-for-what-you-need'' cloud
+  purchasing model is also far more flexible then the traditional
+  in-house computing model. Where as the traditional model requires
+  buyers to accurately predict their future compute requirements
+  before making the initial purchase, the cloud allows users to scale
+  infrastructure as required and without any real need to accurate
+  advanced prediction. This makes it far simpler to start a small
+  project and grow it into a larger project without requiring any
+  large up-front cost or guesswork. Likewise, if a project fails to
+  gain traction, it can be efficiently spun down and no one is left
+  holding a bunch of no-longer-useful hardware.
+\item[Efficiency] \hfill \\ The cloud models offers efficiencies of
+  scale in many attributes not available to traditional in-house
+  compute users. At the macro-level, it is rare for end-user systems
+  to require constant load throughout the day. Instead, services tend
+  to see peek usage at certain times of day related to the diurnal
+  cycles of their users. Large, international cloud service providers
+  can leverage this fact in ways individual hardware operators often
+  fail to do. In particular, such providers can ensure their
+  underlying hardware is uniformly loaded 24/7/365 by spreading the
+  workloads of the underlying tents in different parts of the world
+  across globally located infrastructure and systems. This allows most
+  large cloud services providers to operate their systems and a level
+  and reliable capacity, avoiding the need to oversize systems to
+  account for short-lived peak loads. At the micro level, cloud
+  providers are generally able to co-locate a large number of compute
+  systems in a single data center, allowing them to optimize cooling,
+  power, network, and other resources in manners not available to
+  smaller in-house server farms. On the power and cooling front, it is
+  not uncommon to see cloud data centers that are over $90\%$
+  efficient - e.g. a PUE\footnote{Power Usage Effectiveness: The ratio
+    of total consumed power to useful IT power.} of
+  $\approx1.1$~\cite{google-efficiency}. On the networking front, such
+  co-location allows for higher speed, lower energy, data transfers
+  between machines. The net result of all these efficiency gains is
+  that cloud providers can generally offer compute resources for less
+  ongoing cost then what a traditional compute deployment can provide.
+\end{packed_desc}
+
+
+Modern cloud systems come in a range of classes. These classes
+generally divide cloud-services up in to the level of abstraction they
+provide. The common cloud services in use today include:
+
+\begin{packed_desc}
+\item[IaaS:] ``Infrastructure as a Service'' systems describe the
+  lowest-level of cloud services. In an IaaS environment, the user is
+  provided with remote access to a raw computer - generally a virtual
+  machine with a pre-installed operating system - atop which they may
+  build and implement their own services. This class of cloud services
+  represents the more-or-less direct replacement for the traditional
+  in-house compute resources model where a user would start with a raw
+  physical machine and build up form there. Amazon
+  EC2~\cite{amazon-ec2} and Google Compute
+  Engine~\cite{google-compute} are both example of IaaS services.
+\item[PaaS:] One step up the stack we have ``Platform as a Service''
+  offerings. PaaS systems provide the end user with an environment
+  capable of running their code, but abstract away a lot of the lower
+  level details of setting up and managing a full IaaS virtual
+  machine. This allows users to trade flexibility for simplicity and
+  ease of use. Google App Engine~\cite{google-appengine} and
+  Heroku~\cite{heroku} are examples of PaaS offerings.
+\item[SaaS:] At the top of the cloud service stack, we have ``Software
+  as a Service''. This class of service is most generally when lay
+  end-users are referring to when they talk about the cloud. SaaS
+  offerings represent fully-fledged services that provide some form of
+  functionally directly to an end user. Examples of SaaS systems
+  include Dropbox~\cite{dropbox}, Gmail~\cite{google-gmail}, and
+  Facebook~\cite{facebook}.
+\end{packed_desc}
+
+It is not uncommon for one layer of cloud services to be built atop a
+lower layer. E.g. an SaaS system might be built atop a PaaS system,
+itself built atop an IaaS system.
+
+%% + virtualization
+%% + service-oriented architectures
 
 \subsection{Privacy and Security}
 
 %%  LocalWords:  SSaaS SSP Lenovo SSPs IaaS Diffie Hellman's Adi VFS
 %%  LocalWords:  Shamir NTFS AFS CIFS SMB SFS OceanStore CFS SiRiUS
-%%  LocalWords:  Plutus Miltchev ACL LAFS
+%%  LocalWords:  Plutus Miltchev ACL LAFS Rackspace CAPEX OPEX PUE
+%%  LocalWords:  PaaS Heroku SaaS
