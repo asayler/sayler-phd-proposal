@@ -13,21 +13,21 @@ any significant overhead or loss of user data. This transition,
 however, has a significant side effect: user data is now largely
 stored in manners where it is easily accessible to third parties
 beyond the user's immediate control. The shift from locally stored and
-controlled user data to third-party user data has a number of
-increasingly clear consequences, from increased risk of data
-compromise by hackers targeting centralized cloud data stores, to
-reduced legal protections from government introspection, to the use of
-user statistics in ``big-data'' systems capable of ascertaining more
-private information than ever before.
+controlled data to third-party stored and controlled data has a number
+of consequences, from increased risk of data compromise by hackers
+targeting centralized third-party data stores, to reduced legal
+protections from government introspection, to the use of user
+statistics in ``big-data'' systems capable of ascertaining more
+private information than most users likely intend to share.
 
 The popularity of the cloud model leads one to believe that most users
-are willing to trade the privacy and control afforded by local storage
-for the convenience and features cloud-based services provide. Never
-the less, a 2014 Pew Research study found that over 90\% of American
-adults agree that they have lost control over the data they store in
-the cloud, 80\% are concerned about how cloud companies are using
-their data, and 70\% are concerned about the manner is which the
-government might access their data in the
+are willing to trade the privacy and control afforded by traditional
+local storage for the convenience and features cloud-based services
+provide. Never the less, a 2014 Pew Research study found that over
+90\% of American adults agree that they have lost control over the
+data they store in the cloud, 80\% are concerned about how cloud
+companies are using their data, and 70\% are concerned about the
+manner is which the government might access their data in the
 cloud~\cite{pew-privsec14}. Furthermore, the range of both recently
 publicized data leaks at large companies
 (e.g.~\cite{apple-icloudleak}) as well as ongoing government
@@ -41,39 +41,40 @@ locally stored data. I do not feel that this is true. Instead, I
 believe that there are mechanisms that can allow users to retain a
 high degree of control over how their data is stored, accessed, and
 used while still leveraging a variety of modern third-party
-services. The key is disentangling the service we wish to use on the
-basis of the features they provide from the third parties we must
-trust with control over and access to our data.
+services. The solution lies in developing systems that allow users to
+place limits on the degree to which they must trust any single third
+party while still allowing them to leverage the desirable features such
+parties provide.
 
-To achieve this disentanglement, I propose a new paradigm called
-Secret Storage as a Service (SSaaS). In an SSaaS ecosystem, a user
-designates one or more trusted SSaaS providers (either self hosted or
-third party) with storing and regulating access to their private
-secrets (personal information, encryption keys, etc) on their
+To achieve such a solution, I propose a new paradigm called Secret
+Storage as a Service (SSaaS). In an SSaaS ecosystem, a user designates
+one or more trusted secret storage providers (SSPs). either self
+hosted or third party, with storing and regulating access to their
+private secrets (personal information, encryption keys, etc) on their
 behalf. Existing technologies and services can than interface with
-these SSaaS providers via a standard interface to access user secrets
-as allowed by a user-defined set of access control rules. I will
-discuss several benefits to this arrangement over the existing
-practice of selecting third party services on the basis of their
-feature set and implicit providing the same providers with unfettered
+these SSPs via a standard interface to access user secrets as allowed
+by a user-defined set of access control rules. In effect, the SSPs are
+tasked with regulating access to user data by more traditional
+third-party services.
+
+The SSaaS Architecture provides a number of benefits over the existing
+practice of feature-desirable third-party services with unfettered
 access to user data. In particular:
 
 \begin{packed_desc}
 \item[No Single Trusted Third Party] \hfill \\ In an SSaaS ecosystem,
-  the secret storage provider (SSP) is separate from provider of the
-  end-user cloud service (e.g. Dropbox, Gmail, etc) or device
-  (e.g. Apple, Lenovo, etc). Furthermore, a user may shard their
-  secrets across multiple SSPs, or even host their own SSP. This
-  ensures that a user is not giving any single entity control over or
-  unfettered access to their data.
-\item[Separation of Duties] \hfill \\
-  In an SSaaS ecosystem, a user selects a secret storage provider on
-  the basis of their trust in that provider while selecting a cloud
-  service provider on the basis of the end-user features they
-  provide. This allows a user to optimize each selection individually
-  instead of having to chose a single provider on the basis of both
-  trust and feature set, likely having to sacrifice one in favor of
-  the other.
+  the secret storage provider is separate from the provider of the
+  end-user cloud service (e.g. Dropbox, Gmail, etc). Furthermore, a
+  user may shard their secrets across multiple SSPs, or even host
+  their own SSP. This ensures that a user is not giving any single
+  entity control over or unfettered access to their data.
+\item[Separation of Duties] \hfill \\ In an SSaaS ecosystem, a user
+  selects a secret storage provider on the basis of their trust in
+  that provider while selecting a feature service provider on the
+  basis of the end-user services they provide. This allows a user to
+  optimize each selection individually instead of having to chose a
+  single provider on the basis of both trust and feature set, likely
+  having to sacrifice one in favor of the other.
 \item[Support for Existing Use Cases] \hfill \\ The SSaaS ecosystem is
   capable of supporting many modern use cases such as sharing data
   with other users or syncing it across a number of personal computing
