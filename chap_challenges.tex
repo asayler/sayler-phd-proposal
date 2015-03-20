@@ -205,8 +205,65 @@ and support the multi-device nature of modern users.
 
 \subsubsection{Multi-User}
 
+In addition to using multiple compute devices, many users today desire
+the ability to share and collaborate with other users. This requires
+the ability to share data with other users or to have multiple users
+access a central copy of any given piece of data. In response to these
+desires, many services today offer various mechanisms for multi-user
+sharding and collaboration. Similar to the multi-device use case, the
+solution in this space can be roughly grouped into two categories:
+distributed services that allows users to share copies of data with
+other users and centralized services that allow multiple users access
+to a central copy of the data.
 
-\subsubsection{Processing}
+In many cases the same solutions discussed previously that enable the
+multi-device use case also provide multi-user sharing
+capabilities. This is true of sync service like Dropbox or Drive that
+not only allow users to sync files amongst their devices, but also
+allow them to share files with other users to sync to their
+devices. In many ways, this is just an extension of the sync service
+model with the extension that now users may also include devices other
+then their own ion the sync set. Similarly, locker-style multi-device
+solutions often also includes support for multi-user use cases. For
+example, traditional networked file systems like NFS provide both
+multi-device access and multi-user support. Likewise, systems like
+Least Authority's S4 provide primitives for sharing files with
+multiple users.
+
+Unlike the sync use case, however, adding support for multi-user
+sharing requires providers to provide access control primitives in
+addition to basic file syncing primitives. These primitives allow
+users to control the manner in which either users may access and use
+the shared data, in effect proving users with the necessary tools to
+place limes on the degree to which they trust other users. Many
+services provide fairly traditional file-like access control schemes
+were each user may be granted read and/or write permissions to a
+specific piece of data. Data owners can use these permission to craft
+access control polices for the group of user with which they wish to
+share a given file.
+
+It's also common to see support for various from of multi-user sharing
+in a range of hosted services, from social networking apps to
+web-based document editors. Social Network systems like
+Facebook~\cite{facebook} have extensive support for sharing photos,
+videos, status messages, and other user-generated continent. Such
+systems also provide the data originator with the ability to place
+limits on how data is shared and who it is shared with (although the
+effectiveness of such access control settings is often
+questionable~\cite{Johnson2012}). Similarly, systems like Google
+Docs~\cite{google-docs} or Microsoft Office
+Online~\cite{microsoft-officeonline} offer users the ability to
+interactively compose and collaborate on document creation and
+editing. Such systems are inherently multi-user, generally giving the
+user the ability to chose who else can view and edit the document.
+
+Multi-user use cases are a key component of many computing systems
+today. As in the multi-device cases, support for multi-user scenarios
+is an important component of any privacy and security enhancing
+technology. Technologies that lock the user out of such use cases are
+unlikely to be popular with most users today.
+
+\subsubsection{Hosted Services and Processing}
 
 IoT
 
@@ -222,6 +279,8 @@ automation
 
 Theft of devices
 Provided by third parties
+need to trust single third party for access control enforcement
+
 
 \section{Need for New Solutions}
 
