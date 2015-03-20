@@ -33,8 +33,7 @@ Today's end-users expect modern software to support a range of common
 behaviors. Chief amongst these are the ability to support the use of
 multiple devices per user, the ability to support collaboration and
 sharing with other users, and the ability to provide turn-key data
-processing capabilities capable of returning useful data to the
-end-user.
+processing capabilities or other services which act on user data.
 
 \subsubsection{Multi-Device}
 It's not uncommon for a single user to utilize multiple computing
@@ -265,15 +264,59 @@ unlikely to be popular with most users today.
 
 \subsubsection{Hosted Services and Processing}
 
-IoT
+In addition to the multi-device and multi-user scenarios users expect
+support for today, many user also expect support for various hosted
+services and data processing solution. In many ways, this expectation
+follows form users' multi-device and multi-user expectations: whereas
+the traditional computing model involves users running locally
+installed applications for the purpose of processing or interacting
+with data, such a model fails to properly account for the multi-device
+and multi-user requirements of many modern use cases. Thus, many data
+processing services that would have traditionally been installed
+locally, are now run as hosted services atop third party
+infrastructure. Using such service requires user to be able to share
+data with third parties for the purpose of leveraging such
+services. Unlike purse multi-device syncing or multi-user sharing
+services, data processing service provide some benefit to the user
+above and beyond the mere storage, transfer, or sharing of data.
+
+Examples of popular hosted services that interact with user-generated
+data include the social networking and document editing solutions
+mentioned previously. In both cases, these services take user data and
+leverage it to provide an additional benefit to the user: e.g. the
+ability to interact and communicate with one's friends or the ability
+to create and expand content with a colleague. Other examples of
+hosted services include various ``Big Data'' systems that leverage
+vast swaths of user data to provide insights into user behavior or
+patterns in user actions. For example, ``Internet of Things'' (IoT)
+devices are becoming increasingly popular supporting a user's ability
+to track things like their day-to-day power consumption~\cite{neurio}
+or record their exercise habits~\cite{fitbit}. The data from such
+devices in generally passed back to third party processing platforms
+where potentially useful insights are drawn form it and returned to
+the user. Often such systems leverage their access to wide swaths of
+user data to return more useful information then the data form any
+single user could provide. It seems like that such services will
+continue to grow in popularity as the cost of deploying IoT devices
+drops and the collective benefits of access to large data sets
+increases.
+
+Modern privacy and security enhancing technologies must account for
+the fact that many users may wish to leverage hosted third party
+services. Such technologies should ideally provide users with the
+ability to share data with such services in a controlled manner and to
+transparently audit the manner in which such services are using user
+data. Failure to support such scenarios will likely make any given
+privacy and security enhancing technology impractical for many current
+and future use cases.
 
 \subsection{Developer Use Cases}
 
-\subsubsection{Third Party Infrastructure}
+\subsubsection{Untrusted Infrastructure}
 
-third party
-remote
-automation
+\subsubsection{Remote Infrastructure}
+
+\subsubsection{Automation}
 
 \section{Failures of Traditional Solutions}
 
