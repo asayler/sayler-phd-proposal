@@ -3,5 +3,226 @@
 \label{chap:challenges}
 
 \section{Modern Use Cases}
+
+As mentioned in Chapter~\ref{chap:intro}, the last 10+ years have
+heralded the rapid expansion of a number of digital data related use
+cases. In order to accommodate these use-cases, most modern services
+leverage some form of third-party compute or data processing
+systems. These third-party systems, however, raise questions about the
+privacy and security of user data. In particular, to what degree can
+we trust various third-parties with user data and are there mechanisms
+that allow us to control or reduce this degree of trust? Before we can
+answer these questions, it's important to note that any proposed
+solution that fails to support modern desirable use cases is unlikely
+to succeed in a market where users are voluntarily turning to
+third-party services on the basis of the features they can
+provide. Thus, we must start by understanding the predominant modern
+use-cases
+
+We can divide these cases into two categories: end-user focused user
+cases and developer focused use-cases. End-user use cases are those
+that matter to the average consumer. Likewise, developer-focused use
+cases are those that matter to back-end developers and service
+providers.  Both set of use cases represent requirements that modern
+security and privacy enhancing solutions must be able to accommodate
+if they are to be widely adopted and used.
+
+\subsection{End-User Use Cases}
+
+Today's end-users expect modern software to support a range of common
+behaviors. Chief amongst these are the ability to support the use of
+multiple devices per user, the ability to support collaboration and
+sharing with other users, and the ability to provide turn-key data
+processing capabilities capable of returning useful data to the
+end-user.
+
+\subsubsection{Multi-Device}
+It's not uncommon for a single user to utilize multiple computing
+devices. For example, a user might have a personal laptop, a work
+desktop, a smart phone, and a tablet. As such, users expect to be able
+access their data from any of their devices. Similarly, many modern
+users treat compute devices as essentially disposable. When a user
+loses a phone or has a laptop stolen, they still expect to be able to
+continue to access their data on any replacement device. The
+multi-device and ephemeral-device nature of the average end-user has
+lead to the rise of a number of solutions that aim to separate a users
+data from any singular device and to ensure that users may access
+their data regardless of device. Such solutions can generally be
+placed into two groups: services that sync user data between devices
+(i.e. sync services) and services that store all user data in a
+centralized and globally accessible location and provide a manner for
+users to access this from each device (i.e. locker services).
+
+Sync services operate on the premise that user data will be stored
+locally on each device, but will also be automatically kept in sync
+across multiple devices. They ensure that the users has the same view
+of their data regardless of device, even when each device stores
+independent, localized copies of this data. Such services generally
+accomplish this by providing either a centralized or a decentralized
+service that tracks user data on each device and updates data across
+all devices when it is add, removed, or modified on any single
+device. Sync services are often a desirable solution to the
+multi-device data access problem for several reasons:
+
+\begin{packed_desc}
+\item[Bandwidth Efficient:] Sync services only require Internet access
+  to reflect data changes between devices. The act of reading data can
+  be serviced directly from the local copy, avoiding the need to
+  consume bandwidth by communicating with an external services or
+  another device. This is a desirable quality in situations where
+  bandwidth is at a premium and would either be cost prohibitive or
+  performance restricting to consume every time data needs to be
+  read. Sync services tend to be bandwidth efficient even when
+  modifying data since they can cache a series of updates locally,
+  only syncing the final state to other devices, as opposed to having
+  to translate every individual update across the network.
+\item[Offline Support:] As an extension to the previous point, sync
+  services are capable of operating in situations where no Internet or
+  network connection is available. Since all data access is available
+  locally, user may continue to access and modify data even when they
+  can not connect to the sync service. The sync service will simply
+  wait for the network connection to return and then update any Lola
+  changes on other devices. While this can lead to issues when users
+  make conflicting modification on multiple devices while offline, in
+  general it represents a more graceful failure model then a system
+  that requires an Internet connection for any form of data
+  access. This also acts as a hedge against the sync service provider
+  shutting down, etc; even in such a situation the use will still
+  retain local copes of all their data that they could then use to
+  bootstrap a new sync service.
+\item[No Central Storage:] Since sync services are only concerned with
+  syncing changes between devices, it's not inherently necessary for
+  such services to store a copy of all user data in a central
+  location. This allows such systems to be built using distributed
+  device-to-device design when desired. In practice, many sync systems
+  do store a copy of all user data in order to facilitate the
+  bootstrapping of new devices, but this is not an inherent
+  requirement of the sync service architecture.
+\end{packed_desc}
+
+One of the main challenges to sync services is their local storage
+requirement. While such a requirement allows for some of the benefits
+list above, it also limits the total available storage afforded to
+each user to the size of their smallest device. In situations where a
+user wishes to store more data then can be fit on any single device,
+locker services may offer a more desirable solution.
+
+Locker service operate by storing all user data on a central server
+and then proving mechanisms for users to access and modify this data
+there. Such services are reminiscent of more traditional networked
+file systems such as NFS~\cite{Sandberg1985} or
+SMB~\cite{microsoft-smb2}. Data lock services store all user data in a
+networked location where each individual user device may access it for
+the propose of reading, modifying, or deleting data. Since such
+systems only have a single logical copy of each file, the user is
+presented with a singular view of their data regardless of which
+devices they chose to access it from. Such services have several
+desirable qualities:
+
+\begin{packed_desc}
+\item[No Local Storage:] Locker services store all data in online
+  locations, generally atop data-center-based servers. Thus, unlike
+  sync services, they require no local storage. This is useful in
+  situations where local storage is limited (e.g. on phones) but where
+  the user still wishes to have access to a large amount of data
+  (e.g. a video collection). Likewise, locker services avoid waiting
+  unnecessary local space by creating multiple copies of each file on
+  each device. Additionally, the lack of local copies may be desirable
+  in situations where local devices are prone to theft or may
+  otherwise not pose a reliable and secure platform for the storage of
+  all user data.
+\item[Single Source of Truth:] Locker services only store a single
+  (logical) copy of the data at any time. This ensures that situations
+  where the user makes conflicting modifications to a piece of data
+  are far less likely then in sync-based solutions. This property can
+  also increase the usefulness of such systems in multi-user scenarios
+  where more then one person might be accessing and modifying data.
+\item[Centralized Control:] Due to the manner in which most locker
+  services store their data, such services often provide more
+  centralized control point then a potentially detailed sync
+  service. Such control may be desirable in corporate environments
+  where a single administrator wishes to track user file access,
+  sharing, etc.
+\end{packed_desc}
+
+One of the main downsides to locker services is their requirement for
+always-online access. Thus, in situations where network access is
+impossible or where high-bandwidth usage is not practical, locker
+services can prevent users from access their data. Thus, locker
+services may operate best on local area networks and in other
+situations where network bandwidth is reliable and plentifully. in
+situations where networks access is not guaranteed, sync services may
+offer a more desirable solution.
+
+Today, sync services tend to be the more popular solution for
+individual end-users. Such users generally want access to their data
+across multiple devices in multiple locations (home, work, in public,
+etc) - requiring the data to be available in locations where a
+reliable network is not always available. Thus, sync service dominate
+multi-device data access solution landscape. Examples of popular
+centralized sync services today include Dropbox~\cite{dropbox}
+($\approx300$ Million Users~\cite{smith-stats}), Google
+Drive~\cite{google-drive} ($\approx240$ Million
+Users~\cite{smith-stats}), and Microsoft
+OneDrive~\cite{microsoft-onedrive} ($\approx250$ Million
+Users~\cite{smith-stats}).  An examples of a decentralized sync
+service is BitTorrent Sync~\cite{bittorrent-sync} ($\approx2$ Million
+Users~\cite{smith-stats}).
+
+Locker services are also available, especially in situations where
+network access is reliable and centralized control desirable:
+e.g. business environments. In such situations traditional in-house
+networked file system solution may provide the locker
+service. Alternatively, there are cloud services that provide users
+with online locker-like data access: e.g. system like
+OwnCloud~\cite{owncloud} implement the WebDAV
+protocol~\cite{Goland1999} for remote file access over the
+Internet. Similarly, distributed systems like Least Authority's Simple
+Secure Storage Service~\cite{leastauthority-s4} (S4, built atop
+Tahoe-LAFS~\cite{Wilcox-O'Hearn2008}) offer Internet-wide multi-device
+access to a central data store. Furthermore, some sync services are
+also capable of operating more like locker services. Systems like
+Microsoft OneDrive allow users to specify which files are copied
+locally (and thus available for offline access) and which are stores
+only on the server and streamed to the user as
+required~\cite{microsoft-onedrive-online}. There have also been a
+number of popular special-purpose locker services designed to promote
+multi-device access to data, particular in the media space. Systems
+like Google Music~\cite{google-music} allow users to upload music
+files which they can then access and stream to multiple
+devices. Similarly, on the distributed (and generally less-legal)
+front, systems like Popcorn Time~\cite{popcorntime} allow users to tap
+into each others video libraries to stream content to their own
+devices.
+
+Users' ownership of multiple computing devices has lead to a strong
+desire for each user to be able to access their data from any
+device. In response to this desire, a number of third-party backed
+services have sprung up to provide user with either sync or locker
+based multi-device file access. Any technology aimed at enhancing the
+security or privacy of end user data is going to need to account for
+and support the multi-device nature of modern users.
+
+\subsubsection{Multi-User}
+
+
+\subsubsection{Processing}
+
+IoT
+
+\subsection{Developer Use Cases}
+
+\subsubsection{Third Party Infrastructure}
+
+third party
+remote
+automation
+
 \section{Failures of Traditional Solutions}
+
+Theft of devices
+Provided by third parties
+
 \section{Need for New Solutions}
+
+%%  LocalWords:  OneDrive IoT SMB OwnCloud WebDAV LAFS
