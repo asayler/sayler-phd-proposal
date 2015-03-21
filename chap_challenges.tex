@@ -312,11 +312,66 @@ and future use cases.
 
 \subsection{Developer Use Cases}
 
-\subsubsection{Untrusted Infrastructure}
+Beyond end-user use cases, developers are also heavy users of modern
+third party cloud services. As such, there are a number of backend use
+cases that would also benefit from privacy and security enhancements
+with respect to third party trust. Giving developers the tools to
+better protect cloud-baked systems allows them to build more secure
+end-user services. Furthermore, developers are often some of the
+heaviest users of cloud services, so ensuring that they can adequately
+protect their data and services hosted atop third party infrastructure
+significantly expands the total number of computing systems
+protected. I discuss several common back-end use cases here.
+
+\subsubsection{Cloud Support}
+
+Many production-level systems deployed today run atop third-party
+cloud IaaS (Infrastructure as a Service) and PaaS (Platform as a
+Service) systems. This fact leads to two main consequences that must
+be considered when designing security or privacy enhancing
+technologies: lack of full-stack control and the need to scale
+dynamically.
+
+In most IaaS and PaaS systems, a developer will not have full control
+of the hardware stack on which they are operating from the ground
+up. Traditional security and privacy enhancing technologies often rely
+on full control of the entire deployment stack, from the raw hardware
+all the way through the user-facing software, in order to guarantee
+any level of security. In a world where most developer rely on IaaS
+and PaaS systems for production deployment, such full stack control is
+not possible. The less a trust a developer must place in their IaaS or
+PaaS providers, the more direct control they retain over the security
+and privacy of their applications. Modern security and privacy
+enhancing technology systems should be capable of operating securely
+even when the underlying hardware or platform can not be fully vetted
+or trusted.
+
+Additionally, cloud-based deployments are often scaled up and down
+dynamically as load requires. An application that begins running atop
+a single virtual machine may need to scale up to 10s or 100s of
+virtual machines as the load increases. Modern cloud platforms are
+designed to support such scaling. Thus, any privacy or security
+enhancing systems designed to protect such systems must also be cable
+of rapid and dynamic scalability. Failure to support such dynamics
+will make it difficult for developers to adapt a given security and
+privacy enhancing technology in an IaaS/PaaS based world.
 
 \subsubsection{Remote Infrastructure}
 
+Since developers lack physical control over such systems, it is
+important to provide security and privacy technologies that do not
+require full physical access and control as a prerequisite for secure
+operation.
+
+It is not uncommon for developers to be working atop remote
+infrastructure when utilizing PaaS and IaaS systems. As such, security
+and privacy enhancing technologies can should not make assumptions
+about a user's ability to physically access a machine. Such
+assumptions would disenfranchise many modern
+
 \subsubsection{Automation}
+
+interactivity
 
 \section{Security and Privacy}
 
@@ -326,4 +381,4 @@ need to trust single third party for access control enforcement
 
 \section{Need for New Solutions}
 
-%%  LocalWords:  OneDrive IoT SMB OwnCloud WebDAV LAFS
+%%  LocalWords:  OneDrive IoT SMB OwnCloud WebDAV LAFS IaaS PaaS
