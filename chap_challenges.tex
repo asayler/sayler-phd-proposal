@@ -323,7 +323,7 @@ protect their data and services hosted atop third party infrastructure
 significantly expands the total number of computing systems
 protected. I discuss several common back-end use cases here.
 
-\subsubsection{Cloud Support}
+\subsubsection{IaaS and PaaS Infrastructure}
 
 Many production-level systems deployed today run atop third-party
 cloud IaaS (Infrastructure as a Service) and PaaS (Platform as a
@@ -356,22 +356,38 @@ of rapid and dynamic scalability. Failure to support such dynamics
 will make it difficult for developers to adapt a given security and
 privacy enhancing technology in an IaaS/PaaS based world.
 
-\subsubsection{Remote Infrastructure}
-
-Since developers lack physical control over such systems, it is
-important to provide security and privacy technologies that do not
-require full physical access and control as a prerequisite for secure
-operation.
+\subsubsection{Remote, Headless, and Automated}
 
 It is not uncommon for developers to be working atop remote
 infrastructure when utilizing PaaS and IaaS systems. As such, security
 and privacy enhancing technologies can should not make assumptions
-about a user's ability to physically access a machine. Such
-assumptions would disenfranchise many modern
+about a user's ability to physically access a machine. Such physical
+access is sometimes required by security enhancing technologies for
+the purpose of bootstrapping various encryption systems using
+SmartCards, USB drives, etc. Unfortunately the remote, cloud-based
+nature of many modern systems do not allow for such physical-access
+tied mechanisms.
 
-\subsubsection{Automation}
+Similarly, most IaaS-backed servers or PaaS-backed services are
+expected to autonomously operate heedlessly (e.g. without a human
+operator present) for long stretches of time. Thus, it is not
+appropriate to expect developers to be able to provide interactive
+keyboard input in support of a security or privacy enhancing
+technology. For example, most existing full-disk encryption systems
+require a user to enter a pre-boot password each time the system
+reboots. Such systems do not operate in a modern cloud-backed
+environment and thus are not possible to use in such
+scenarios. Furthermore, most modern cloud infrastructure is
+bootstrapped automatically by developers using systems like
+Puppet~\cite{puppet} or Chef~\cite{chef}. Thus
 
-interactivity
+Assumptions about a developers ability to physically access a machine,
+to interactively provide input to a machine, or to manually deploy
+each machine no longer hold under the current practice of using
+cloud-backed infrastructure. As such. it's important that any
+developer-targeted privacy or security enhancing technology avoids
+making such assumptions, enduring that it can operate effectively even
+atop IaaS and PaaS infrastructure.
 
 \section{Security and Privacy}
 
