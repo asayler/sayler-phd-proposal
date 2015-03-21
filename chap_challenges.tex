@@ -450,6 +450,58 @@ them by their users.
 
 \subsection{Data Breaches}
 
+Beyond direct third party misuse of use data, there is also the risk
+on unintentional leaks of data stored with third parties. This may
+occur either due to a direct attack on third party or through a
+mistake or oversight on the part of the third party. Thus, even if we
+trust that a third party won't intentionally misuse our data, we must
+still question whether or not they are capable of providing adequate
+protection for our data. Today we are generally fully reliant on third
+parties to protect the data they store and to faithfully enforce any
+data accessing or sharing restrictions we specify.
+
+Unfortunately, there are many examples of third party data breaches
+resulting in the unintended release of user data. 2014 alone saw the
+release of over 550 million user identities and their associated data
+online, representing about 1 in 5 internet users
+globally~\cite{SymantecCorporation2014}. While not intentional, such
+breaches still call into question the degree to which we should trust
+third parties with our data. Examples include:
+
+\begin{packed_desc}
+\item[Apple iCloud Celebrity Photo Leak:] In 2014, a number of
+  celebrity users of Apple's iCloud data storage service were subject
+  to a public release of personal photos they had stored with the
+  service, often in various stats on undress. This leak was the result
+  of a targeted attacks on the corresponding users passwords and
+  iCloud accounts~\cite{apple-icloudleak}. These attacks appear to
+  have been propagated over several months prior to the public
+  release. While this leak was not a result of an overt flaw in
+  Apple's iCloud system, the week default security requirements for
+  iCloud accounts made it relatively simple for attackers to
+  compromise such accounts and steal data.
+\item[Anthem and Premera Blue Cross Breaches:] In early 2015 two major
+  US health insurance companies were subject to attacks that breached
+  their user records, allowing the release of personal, financial, and
+  medical information on millions of users~\cite{krebs-anthem,
+    krebs-premera}. While the details of the breach are not yet
+  public, such attacks demonstrate the risk of trusting a third party
+  with the storage of large quantities of sensitive data.
+\item[Heartbleed, Shellshock, Etc:] In addition to targeted attacks,
+  their parties are also prone to software failures. Prominent
+  examples of such failures include Heartbleed~\cite{heartbleed}, a
+  flaw in OpenSSL that allows attackers to steal private data from
+  many secure servers, and Shellshock~\cite{symantec-shellshock}, a
+  Bash flaw that allowed user to execute arbitrary code on many web
+  servers. Both flaws were widespread and effect large swaths of
+  web-connected sites and services, potentially exposing many users to
+  attack and data breach's.
+\end{packed_desc}
+
+Thus, even if we trust the underling third party provider to properly
+store and utilize our data, in many cases the data may still be at
+risk for exposure through attack or oversight.
+
 \subsection{Government Intrusion}
 
 \subsection{Other Attacks}
@@ -463,3 +515,4 @@ Theft of devices
 encryption
 
 %%  LocalWords:  OneDrive IoT SMB OwnCloud WebDAV LAFS IaaS PaaS Uber
+%%  LocalWords:  iCloud Premera Heartbleed Shellshock OpenSSL
