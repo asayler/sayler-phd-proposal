@@ -389,7 +389,7 @@ developer-targeted privacy or security enhancing technology avoids
 making such assumptions, enduring that it can operate effectively even
 atop IaaS and PaaS infrastructure.
 
-\section{Security and Privacy}
+\section{Security and Privacy in the Cloud}
 
 The current cloud-computing trends raise a number of security and
 privacy related questions. The use cases described above highlight a
@@ -506,15 +506,80 @@ risk for exposure through attack or oversight.
 
 \subsection{Government Intrusion}
 
+Recent events have revealed yet another threat vector that must be
+considered when leveraging third party cloud services: the targeting
+of such services by various governments for the propose of wide-spread
+surveillance. In particular, the NSA leaks revealed by Mr. Edward
+Snowden demonstrate the US governments widespread data surveillance
+programs targeting popular cloud data
+providers~\cite{greenwald-prism}. While such actions, at least in the
+US, raise numerous questions of constitutional legality under the 4th
+Amendment~\cite{us-constitution-amend4}, it does not at present change
+the fact that such searches are known to be occurring. Thus, we are
+forced to not only consider our trust of the various third party
+providers in the cloud, but also our trust of the governments of the
+jurisdictions in which such providers operate.
+
+Numerous examples of privacy-subverting attacks by government actors
+have come to light over the previous 5 years. It's worth considering
+several of these examples as we evaluate how to increase the security
+and privacy guarantees available in the cloud. Notable instances of
+government data introspection include:
+
+\begin{packed_desc}
+\item[PRISM and MUSCULAR:] The NSA PRISM program was/is a
+  FISC-approved~\cite{fisc} system for compelling service providers to
+  provide user data to the government~\cite{greenwald-prism}. It is
+  believed to be one of the largest mechanisms for the government
+  extraction of user data from various could-based services
+  (e.g. Google, Yahoo, Microsoft, Etc). Similarly, MUSCULAR was/is a
+  joint NSA and British GCHQ effort to intercept and monitor traffic
+  within Google's and Yahoo's data center to data center
+  networks~\cite{gellman-muscular}. Prior to MUSCULAR's disclosure,
+  this intra data center traffic was not generally encrypted, and thus
+  was an ideal point for another entity to intercept and monitor user
+  data. Both cases demonstrate a concerted government effort to access
+  and monitor popular cloud services.
+\item[Lavabit:] Lavabit was a private email service with 400,000+
+  users premised on the idea that poplar free email service such as
+  Gmail lacked adequate security and privacy guarantees. In August,
+  2013 Lavabit shuttered in service in response to a US government
+  subpoena requiring Lavabit to turn over both all of it's user
+  traffic as well as the associated SSL encryption keys necessary to
+  decrypt it~\cite{lavabit, levsion-lavabit}. After a legal fight,
+  Lavabit founder Ladar Levison was forced to disclose the encryption
+  keys for his service. The Lavabit example shows the government's
+  willingness to compel operators to aid in the monitoring and
+  decryption of user data.
+\item[The Great Firewall:] Moving beyond US-based government digital
+  surveillance, China has long been known to employ one of the most
+  sophisticated web monitoring and content control systems in
+  existence~\cite{rsf-china}. The so called ``Great Firewall''
+  effectively monitors all Internet traffic traveling in and out of
+  China, blocking a range of encrypted services that might be capable
+  of subverting such monitoring. Such systems show the willingness of
+  some governments to outlaw certain types of technology in the spirit
+  of ensure government surveillance efforts are not subverted or
+  hindered.
+\end{packed_desc}
+
+These examples demonstrate the willingness of many governments to
+ensure they can access and monitor user data in the cloud. When
+designing security and privacy enhancing systems, we must account for
+the fact that services providers may find themselves in potions where
+they are compelled to turn over data or where they face large scale
+surveillance of all Internet traffic.
+
 \subsection{Other Attacks}
 
-\subsubsection{Mobile Devices}
-
-Theft of devices
+device theft
+Lack of physical access
 
 \section{Need for New Solutions}
 
 encryption
 
 %%  LocalWords:  OneDrive IoT SMB OwnCloud WebDAV LAFS IaaS PaaS Uber
-%%  LocalWords:  iCloud Premera Heartbleed Shellshock OpenSSL
+%%  LocalWords:  iCloud Premera Heartbleed Shellshock OpenSSL NSA
+%%  LocalWords:  Snowden th FISC GCHQ MUSCULAR's Lavabit Ladar
+%%  LocalWords:  Levison
