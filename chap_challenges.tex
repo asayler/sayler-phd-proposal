@@ -2,6 +2,7 @@
 \label{chap:challenges}
 
 \section{Modern Use Cases}
+\label{sec:challenges:usecases}
 
 As mentioned in Chapter~\ref{chap:intro}, the last 10+ years have
 heralded the rapid expansion of a number of digital data related use
@@ -390,10 +391,75 @@ atop IaaS and PaaS infrastructure.
 
 \section{Security and Privacy}
 
+The current cloud-computing trends raise a number of security and
+privacy related questions. The use cases described above highlight a
+subset of these questions. To what degree must we trust each cloud
+provider to protect our data? How good our cloud providers at
+protecting data? What other threats do modern usage models expose?
+
+\subsection{Third Party Trust}
+
+Almost all of the use cases discussed in
+\S\ref{sec:challenges:usecases} involve ceding some degree of trust to
+one or more third parties. This often comes in the form of storing
+data or executing computations on their third servers. But to what
+degree is this trust well placed? How likely is such trust to lead to
+an unintended discourse or manipulation of private data or a related
+security failure? Chapter~\ref{chap:trust} discusses these concepts in
+more detail. Here I'll present examples of some of the failures that
+can occur related to third party trust.
+
+One of the main forms of trust we place in third parties is not to
+intentionally misuse the data we store with them. E.g. Are third
+parties suing our data in unexpected and undesirable ways?
+Unfortunately, there are a number of examples of such breaches
+occurring:
+
+\begin{packed_desc}
+\item[Facebook Emotional Contagion Study:] In 2014, it came to light
+  that Facebook had engaged in research that involved manipulating
+  what users saw in their news feeds in order to study the effects of
+  one users emotions on other users~\cite{Goel2014}. The study was
+  performed on $\approx700$ users without their explicit knowledge or
+  permission. Facebook misused the trust placed in it by it's users by
+  leveraging and manipulating their data in unforeseen ways.
+\item[Uber User Travel History:] Ride-share app Uber recently made
+  headlines when it used the travel-history of a number of it's more
+  prompt users to display a live user-location map at a lunch
+  party~\cite{Sims2014}. Similarly, the company also used stored user
+  travel history to compose a blog post detailing it's ability to
+  detect a given user's proclivity for ``one night
+  stands''~\cite{Pagliery2014}. In both cases, user leveraged data it
+  had about users in manners user did not approve of or intend.
+\item[Target Pregnancy Prediction:] In 2012, it became public that
+  Target had developed a statistical system for predicting if it's
+  shoppers were pregnant based on the kind of items they
+  bought. Target would then leverage this data to send customers
+  coupons optimized for pregnant individuals. In one case, this
+  practice even lead to the outing of a pregnant teenage daughter to
+  her previously unaware father~\cite{Hill2012}. Clearly such outcomes
+  are not within the realm of what most shopper expect when purchasing
+  items at Target.
+\end{packed_desc}
+
+While not all of these examples are directly related to a user's use
+of cloud services (or fixable through the use of the privacy and
+security envying systems proposed in this document), they do show a
+range of examples of how third parties can violate the trust placed in
+them by their users.
+
+\subsection{Data Breaches}
+
+\subsection{Government Intrusion}
+
+\subsection{Other Attacks}
+
+\subsubsection{Mobile Devices}
+
 Theft of devices
-Provided by third parties
-need to trust single third party for access control enforcement
 
 \section{Need for New Solutions}
 
-%%  LocalWords:  OneDrive IoT SMB OwnCloud WebDAV LAFS IaaS PaaS
+encryption
+
+%%  LocalWords:  OneDrive IoT SMB OwnCloud WebDAV LAFS IaaS PaaS Uber
