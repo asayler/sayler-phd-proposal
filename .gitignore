@@ -12,3 +12,6 @@
 
 # LaTeX Output
 proposal.pdf
+
+# Figure Output
+figs/out/*
