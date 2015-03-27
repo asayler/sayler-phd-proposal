@@ -7,6 +7,7 @@ remainder of this section. Chapter~\ref{chap:related} touches on
 further related work.
 
 \section{Cryptography}
+\label{chap:background:crypto}
 
 Many of the topics discussed in this proposal leverage cryptographic
 primitives as the basis of various security and privacy
@@ -146,6 +147,7 @@ some cryptographically-based access control systems like that
 described in~\cite{Goyal2006}.
 
 \section{Usability}
+\label{chap:background:usability}
 
 Strong cryptography provides the basis for all of the secure systems
 we build today. Unfortunately, strong cryptography has a rather
@@ -183,6 +185,7 @@ staff can handle all key management duties, they have largely failed
 for individual computer users~\cite{ramsdell-rfc5751}.
 
 \section{Storage}
+\label{chap:background:storage}
 
 Data storage has long been one of the core use cases of the digital
 age. And the amount of data we generate, process, and store is greater
@@ -307,8 +310,127 @@ model where trust in any single system is reduced and storage is
 spread across a variety of providers.
 
 \section{Access Control}
+\label{chap:background:ac}
 
-ToDo...
+Over the years, we have developed a range of access control
+techniques. All of these techniques share a common goal: controlling
+access to a specific system, resource, or piece of data. Must access
+control models have two key components: authentication and
+authorization.  Authentication is used to establish the identity of an
+actor. Authorization then leverages this identification as the basis
+of granting or denying specific permissions to the actor.
+
+Computer-based access control systems have been with us since the
+earliest multi-user (e.g. time sharing) operating systems became
+popular in the 1970s and 1980s. Early access control systems were
+primarily focused around the Unix model of access control: users,
+groups, and read/write/execute file-level permissions. Authentication
+in these early systems was generally limited to username:password
+combinations, the mechanisms of which were hard coded into the
+\texttt{login} program. Each user was a member of one or more groups
+and each file had a owner and group. The three file permissions, read,
+write, and execute, were granted on the basis of a user's relationship
+to a given file: either the user was the file owner, the user was a
+member of the file group, or the user was neither of these
+things. This model is fairly flexible, and continues to be used today
+as the core access control model in many Unix-like operating systems
+(e.g. BSD, Linux, OSX, etc).
+
+Access Control List (ACL) based schemes gained prominence in 1990s and
+were popularized by the Windows NT family of operating systems. ACLs
+extend the permission model beyond the basic Unix file permissions to
+include a wider range of file (e.g. read, write, delete, create, etc)
+and system-level (e.g. shutdown, connect to network, etc)
+permissions. ACLs are associated with specific system objects
+(e.g. files, folders, OS subsystems, etc) and map a user or group to a
+list of permission that user or group possess. They generalize the
+Unix access model to accommodate a wider range of permissions and
+mappings between permissions and actors. ACL-based systems have been
+integrated into many modern Unix-like operating systems as an optional
+extension beyond the tradition Unix permissioning scheme.
+
+Exiting access control schemes are often grouped into one of two
+classes: Mandatory Access Control (MAC) systems or Discretionary
+Access Control (DAC) Systems. While the lines between these two
+approaches are occasionally blurred, the basic difference between the
+two lies in which actors within a system have the ability to
+grant/extend permissions to other actors. In MAC system, all
+permissions are set by the system administrator and users have no
+ability to change these permissions themselves or transfer permissions
+to other users. DAC systems, in contrast, give users the ability to
+set their own permissions on objects they own or create, and to
+transfer these permissions to other users. A MAC-based system can be
+thought of as similar to a DAC system where the system administrator
+owns all files and never transfer this ownership to any other
+user. Traditional Unix access control systems as well ACL access
+control systems can generally be used in either MAC or DAC based
+systems. MAC systems are generally preferred in high security
+environments where the centralized management models they offer lead
+to tighter control over data. DAC systems are more common in general
+purpose systems where the extra flexibility they offer reduces the
+administrative burden. Most Unix-like systems are DAC systems by
+design, but extensions (e.g. SELinux) can be used to add MAC
+properties to these systems.
+
+Many of the early access control systems pose a host of manageability
+challenges. How do you coordinate the permissions of thousands of
+users across millions of objects? How do you revoke permissions for a
+defunct user? Or add a new user?  Role-Based Access Control
+Models~\cite{Sandhu1996} arose to cope with many of these challenges.
+Role-Based Access Control (RBAC) inserts an additional layer of
+indirection between users and permissions. In an RBAC system, users
+are assigned to one or more roles. Each role is then assigned one or
+more permissions. This model simplifies management by separating
+permission assignment from specific users. RBAC permissions are
+assigned assigned on the basis of specific positions or duties within
+an organization and mapped to specific roles. Users are then assigned
+to these roles on the basis of whether or not they hold a specific
+positions or are required to perform a specific duty. Thus, adding or
+removing users does not require any modification to permission
+mappings, only role mappings. Likewise, adding or removing permissions
+does not require modifying user mappings, only role
+mappings.
+
+The primary limitation of all of the access control models mentioned
+thus far is their reliance on a trusted arbiter for enforcement:
+generally this trusted arbiter is the operating system or some other
+underlying program in charge of enforcing the access control
+system. This means that the security of any of these access control
+systems is only as good as the security of the system enforcing them
+(e.g. the security of the OS). Thus, if the underlying OS or program
+is compromised, the access control system falls apart. Likewise,
+anyone in control of the underlying OS or program (e.g. an
+administrator) automatically gains full control over the access
+control system. This is an acceptable limitations in many situations,
+especially those based on a centrally managed system with existing
+physical security and administrative safeguards in place. But in
+distributed systems or other systems where physical and management
+control in not guaranteed (e.g. the cloud), a more robust system that
+lacks this ``trusted arbiter'' requirement is desirable.
+
+To overcome the need for a trusted enforcement mechanism in access
+control systems, researchers have turned to cryptographically-based
+access control systems. As mentioned in Section~\ref{chap:background:crypto},
+cryptographic-based system require no trust in external systems, only
+in the underlying math. Sahaie, Waters, et. al. propose several
+cryptographically-based access control systems in their 2006
+paper~\cite{Goyal2006} and its 2007 follow-up~\cite{Bethencourt2007}.
+These two systems are based on the concept of Attribute-Based
+Encryption (ABE) schemes. ABE schemes allow a user to encrypt a
+document in a manner such that the access control rules associated
+with the document are part of the encryption process itself. Thus, in
+order to decrypt/access a document, a user must satisfy one or more
+cryptographically guaranteed access control attributes.
+\cite{Goyal2006} allows user to encrypt documents that can only be
+decrypted by users possessing specific attribute polices encoded in
+their keys. \cite{Bethencourt2007} extended this concept to allow
+documents to be encrypted with a full access control policy tree
+embedded in the encryption processed file directly allowing only users
+who's private keys meet a generalized set of requirements to access
+the documents. Both these systems allow the construction of access
+control systems that do not require any trusted arbiter to regulate
+access to objects. Instead, the regulation in enforced by the
+underlying encryption backed by the associated math.
 
 \section{The Cloud}
 
