@@ -28,6 +28,6 @@ figs/out/%.pdf: figs/src/%.svg
 	rm "$(FIG_TMP)"
 
 clean:
-	$(RM) figs/out/*
+	$(RM) figs/out/*.pdf *.eps
 	$(RM) *.dvi *.aux *.log *.blg *.bbl *.out *.lof *.lot *.toc
 	$(RM) *~ .*~

@@ -13,5 +13,5 @@
 # LaTeX Output
 proposal.pdf
 
-# Figure Output
-figs/out/*
+# Figure Cruft
+*.eps
