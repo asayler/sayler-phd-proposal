@@ -1,7 +1,81 @@
 \chapter{Related Work}
 \label{chap:related}
 
+At its core, the goals of my proposed work are threefold:
+
+\begin{packed_item}
+\item Quantify and analyze the trust and threat models inherent in
+  modern third-party backed cloud computing solutions.
+\item Provide primitives that allow user to minimize, manage, and
+  monitor the degree to which they must trust or expose sensitive
+  information to third parties.
+\item Use such primitives to create security and privacy enhancing
+  systems well adopted for a range of modern common and desirable use
+  cases.
+\end{packed_item}
+
+There are a number of related efforts that also seek to fulfill one or
+more of these goals. I discuss some of the more pertinent of these
+efforts in this section.
+
+\subsection{Trust, Threat, and Security Models}
+
+Security researchers have developed a number of trust, threat, and
+security models for a range of computing systems. Some of these models
+are concerned merely with the technical security of the system. Others
+expand to account for the many proclivities of human behavior that
+have bearings on the security and privacy of computing systems. In all
+cases, such models seek to answer the questions:
+
+\begin{packed_item}
+\item ``On what assumptions does the security of a given system rest?''
+\item ``In what manner can those assumptions be violated?''
+\item ``What is the effect of violating such assumptions?''
+\end{packed_item}
+
+Security models are a critical part of designing any security
+systems. The security of any given system is only as good as it;s
+weakest link. Security models provide an analyses if the various links
+within and surrounding any given security or privacy enhancing system
+-- links that must be considered when determining the overall
+guarantees provided by a given system as well as the exposure of a
+given system to various threats.
+
+\cite{flowerday2006} provides an analyses if how trust and related
+human controls must be considered in the design of any information
+security system. It builds on work in outside the traditional computer
+science space related to theories of trust and privacy in government,
+law, and society~\cite{Camp2003}. These works lay the foundation for
+trust analysis in computing systems and tie the concept of trust in
+computing systems to wider theories of trust in privacy as fundamental
+concepts.
+
+Beyond trust analyses, there are a number of more general compute
+security models and taxonomies that tend to focus on more traditional
+technical and operational risks and mitigations. ~\cite{Abbas2005}
+discuses security and threat models for Internet-connected
+services. ~\cite{Tsipenyuk2005} focuses on common failures in
+application-level security. ~\cite{Firesmith2005} dives into an more
+abstract analysis of safety and security in computing systems and
+provides a framework for analysis software security risks, potential
+harms, amid security requirements. Finally, ~\cite{Cebula2010} takes a
+comprehensive look at operational cyber-security risks across
+technical, human, process, and external possibilities.
+
+While all of these efforts provided a basis for trust, threat, and
+security analysis of computing systems, they do not dive into the
+specific intricacies of modern third-party trust inherent in cloud
+computing systems. This is a deficiency on which I focus in the
+proposal and my future proposed thesis work.
+
 \subsection{Secure Storage}
+\label{chap:related:storage}
+
+Secure data storage is one of the most targeted areas by security and
+privacy enhancing systems. And for good reason -- the ability to
+security store data is a key primitive for maintaining the security and
+privacy of our computing systems.
+
 Design~\cite{Wulf1974}
 RFS~\cite{Dong2011}
 Keypad~\cite{Geambasu2011}
@@ -9,8 +83,12 @@ CryptoCache~\cite{Jensen2000}
 OceanStore~\cite{Kubiatowicz2000}
 Tahoe~\cite{Wilcox-O'Hearn2008}
 
+
+
 A variety of encrypted file systems exist with the goal of enabling
-secure data storage~\cite{Kher2005}. As we have shown, however, many
+secure data storage~\cite{Kher2005}. Systems like
+
+As we have shown, however, many
 of these system suffer from the entanglement of key management and the
 underlying encryption. We are not the first to recognize the
 challenges this entanglement imposes. SFS~\cite{Mazieres1999} and
@@ -28,10 +106,14 @@ underlying file system, forcing the user to use both or neither and
 preventing the user from selecting dedicated third party SSaaS
 providers.
 
-\subsection{Crypto Tricks}
-Homomorphic Encryption
+\subsection{Minimizing Third Party Exposure}
 
-\subsection{End-User Security}
+Homomorphic Encryption
+Crypto AC
+
+Depot~\cite{Mahajan2011}
+
+\subsection{Enhancing End-User Security}
 \cite{openpgp, pgp, gnupg}
 \cite{enigmail, mailpile, Koch2011}
 \cite{lastpass, onepassword, apple-icloud}
@@ -64,3 +146,6 @@ security of end-user applications by focusing security code in a
 centralized, carefully curated system. CloudKeep, however, lacks the
 generic flexibility and powerful semantics of Custos's authentication
 and access control mechanisms.
+
+%%  LocalWords:  CryptoCache OceanStore SFS Plutus Custos SSaaS
+%%  LocalWords:  Rackspace's CloudKeep Custos's
