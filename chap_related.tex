@@ -18,7 +18,7 @@ There are a number of related efforts that also seek to fulfill one or
 more of these goals. I discuss some of the more pertinent of these
 efforts in this section.
 
-\subsection{Trust, Threat, and Security Models}
+\section{Trust, Threat, and Security Models}
 \label{chap:related:models}
 
 Security researchers have developed a number of trust, threat, and
@@ -69,7 +69,7 @@ specific intricacies of modern third-party trust inherent in cloud
 computing systems. This is a deficiency on which I focus in the
 proposal and my future proposed thesis work.
 
-\subsection{Minimizing Third Party Trust}
+\section{Minimizing Third Party Trust}
 
 Uneasiness with having to trust third parties has led to a number of
 efforts to reduce, limit, and control such trust. Many of these
@@ -135,16 +135,50 @@ discussed in Section~\ref{chap:challenges:solutions}.
 
 \subsection{Homomorphic Encryption}
 
-The rise of the cloud as the home
+The rise of the cloud as the home to much modern data processing
+systems has led to questions about the degree to which third-party
+cloud providers should be trusted with access to the data processed on
+their infrastructure. Homomorphic Encryption systems are designed to
+help mitigate this trust. Such systems are designed to perform data
+processing operations on encrypted data directly, avoiding the need to
+decrypt it and expose the unencrypted form to a third party.
 
-Homomorphic Encryption
-Crypto AC
+The previous few years have heralded the arrival of numerous
+partially-homomorphic encryption systems capable of performing certain
+classes of data processing and manipulation operations directly on
+encrypted data. System like CryptDB~\cite{popa2011} allow users to
+search and query encrypted data directly, allowing the storage of such
+databases on untrusted infrastructure. Other systems like
+CS2~\cite{kamara2011} provided similar protections and capabilities
+for more generic data storage contexts. Such systems are referred to
+as partially homomorphic schemes since they only allow a subclass of
+all possible operations to be performed on encrypted data. Such
+systems have been fielded and shown to be practical today.
+
+Beyond partially homophobic encryption schemes, fully homomorphic
+encryption schemes allow for unrestricted classes of operations to be
+performed on encrypted data~\cite{gentry2009}. A number of such
+systems have been proposed - some of which go as far as to propose the
+possibility for encrypting computer programs themselves that can then
+be executed by a fully homomorphic processor~\cite{Breuer2013,
+  Brenner2011}. Such system are certainly appealing, but thus far
+building one with suitable low overhead so as to be practical today
+has proven elusive.
+
+While homomorphic solutions likely will prove to be part of the
+solution to the problem of third party trusty in the cloud, they don't
+inherently solve all of the problems. In the practical since, the
+available systems today are limited to only preforming certain
+operations. Furthermore, while such systems allow the processing of
+data atop untrusted infrastructure, they do not provide a solution for
+the cases where you wish to share plain-text data with other users or
+otherwise assert a use case that requires data to be decrypted in
+order to achieve.
+
+\subsection{Secure Storage}
 
 Depot~\cite{Mahajan2011}
 Tahoe~\cite{Wilcox-O'Hearn2008}
-
-\subsection{Secure Storage}
-\label{chap:related:storage}
 
 Secure data storage is one of the most targeted areas by security and
 privacy enhancing systems. And for good reason -- the ability to
@@ -182,7 +216,7 @@ preventing the user from selecting dedicated third party SSaaS
 providers.
 
 
-\subsection{Enhancing End-User Security}
+\section{Enhancing End-User Security}
 \cite{openpgp, pgp, gnupg}
 \cite{enigmail, mailpile, Koch2011}
 \cite{lastpass, onepassword, apple-icloud}
@@ -201,7 +235,7 @@ for a range of existing password manager front ends, providing more
 flexible password access control semantics in the process and allowing
 the user to select a SSaaS provider of their choice.
 
-\subsection{Key Management and Key Escrow Systems}
+\section{Key Management and Key Escrow Systems}
 \cite{Blaze1996, Denning1996}
 \cite{cloudkeep-presentation, cloudkeep}
 \cite{gazzang, porticor, Rosen2012}
@@ -217,4 +251,4 @@ generic flexibility and powerful semantics of Custos's authentication
 and access control mechanisms.
 
 %%  LocalWords:  CryptoCache OceanStore SFS Plutus Custos SSaaS TPP
-%%  LocalWords:  Rackspace's CloudKeep Custos's
+%%  LocalWords:  Rackspace's CloudKeep Custos's CryptDB
