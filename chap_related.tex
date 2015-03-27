@@ -177,44 +177,44 @@ order to achieve.
 
 \subsection{Secure Storage}
 
-Depot~\cite{Mahajan2011}
-Tahoe~\cite{Wilcox-O'Hearn2008}
+Beyond data processing, the ability to securely store data atop third
+party infrastructure while also minimizing the degree to third party
+trust this entails has been and remains a desirable goal. As such, a
+number of projects have undertaken efforts aimed at achieving such
+protections.  Secure data storage is one of the most targeted areas by
+security and privacy enhancing systems. And for good reason -- the
+ability to security store data is a key primitive for maintaining the
+security and privacy of our computing systems.
 
-Secure data storage is one of the most targeted areas by security and
-privacy enhancing systems. And for good reason -- the ability to
-security store data is a key primitive for maintaining the security and
-privacy of our computing systems.
+A number of traditional client-server encrypted file systems exist
+with the design goal of avoiding server-side
+trust~\cite{Kher2005}. Systems like CryptoCache~\cite{jensen2000},
+RFS~\cite{dong2011}, and Plutus~\cite{kallahalla2003} are all designed
+to allow users to store files on servers without trusted the server
+itself. Other systems like Keypad~\cite{geambasu2011} and
+CleanOS~\cite{tang2012} are aimed at securing data atop user devices
+and protecting that data when a device is lost or stolen. All of these
+systems deploy various forms of cryptography to obtain their goals.
+ 
+Beyond traditional client-server secure storage systems, distributed
+storage systems like Depot~\cite{mahajan2011},
+OceanStore~\cite{kubiatowicz2000}, and Tahoe~\cite{wilcox-o'hearn2008}
+are all designed to minimize trust in the underlying storage
+infrastructure. Such systems allow users to distribute and store files
+across many third-party hosted nodes while also ensuring that the
+failure, either accidental or intentional, of a subset of nodes does
+not result in the loss, corruption, or exposure of user data. Depot
+focuses on data integrity and availability in the presence of
+untrusted nodes. Tahoe focus on data integrity privacy in the response
+of untrusted nodes. OceanStore has elements of both as well as a focus
+on large scale deployments that account for properties like locality
+to enhance performance.
 
-Design~\cite{Wulf1974}
-RFS~\cite{Dong2011}
-Keypad~\cite{Geambasu2011}
-CryptoCache~\cite{Jensen2000}
-OceanStore~\cite{Kubiatowicz2000}
-
-
-
-
-A variety of encrypted file systems exist with the goal of enabling
-secure data storage~\cite{Kher2005}. Systems like
-
-As we have shown, however, many
-of these system suffer from the entanglement of key management and the
-underlying encryption. We are not the first to recognize the
-challenges this entanglement imposes. SFS~\cite{Mazieres1999} and
-Plutus~\cite{Kallahalla2003} were designed to separate cryptographic
-key management from encrypted data storage, allowing for more flexible
-key management in the process. But both SFS and Plutus fail to fully
-define a standardized, generic, and flexible external system for
-storing and managing keys, making a generic ``Secret Storage as a
-Service'' architecture impossible to realize with either system. In
-particular, SFS purposely avoids specifying any key management
-solution, instead focusing on mechanisms that allow the user to select
-their own key management system (e.g. Custos). Plutus provides basic
-key management functionality, but it bundles these tightly with the
-underlying file system, forcing the user to use both or neither and
-preventing the user from selecting dedicated third party SSaaS
-providers.
-
+In many of these systems, however, key management primitives are still
+ignored or pushed down to the user, leading to usability issues and
+use-case mismatches. My proposed work could be used to extend such
+designs to better account for the key management challenges limiting
+the use of such systems today.
 
 \section{Enhancing End-User Security}
 \cite{openpgp, pgp, gnupg}
@@ -250,5 +250,24 @@ centralized, carefully curated system. CloudKeep, however, lacks the
 generic flexibility and powerful semantics of Custos's authentication
 and access control mechanisms.
 
+As we have shown, however, many
+of these system suffer from the entanglement of key management and the
+underlying encryption. We are not the first to recognize the
+challenges this entanglement imposes. SFS~\cite{Mazieres1999} and
+Plutus~\cite{kallahalla2003} were designed to separate cryptographic
+key management from encrypted data storage, allowing for more flexible
+key management in the process. But both SFS and Plutus fail to fully
+define a standardized, generic, and flexible external system for
+storing and managing keys, making a generic ``Secret Storage as a
+Service'' architecture impossible to realize with either system. In
+particular, SFS purposely avoids specifying any key management
+solution, instead focusing on mechanisms that allow the user to select
+their own key management system (e.g. Custos). Plutus provides basic
+key management functionality, but it bundles these tightly with the
+underlying file system, forcing the user to use both or neither and
+preventing the user from selecting dedicated third party SSaaS
+providers.
+
+
 %%  LocalWords:  CryptoCache OceanStore SFS Plutus Custos SSaaS TPP
-%%  LocalWords:  Rackspace's CloudKeep Custos's CryptDB
+%%  LocalWords:  Rackspace's CloudKeep Custos's CryptDB CleanOS
