@@ -1,0 +1,66 @@
+\chapter{Related Work}
+\label{chap:related}
+
+\subsection{Secure Storage}
+Design~\cite{Wulf1974}
+RFS~\cite{Dong2011}
+Keypad~\cite{Geambasu2011}
+CryptoCache~\cite{Jensen2000}
+OceanStore~\cite{Kubiatowicz2000}
+Tahoe~\cite{Wilcox-O'Hearn2008}
+
+A variety of encrypted file systems exist with the goal of enabling
+secure data storage~\cite{Kher2005}. As we have shown, however, many
+of these system suffer from the entanglement of key management and the
+underlying encryption. We are not the first to recognize the
+challenges this entanglement imposes. SFS~\cite{Mazieres1999} and
+Plutus~\cite{Kallahalla2003} were designed to separate cryptographic
+key management from encrypted data storage, allowing for more flexible
+key management in the process. But both SFS and Plutus fail to fully
+define a standardized, generic, and flexible external system for
+storing and managing keys, making a generic ``Secret Storage as a
+Service'' architecture impossible to realize with either system. In
+particular, SFS purposely avoids specifying any key management
+solution, instead focusing on mechanisms that allow the user to select
+their own key management system (e.g. Custos). Plutus provides basic
+key management functionality, but it bundles these tightly with the
+underlying file system, forcing the user to use both or neither and
+preventing the user from selecting dedicated third party SSaaS
+providers.
+
+\subsection{Crypto Tricks}
+Homomorphic Encryption
+
+\subsection{End-User Security}
+\cite{openpgp, pgp, gnupg}
+\cite{enigmail, mailpile, Koch2011}
+\cite{lastpass, onepassword, apple-icloud}
+\cite{schneier-passwords, krebs-passwords, brodkin-passman}.
+\cite{spideroak}
+
+Password management systems (e.g.~\cite{lastpass} share some of the
+same goals as Custos and can be viewed as a subset of the more generic
+SSaaS model. Such systems are designed to enable users to use longer,
+less predictable passwords by providing a dedicated system that stores
+and fills password feels on a user's behalf. The user must only
+remember a single strong password, relying on the password manager to
+store and supply long random passwords for all the other services a
+user leverages. Custos could be used as the secret storage back end
+for a range of existing password manager front ends, providing more
+flexible password access control semantics in the process and allowing
+the user to select a SSaaS provider of their choice.
+
+\subsection{Key Management and Key Escrow Systems}
+\cite{Blaze1996, Denning1996}
+\cite{cloudkeep-presentation, cloudkeep}
+\cite{gazzang, porticor, Rosen2012}
+\cite{amazon-hsm}
+
+Rackspace's CloudKeep~\cite{cloudkeep} aims to create a standardized
+key management system for use across multiple applications, avoiding
+the need to re-implement such systems in each application. Similar to
+Custos, CloudKeep aims to ease developer burden while increasing the
+security of end-user applications by focusing security code in a
+centralized, carefully curated system. CloudKeep, however, lacks the
+generic flexibility and powerful semantics of Custos's authentication
+and access control mechanisms.
