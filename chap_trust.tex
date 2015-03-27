@@ -157,7 +157,7 @@ company, and is thus susceptible to a variety of government-sponsored
 data requested, from subpoenas issued under the Third Party
 Doctrine~\cite{thompson-thirdparty}, to probable cause search
 warrants~\cite{us-constitution-amend4}, to National Security
-Letters~\cite{fbi-nsl}, to FISC~\cite{fisc} orders. Dropbox publishes
+Letters~\cite{fbi-nsl}, to fisc~\cite{fisc} orders. Dropbox publishes
 a transparency report~\cite{dropbox-transparency} indicating how
 frequently they are compelled to violate user privacy. Recent versions
 of this report indicate that Dropbox receives a few hundred requests
@@ -205,7 +205,7 @@ will thus focus our solution on mitigating degree of trust first and
 methods of violation second.
 
 The ideal trust model begins with the principle of least
-privilege~\cite{Saltzer1975}: we should only afford a cloud provider
+privilege~\cite{saltzer1975}: we should only afford a cloud provider
 the minimal degree of trust necessary to provide the intended
 features. Furthermore, in order to monitor cloud providers for
 potential trust violations, we would also like to maintain some degree
@@ -230,8 +230,8 @@ problem.I introduce a new actor: the Secret Storage Provider (SSP)
 into the mix. I then restrict the user to only storing encrypted data
 with Dropbox. The user stores the associated encryption and
 verification keys with the SSP. Assuming we utilize strong encryption
-and integrity systems like AES~\cite{NIST2001} +
-CMAC~\cite{Dworkin2005}, Dropbox can not feasibly decrypt and access
+and integrity systems like AES~\cite{nist2001} +
+CMAC~\cite{dworkin2005}, Dropbox can not feasibly decrypt and access
 the user's data nor can they manipulate user data without
 detection. Storing the keys with an SSP, as opposed to simply forcing
 the user to maintain them manually, has a number of benefits: namely,

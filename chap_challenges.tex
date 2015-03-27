@@ -109,7 +109,7 @@ locker services may offer a more desirable solution.
 Locker service operate by storing all user data on a central server
 and then proving mechanisms for users to access and modify this data
 there. Such services are reminiscent of more traditional networked
-file systems such as NFS~\cite{Sandberg1985} or
+file systems such as NFS~\cite{sandberg1985} or
 SMB~\cite{microsoft-smb2}. Data lock services store all user data in a
 networked location where each individual user device may access it for
 the propose of reading, modifying, or deleting data. Since such
@@ -175,7 +175,7 @@ networked file system solution may provide the locker
 service. Alternatively, there are cloud services that provide users
 with online locker-like data access: e.g. system like
 OwnCloud~\cite{owncloud} implement the WebDAV
-protocol~\cite{Goland1999} for remote file access over the
+protocol~\cite{goland1999} for remote file access over the
 Internet. Similarly, distributed systems like Least Authority's Simple
 Secure Storage Service~\cite{leastauthority-s4} (S4, built atop
 Tahoe-LAFS~\cite{wilcox-o'hearn2008}) offer Internet-wide multi-device
@@ -249,7 +249,7 @@ videos, status messages, and other user-generated continent. Such
 systems also provide the data originator with the ability to place
 limits on how data is shared and who it is shared with (although the
 effectiveness of such access control settings is often
-questionable~\cite{Johnson2012}). Similarly, systems like Google
+questionable~\cite{johnson2012}). Similarly, systems like Google
 Docs~\cite{google-docs} or Microsoft Office
 Online~\cite{microsoft-officeonline} offer users the ability to
 interactively compose and collaborate on document creation and
@@ -379,7 +379,7 @@ reboots. Such systems do not operate in a modern cloud-backed
 environment and thus are not possible to use in such
 scenarios. Furthermore, most modern cloud infrastructure is
 bootstrapped automatically by developers using systems like
-Puppet~\cite{puppet} or Chef~\cite{chef}. Thus
+Puppet~\cite{puppet} or chef~\cite{chef}. Thus
 
 Assumptions about a developers ability to physically access a machine,
 to interactively provide input to a machine, or to manually deploy
@@ -420,17 +420,17 @@ occurring:
 \item[Facebook Emotional Contagion Study:] In 2014, it came to light
   that Facebook had engaged in research that involved manipulating
   what users saw in their news feeds in order to study the effects of
-  one users emotions on other users~\cite{Goel2014}. The study was
+  one users emotions on other users~\cite{goel2014}. The study was
   performed on $\approx700$ users without their explicit knowledge or
   permission. Facebook misused the trust placed in it by it's users by
   leveraging and manipulating their data in unforeseen ways.
 \item[Uber User Travel History:] Ride-share app Uber recently made
   headlines when it used the travel-history of a number of it's more
   prompt users to display a live user-location map at a lunch
-  party~\cite{Sims2014}. Similarly, the company also used stored user
+  party~\cite{sims2014}. Similarly, the company also used stored user
   travel history to compose a blog post detailing it's ability to
   detect a given user's proclivity for ``one night
-  stands''~\cite{Pagliery2014}. In both cases, user leveraged data it
+  stands''~\cite{pagliery2014}. In both cases, user leveraged data it
   had about users in manners user did not approve of or intend.
 \item[Target Pregnancy Prediction:] In 2012, it became public that
   Target had developed a statistical system for predicting if it's
@@ -438,7 +438,7 @@ occurring:
   bought. Target would then leverage this data to send customers
   coupons optimized for pregnant individuals. In one case, this
   practice even lead to the outing of a pregnant teenage daughter to
-  her previously unaware father~\cite{Hill2012}. Clearly such outcomes
+  her previously unaware father~\cite{hill2012}. Clearly such outcomes
   are not within the realm of what most shopper expect when purchasing
   items at Target.
 \end{packed_desc}
@@ -465,7 +465,7 @@ Unfortunately, there are many examples of third party data breaches
 resulting in the unintended release of user data. 2014 alone saw the
 release of over 550 million user identities and their associated data
 online, representing about 1 in 5 internet users
-globally~\cite{SymantecCorporation2014}. While not intentional, such
+globally~\cite{symanteccorporation2014}. While not intentional, such
 breaches still call into question the degree to which we should trust
 third parties with our data. Examples include:
 
@@ -494,7 +494,7 @@ third parties with our data. Examples include:
   examples of such failures include Heartbleed~\cite{heartbleed}, a
   flaw in OpenSSL~\cite{openssl} that allows attackers to steal
   private data from many secure servers, and
-  Shellshock~\cite{symantec-shellshock}, a GNU Bash~\cite{gnu-bash}
+  Shellshock~\cite{symantec-shellshock}, a gnu bash~\cite{gnu-bash}
   flaw that allowed user to execute arbitrary code on many web
   servers. Both flaws were widespread and effect large swaths of
   web-connected sites and services, potentially exposing many users to

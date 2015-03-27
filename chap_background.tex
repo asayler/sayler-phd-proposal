@@ -48,7 +48,7 @@ secure communication channel.
 
 The major breakthrough in solving this challenge came in 1976 with
 Diffie and Hellman's publication of ``New Directions in
-Cryptography''~\cite{Diffie1976}. Diffie and Hellman proposed a system
+Cryptography''~\cite{diffie1976}. Diffie and Hellman proposed a system
 for asymmetric cryptography: a cryptography system in which one key is
 used for encryption while a second related key is used for
 decryption. When properly designed, it is computationally unfeasible
@@ -74,7 +74,7 @@ of secret information (e.g. one of the factors) is not known.
 Diffie and Hellman proposed a potential implementation of a public key
 cryptography system, although the first practical public key crypto
 system came a few years latter with the invention of the
-RSA~\cite{Rivest1978} algorithm. In addition to public/private key
+RSA~\cite{rivest1978} algorithm. In addition to public/private key
 systems, Diffie and Hellman also proposed a system for joint key
 generation where two parties can negotiate a secrete key across an
 insecure connection. Like asymmetric cryptography, such a system can
@@ -114,7 +114,7 @@ cryptographic breakthroughs of the last fifty years was the invention
 of cryptographically secure secret sharing schemes. In particular, Adi
 Shamir (the 'S' form ``RSA'') proposed a practical and robust secret
 sharing scheme in his 1979 paper ``How to share a
-secret''~\cite{Shamir1979}. In this work, Shamir lays out the basics
+secret''~\cite{shamir1979}. In this work, Shamir lays out the basics
 of what has come to be known as Shamir Secret Sharing: a method for
 splitting a piece of information up into two or more pieces in a
 manner such that holders of any subset of the pieces cannot infer any
@@ -144,7 +144,7 @@ Shamir Secret Sharing (and related systems) are useful in a wide range
 of situations where one needs to distribute trust across multiple
 entities. In particular, secret sharing techniques are leveraged in
 some cryptographically-based access control systems like that
-described in~\cite{Goyal2006}.
+described in~\cite{goyal2006}.
 
 \section{Usability}
 \label{chap:background:usability}
@@ -164,7 +164,7 @@ cryptography itself.
 PGP, one of the longest-running cryptographic security projects, is
 known to have major usability challenges, making it largely
 incomprehensible to all but the most highly-trained
-users~\cite{Whitten1999}. These challenge are largely relates to the
+users~\cite{whitten1999}. These challenge are largely relates to the
 average user's inability to properly mange the various cryptographic
 keys required for the proper use of PGP~\cite{green-challenge}. This
 has led multiple parties to call for the retirement of PGP and/or to
@@ -176,7 +176,7 @@ entails~\cite{green-pgp}.
 
 Similar challenges have been observed with other end-user
 cryptographic systems, ranging from secure storage devices to various
-communication mediums~\cite{Sweikata2009}. In all cases, properly
+communication mediums~\cite{sweikata2009}. In all cases, properly
 obtaining, storing, and controlling access to cryptographic keys and
 related cryptographic secrets tends to be a task for which the typical
 user is ill-suited. Thus, while cryptographic systems like S/MIME have
@@ -241,19 +241,19 @@ novel access control models more expressive then Unix permissions or
 Windows NT ACLs. Many system combine more than one of these approaches
 to build a fully featured next generation secure storage system.
 
-\cite{Kher2005} presents a survey of the security models of various
+\cite{kher2005} presents a survey of the security models of various
 storage systems, sorting such systems into basic networked file
 systems, single-user cryptographic file systems, and multi-user
 cryptographic file systems. As previously mentioned, basic networked
 file systems rely on trusted systems and administrators for the
 enforcement of security rules. Examples of such systems include the
-Sun Network File System (NFS)~\cite{Sandberg1985}, the Andrew File
-Systems (AFS)~\cite{Howard1988}, and the Common Internet File System
+Sun Network File System (NFS)~\cite{sandberg1985}, the Andrew File
+Systems (AFS)~\cite{howard1988}, and the Common Internet File System
 (CIFS/SMB)~\cite{microsoft-smb2}. All of these systems are designed
 for use within local administrative domains and do not scale well to
 global, loosely-coupled distributed systems. To deal with the
 scalability issues, researchers have built system like
-SFS~\cite{Mazieres1999} or OceanStore~\cite{kubiatowicz2000} which aim
+SFS~\cite{mazieres1999} or oceanstore~\cite{kubiatowicz2000} which aim
 to reduce the administrative burden of large scale distributed file
 systems.
 
@@ -264,7 +264,7 @@ there exist a handful of cryptographically-secure file systems. The
 best of these systems offer end-to-end cryptography, meaning that data
 is encrypted and decrypted on the client side and the server never has
 access to the unencrypted data.  Systems like the Cryptographic File
-Systems (CFS)~\cite{Blaze1993} provide basic single-user end-to-end
+Systems (CFS)~\cite{blaze1993} provide basic single-user end-to-end
 file encryption. While end-to-end encryption is a powerful security
 model for enabling secure storage atop untrusted systems, it does pose
 challenges with respect to multi-user, multi-device use cases since it
@@ -272,10 +272,10 @@ generally requires that all clients have access to private
 cryptographic credentials in order to effectively read or write
 files. In order to support both end-to-end encryption and multi-user
 scenarios, researchers have proposed multi-user cryptographic storage
-systems like SiRiUS~\cite{Goh2003}, Cepheus~\cite{Fu1998}, or
+systems like SiRiUS~\cite{goh2003}, cepheus~\cite{fu1998}, or
 Plutus~\cite{kallahalla2003}.
 
-Miltchev, et al.~\cite{Miltchev2008} presents a framework for
+Miltchev, et al.~\cite{miltchev2008} presents a framework for
 analyzing the suitability of various distributed file systems for
 modern multi-user, multi-domain use cases by analyzing five underlying
 file system qualities: authentication, authorization, granularity,
@@ -294,7 +294,7 @@ odds.
 
 Beyond traditional local and networked file systems, many users have
 turned to cloud-backed storage technologies today. System like
-Dropbox~\cite{dropbox} or Google Drive~\cite{google-drive} offer
+Dropbox~\cite{dropbox} or google drive~\cite{google-drive} offer
 mechanism for storing arbitrary files on third-party cloud
 servers. Such files can either be accessed via a web browser or synced
 to a local machine via various client-side utilities. Other cloud
@@ -376,7 +376,7 @@ Many of the early access control systems pose a host of manageability
 challenges. How do you coordinate the permissions of thousands of
 users across millions of objects? How do you revoke permissions for a
 defunct user? Or add a new user?  Role-Based Access Control
-Models~\cite{Sandhu1996} arose to cope with many of these challenges.
+Models~\cite{sandhu1996} arose to cope with many of these challenges.
 Role-Based Access Control (RBAC) inserts an additional layer of
 indirection between users and permissions. In an RBAC system, users
 are assigned to one or more roles. Each role is then assigned one or
@@ -406,7 +406,7 @@ entertainment, interact with our friends, and more.
 
 Today cloud-services providers like Amazon, Google, Microsoft,
 Rackspace, and IBM globally sell over \$150 billion in cloud services
-annually~\cite{Flood2013}. The rapid rise of the cloud computing model
+annually~\cite{flood2013}. The rapid rise of the cloud computing model
 is supported by a number of desirable qualities the cloud can provide
 more effectively then traditional self-hosted computing
 systems. Namely:
@@ -497,7 +497,7 @@ provide. The common cloud services in use today include:
   end-users are referring to when they talk about the cloud. SaaS
   offerings represent fully-fledged services that provide some form of
   functionally directly to an end user. Examples of SaaS systems
-  include Dropbox~\cite{dropbox}, Gmail~\cite{google-gmail}, and
+  include Dropbox~\cite{dropbox}, gmail~\cite{google-gmail}, and
   Facebook~\cite{facebook}.
 \end{packed_desc}
 
@@ -536,7 +536,7 @@ include:
   involved in constructing and maintaining such data centers.
 \item[Virtualization] \hfill \\ Virtualization, the ability to
   simulate one or more ``virtual computers'' running atop a single
-  physical computer, is not a new concept~\cite{Goldberg1974}. But the
+  physical computer, is not a new concept~\cite{goldberg1974}. But the
   previous 10 to 20 years have seen the use of virtualization become a
   commonplace occurrence, well supported by commodity hardware and
   software alike. Virtualization is what has made it simple and cost

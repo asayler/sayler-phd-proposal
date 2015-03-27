@@ -46,20 +46,20 @@ given system to various threats.
 human controls must be considered in the design of any information
 security system. It builds on work in outside the traditional computer
 science space related to theories of trust and privacy in government,
-law, and society~\cite{Camp2003}. These works lay the foundation for
+law, and society~\cite{camp2003}. These works lay the foundation for
 trust analysis in computing systems and tie the concept of trust in
 computing systems to wider theories of trust in privacy as fundamental
 concepts.
 
 Beyond trust analyses, there are a number of more general compute
 security models and taxonomies that tend to focus on more traditional
-technical and operational risks and mitigations. ~\cite{Abbas2005}
+technical and operational risks and mitigations. ~\cite{abbas2005}
 discuses security and threat models for Internet-connected
-services. ~\cite{Tsipenyuk2005} focuses on common failures in
-application-level security. ~\cite{Firesmith2005} dives into an more
+services. ~\cite{tsipenyuk2005} focuses on common failures in
+application-level security. ~\cite{firesmith2005} dives into an more
 abstract analysis of safety and security in computing systems and
 provides a framework for analysis software security risks, potential
-harms, amid security requirements. Finally, ~\cite{Cebula2010} takes a
+harms, amid security requirements. Finally, ~\cite{cebula2010} takes a
 comprehensive look at operational cyber-security risks across
 technical, human, process, and external possibilities.
 
@@ -107,7 +107,7 @@ arbiter'' requirement is desirable.
 
 To overcome the need for a trusted enforcement mechanism in access
 control systems, researchers have turned to cryptographically-based
-access control systems. \cite{Goyal2006} and \cite{Bethencourt2007}
+access control systems. \cite{goyal2006} and \cite{bethencourt2007}
 propose several cryptographically-based access control systems. These
 systems are based on the concept of Attribute-Based Encryption (ABE)
 schemes. ABE schemes allow a user to encrypt a document in a manner
@@ -115,9 +115,9 @@ such that the access control rules associated with the document are
 part of the encryption process itself. Thus, in order to
 decrypt/access a document, a user must satisfy one or more
 cryptographically guaranteed access control attributes.
-\cite{Goyal2006} allows user to encrypt documents that can only be
+\cite{goyal2006} allows user to encrypt documents that can only be
 decrypted by users possessing specific attribute polices encoded in
-their keys. \cite{Bethencourt2007} extends this concept to allow
+their keys. \cite{bethencourt2007} extends this concept to allow
 documents to be encrypted with a full access control policy embedded
 in the encryption process itself, allowing only users who's private
 keys meet a generalized set of requirements to access the
@@ -188,8 +188,8 @@ security and privacy of our computing systems.
 
 A number of traditional client-server encrypted file systems exist
 with the design goal of avoiding server-side
-trust~\cite{Kher2005}. Systems like CryptoCache~\cite{jensen2000},
-RFS~\cite{dong2011}, and Plutus~\cite{kallahalla2003} are all designed
+trust~\cite{kher2005}. systems like cryptocache~\cite{jensen2000},
+RFS~\cite{dong2011}, and plutus~\cite{kallahalla2003} are all designed
 to allow users to store files on servers without trusted the server
 itself. Other systems like Keypad~\cite{geambasu2011} and
 CleanOS~\cite{tang2012} are aimed at securing data atop user devices
@@ -198,7 +198,7 @@ systems deploy various forms of cryptography to obtain their goals.
  
 Beyond traditional client-server secure storage systems, distributed
 storage systems like Depot~\cite{mahajan2011},
-OceanStore~\cite{kubiatowicz2000}, and Tahoe~\cite{wilcox-o'hearn2008}
+OceanStore~\cite{kubiatowicz2000}, and tahoe~\cite{wilcox-o'hearn2008}
 are all designed to minimize trust in the underlying storage
 infrastructure. Such systems allow users to distribute and store files
 across many third-party hosted nodes while also ensuring that the
@@ -218,7 +218,7 @@ the use of such systems today.
 
 \section{Enhancing End-User Security}
 \cite{openpgp, pgp, gnupg}
-\cite{enigmail, mailpile, Koch2011}
+\cite{enigmail, mailpile, koch2011}
 \cite{lastpass, onepassword, apple-icloud}
 \cite{schneier-passwords, krebs-passwords, brodkin-passman}.
 \cite{spideroak}
@@ -236,9 +236,9 @@ flexible password access control semantics in the process and allowing
 the user to select a SSaaS provider of their choice.
 
 \section{Key Management and Key Escrow Systems}
-\cite{Blaze1996, Denning1996}
+\cite{blaze1996, denning1996}
 \cite{cloudkeep-presentation, cloudkeep}
-\cite{gazzang, porticor, Rosen2012}
+\cite{gazzang, porticor, rosen2012}
 \cite{amazon-hsm}
 
 Rackspace's CloudKeep~\cite{cloudkeep} aims to create a standardized
@@ -253,7 +253,7 @@ and access control mechanisms.
 As we have shown, however, many
 of these system suffer from the entanglement of key management and the
 underlying encryption. We are not the first to recognize the
-challenges this entanglement imposes. SFS~\cite{Mazieres1999} and
+challenges this entanglement imposes. SFS~\cite{mazieres1999} and
 Plutus~\cite{kallahalla2003} were designed to separate cryptographic
 key management from encrypted data storage, allowing for more flexible
 key management in the process. But both SFS and Plutus fail to fully
