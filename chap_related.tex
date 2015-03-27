@@ -19,6 +19,7 @@ more of these goals. I discuss some of the more pertinent of these
 efforts in this section.
 
 \subsection{Trust, Threat, and Security Models}
+\label{chap:related:models}
 
 Security researchers have developed a number of trust, threat, and
 security models for a range of computing systems. Some of these models
@@ -68,6 +69,80 @@ specific intricacies of modern third-party trust inherent in cloud
 computing systems. This is a deficiency on which I focus in the
 proposal and my future proposed thesis work.
 
+\subsection{Minimizing Third Party Trust}
+
+Uneasiness with having to trust third parties has led to a number of
+efforts to reduce, limit, and control such trust. Many of these
+solution aim to leverage cryptographic primitives as an alternative to
+a trusted third party (TPP). As mentioned in
+Section~\ref{chap:background:crypto}, cryptographic-based system
+require no trust in external systems or parties, only in the
+underlying math. Others use information theory primitives such as the
+secret sharing schemes also discussed in
+Section~\ref{chap:background:crypto} to try to limit how much damage
+any single trusted third party can do: forcing multiple third parties
+to collude to accomplish most attacks. In many cases, these explore
+the trade-offs between the convenience and capabilities that trusted
+third party systems can provide and the security risks of requiring
+one of more trusted third parties.
+
+\subsection{Cryptographic Access Control}
+
+The primary limitation of all of the access control models mentioned
+in Section~\ref{chap:background:ac} is their reliance on a trusted
+arbiter for enforcement: generally this trusted arbiter is the
+operating system or third party system in charge of enforcing the
+access control system. This means that the security of any of these
+access control systems is only as good as the security of the system
+or third party enforcing them. Thus, if the underlying OS or third
+party is compromised, the access control system falls apart. Likewise,
+anyone in control of the underlying OS or enforcement system (e.g. an
+administrator) automatically gains full control over the access
+control system. This is an acceptable limitations in many situations,
+especially those based on a centrally managed system with existing
+physical security and administrative safeguards in place. But in
+distributed systems or the cloud where physical and management control
+in not guaranteed, a more robust system that lacks this ``trusted
+arbiter'' requirement is desirable.
+
+To overcome the need for a trusted enforcement mechanism in access
+control systems, researchers have turned to cryptographically-based
+access control systems. \cite{Goyal2006} and \cite{Bethencourt2007}
+propose several cryptographically-based access control systems. These
+systems are based on the concept of Attribute-Based Encryption (ABE)
+schemes. ABE schemes allow a user to encrypt a document in a manner
+such that the access control rules associated with the document are
+part of the encryption process itself. Thus, in order to
+decrypt/access a document, a user must satisfy one or more
+cryptographically guaranteed access control attributes.
+\cite{Goyal2006} allows user to encrypt documents that can only be
+decrypted by users possessing specific attribute polices encoded in
+their keys. \cite{Bethencourt2007} extends this concept to allow
+documents to be encrypted with a full access control policy embedded
+in the encryption process itself, allowing only users who's private
+keys meet a generalized set of requirements to access the
+documents. Both these systems allow the construction of access control
+systems that do not require any trusted arbiter to regulate access to
+objects. Instead, the access control policy is enforced by the
+underlying encryption itself.
+
+Such concepts have not yet been widely deployed in day-to-day use,
+possibly because of the complexity and computational overhead of
+building and operating such systems. These systems also still push off
+the generation, storage, and management of private keys to end users
+and administrators, raising many of the same key-management challenges
+discussed in Section~\ref{chap:challenges:solutions}.
+
+\subsection{Homomorphic Encryption}
+
+The rise of the cloud as the home
+
+Homomorphic Encryption
+Crypto AC
+
+Depot~\cite{Mahajan2011}
+Tahoe~\cite{Wilcox-O'Hearn2008}
+
 \subsection{Secure Storage}
 \label{chap:related:storage}
 
@@ -81,7 +156,7 @@ RFS~\cite{Dong2011}
 Keypad~\cite{Geambasu2011}
 CryptoCache~\cite{Jensen2000}
 OceanStore~\cite{Kubiatowicz2000}
-Tahoe~\cite{Wilcox-O'Hearn2008}
+
 
 
 
@@ -106,12 +181,6 @@ underlying file system, forcing the user to use both or neither and
 preventing the user from selecting dedicated third party SSaaS
 providers.
 
-\subsection{Minimizing Third Party Exposure}
-
-Homomorphic Encryption
-Crypto AC
-
-Depot~\cite{Mahajan2011}
 
 \subsection{Enhancing End-User Security}
 \cite{openpgp, pgp, gnupg}
@@ -147,5 +216,5 @@ centralized, carefully curated system. CloudKeep, however, lacks the
 generic flexibility and powerful semantics of Custos's authentication
 and access control mechanisms.
 
-%%  LocalWords:  CryptoCache OceanStore SFS Plutus Custos SSaaS
+%%  LocalWords:  CryptoCache OceanStore SFS Plutus Custos SSaaS TPP
 %%  LocalWords:  Rackspace's CloudKeep Custos's

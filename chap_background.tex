@@ -391,47 +391,6 @@ mappings, only role mappings. Likewise, adding or removing permissions
 does not require modifying user mappings, only role
 mappings.
 
-The primary limitation of all of the access control models mentioned
-thus far is their reliance on a trusted arbiter for enforcement:
-generally this trusted arbiter is the operating system or some other
-underlying program in charge of enforcing the access control
-system. This means that the security of any of these access control
-systems is only as good as the security of the system enforcing them
-(e.g. the security of the OS). Thus, if the underlying OS or program
-is compromised, the access control system falls apart. Likewise,
-anyone in control of the underlying OS or program (e.g. an
-administrator) automatically gains full control over the access
-control system. This is an acceptable limitations in many situations,
-especially those based on a centrally managed system with existing
-physical security and administrative safeguards in place. But in
-distributed systems or other systems where physical and management
-control in not guaranteed (e.g. the cloud), a more robust system that
-lacks this ``trusted arbiter'' requirement is desirable.
-
-To overcome the need for a trusted enforcement mechanism in access
-control systems, researchers have turned to cryptographically-based
-access control systems. As mentioned in Section~\ref{chap:background:crypto},
-cryptographic-based system require no trust in external systems, only
-in the underlying math. Sahaie, Waters, et. al. propose several
-cryptographically-based access control systems in their 2006
-paper~\cite{Goyal2006} and its 2007 follow-up~\cite{Bethencourt2007}.
-These two systems are based on the concept of Attribute-Based
-Encryption (ABE) schemes. ABE schemes allow a user to encrypt a
-document in a manner such that the access control rules associated
-with the document are part of the encryption process itself. Thus, in
-order to decrypt/access a document, a user must satisfy one or more
-cryptographically guaranteed access control attributes.
-\cite{Goyal2006} allows user to encrypt documents that can only be
-decrypted by users possessing specific attribute polices encoded in
-their keys. \cite{Bethencourt2007} extended this concept to allow
-documents to be encrypted with a full access control policy tree
-embedded in the encryption processed file directly allowing only users
-who's private keys meet a generalized set of requirements to access
-the documents. Both these systems allow the construction of access
-control systems that do not require any trusted arbiter to regulate
-access to objects. Instead, the regulation in enforced by the
-underlying encryption backed by the associated math.
-
 \section{The Cloud}
 
 The previous 10 years have seen a major shift in the manner in which
