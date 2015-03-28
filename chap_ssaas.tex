@@ -85,3 +85,125 @@ For these reasons, I feel that storing cryptographic keys with an SSP
 is a common enough use case that some SSPs may specifically optimize
 for it. Such ``Key Storage as a Service'' (KSaaS) SSPs represent a
 subset of the generic SSaaS model.
+
+\subsection{Secret Storage Providers}
+
+In the SSaaS model, SSPs will offer a standard set of features. These
+include a standardized interface, access control primitives, and
+auditing capabilities. These features provide the basis of building
+privacy-preserving SSaaS-backed applications.
+
+\subsubsection{Secret Storage}
+
+At its core, an SSP provider is offering a key:value data storage
+model. Each secret is tagged with a key: a unique identifier,
+potentially a UUID~\cite{leach2005} or similar unique ID standard. The
+value associated with each key is then the user secret itself, be it a
+cryptographic key, personal user data, or arbitrary secret
+value. Users are able to query each SSP for the value associated with
+a given ID, or to add new secrets to each SSP.
+
+Optionally, SSPs may provide versioning of each id:secret pair. This
+may be desirable for use cases where the user wishes to share data
+with other users while maintaining the ability to revoke shared access
+to future versions of a data set. Such ``lazy
+revocation''~\cite{kallahalla2003} capabilities can be built atop
+versioning schemes that maintain access control information on a
+per-version basis. Such applications are discussed further in
+Chapter~\ref{chap:apps}.
+
+I foresee each SSP exposing its key-value secret store via a RESTful
+HTTPS-based API. The ubiquity of RESTful interfaces in modern
+applications ensures that such an interface will allow simple
+communication between a client and the SSP across a wide variety of
+platforms. This interface will expose create, read, modify, delete
+semantics similar to most existing key:value stores. In fact, I assume
+that most SSP implementations will use an off-the-shelf key-value
+store as the backend for storing user secrets. I intend for SSPs to
+utilize a standard API in order to allow user to interact with
+multiple SSPs and transfer their secrets between SSPs.
+
+\subsubsection{Access Control}
+
+The SSP data model associates an access control specification with
+each id:secret pair (or in a versioned system, with each
+id:version:secret set). This specification governs the manner in which
+a given secret can be accessed. Such specification will be provided
+and controlled by individual users for each secret they store with the
+SSP. The SSP is in charge of faithfully enforcing the access control
+specification.
+
+An access control specification control who can create, access,
+modify, or delete each secret. In contains information regarding both
+authentication (how a user provides they are who they claim to be) as
+well as authorization (what permission each authenticated user is
+granted). I foresee SSPs offering a standard access control framework
+in order to promote interoperability between multiple SSPs.
+
+It's important that the SSP access control model remain
+flexible. Since an SSP may be asked to store a variety of secrets in
+support of a range of use cases, the access control model must be
+expressive enough to avoid artificially limiting the user to specific
+use cases or secrets. For example, one use case might require a single
+user to satisfy multiple challenges in order to gain access to a
+highly sensitive secret while another might require autonomous access
+from system possessing an approved token during specific times of day
+to access less sensitive secrets used by autonomous processes (e.g. a
+data-center server booting an encrypted hard disk or backup systems).
+
+In addition to the key:value storage API operations discussed
+previously, an SSP will also expose endpoints for manipulating the
+access control parameters associated with each secret as part if the
+standard REST API. This interface will allow users to update access
+control information to allow data sharing with other users, revoke
+prior shared access, etc. This interface will, in turn, require it's
+own access control specification to ensure that only approved
+modification can be made to any secret's access control rules.
+
+\subsubsection{Auditing}
+
+In addition to access control, each SSP should provide auditing
+information related to the manner in which id:secret pair is accessed
+or modified. This information is useful to the user in order to
+provide additional transparency into the manner in which secrets are
+utilized. This auditing can be as simple as basic logging of all
+secret access or as complex as a system that automatically analyzes
+access patterns to try to detect anomalies that might indicate
+potential trust violations.
+
+Auditing information is useful to users for several reasons. In the
+event that user data or secrets are ever unintentionally leaked or
+compromised, audit information can provide a valuable indication of
+the scope of the damage. Furthermore, auditing plays an important role
+in allowing users to understand the semantics of access revocations:
+since it's unfeasible to revoke access to data another user has
+already read, audit information provides a user with the scope of
+potential revocable outstanding authorization allowances. E.g. if User
+A shares a secret with User B by granting them read access to it via
+their SSP, but then decides they'd rather revoke that access, User A
+can check the audit logs to determine if User B has yet accessed the
+shared secret and thus whether or not guaranteed revocation is even
+possible.
+
+As in the prior cases, an SSPs auditing capabilities will need to be
+exposed via a REST interface to allow client applications to leverage
+audit data. Likewise, audit API functions will need their own set of
+access control specifications in order to control who was access to
+audit information or the ability to delete that information. As
+before, standardizing this interface is desirable from an SSP
+interoperability standpoint.
+
+It may also be desirable for SSPs to employ some form of
+publicly-verifiable audit trail, similar to the concepts discussed in
+~\cite{blaze1996}. Such systems might today be constructed using
+block-chain-based primitives such as those available in the BitCoin
+crypto-currency network~\cite{Nakamoto2008}. Such systems might
+provide more robust variants on the ``warrant cannery'' concept that
+has recently become popular amongst a range of third party services
+providers as a counter measure against secret warrants, subpoenas, and
+court orders~\cite{eff-canary}. The semi-centralized nature of SSPs
+make them a desirable point at which to audit and detect unauthorized
+access requests for user data.
+
+%%  LocalWords:  SSaaS SSPs FPs SSP HTTPS TBD SSaaS's SSP's FP
+%%  LocalWords:  Shamir's BitCoin
