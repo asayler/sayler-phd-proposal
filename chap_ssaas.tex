@@ -1,12 +1,33 @@
 \chapter{Secret Storage as a Service}
 \label{chap:ssaas}
 
-\section{Architecture}
-\subsection{Stored Secrets}
-\subsection{Secret Storage Providers}
-\subsubsection{Secret Storage}
-\subsubsection{Access Control}
-\subsubsection{Auditing}
-\subsection{Clients}
-\section{Economics}
-\section{Security and Trust}
+As discussed in Chapter~\ref{chap:challenges}, the reliance on third
+parties inherent to many popular use cases today poses a number of
+privacy and security related challenges. Fortunately, cryptographic
+techniques including encryption and authentication provide the
+necessary primitives for building a systems that increases the
+security and privacy of users by reducing their exposure to third
+party-related abuse. Such systems also provide additional security
+outside of the traditional third-party risk model by ensure that
+systems such as mobile devices that are prone to loss or theft remain
+security even when outside the position of their
+owners. Unfortunately, cryptography is not merely ``magic fairy dust''
+that we can sprinkle on any security or privacy problem to make it
+disappear~\cite{smith2003}. Effectively using cryptographic technique
+to secure our data involves ensuring that cryptography-employing
+security and privacy enhancing solution are designed securely and
+usability.
+
+The key to designing secure and usable cryptographic data security
+solutions lies in providing secure and flexible secret storage systems
+that can be leveraged to manage and access the associated
+cryptographic keys protecting any such system. The failure of
+traditional cryptographic systems to account for key management has
+led many such systems to be unusable, insecure, and/or ill adapted to
+modern user cases. I propose the creation of a standardized Secret
+Storage as a Service system designed to provide users with the
+necessary tools for managing secrets such as cryptographic keys in a
+manner that allows for a range of multi-device and multi-user use
+cases and that avoids placing high degrees of trust in signaler third
+parties. I present the design and justification of such a system in
+this chapter.
