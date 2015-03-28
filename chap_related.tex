@@ -286,21 +286,37 @@ keys.
 
 \subsection{Password Managers}
 
-\cite{lastpass, onepassword, apple-icloud}
-\cite{schneier-passwords, krebs-passwords, brodkin-passman}.
+One of the most common form of third-party secret storage available
+toward is that of password management. The well documented failure of
+user-chosen passwords as a reliable security
+mechanisms~\cite{goodin-bible, goodin-passwords} has led experts to
+recommend that all user rely instead on a single password manager
+capable of storing unique and random passwords for each website or
+service they use~\cite{schneier-passwords, krebs-passwords,
+  brodkin-passman}.
 
+Systems such as LastPass~\cite{lastpass} and
+OnePassword~\cite{onepassword} provide users with a hosted platform on
+which to manage and store their passwords. These systems utilize a
+single-third party for data storage in order to accommodate the
+multi-device sync and multi-user sharing use cases presented in
+Section~\ref{chap:challenges:usecases}. But in doing so, they require
+the user to place a fair amount of trust in the third-party
+provider. Such systems due tend to perform client-side encryption and
+avoid storing the user's master password in a recoverable form,
+mitigating some potential for third party risk, but at the end of the
+day, they still require the user to trust a single third party with
+their credentials, and by proxy, access to their online services and
+accounts.
 
-Password management systems (e.g.~\cite{lastpass} share some of the
-same goals as Custos and can be viewed as a subset of the more generic
-SSaaS model. Such systems are designed to enable users to use longer,
-less predictable passwords by providing a dedicated system that stores
-and fills password feels on a user's behalf. The user must only
-remember a single strong password, relying on the password manager to
-store and supply long random passwords for all the other services a
-user leverages. Custos could be used as the secret storage back end
-for a range of existing password manager front ends, providing more
-flexible password access control semantics in the process and allowing
-the user to select a SSaaS provider of their choice.
+Password management systems share some of the same goals I propose in
+this document - namely the storage of end-user secrets in a secure and
+easy-to-use manner. Thus, password storage can be viewed as a special
+case of the more generic Secret Storage as a Service model. In this
+work, I'll present more versatile and generalized solutions to the
+secret storage problem. Such solution could be used to implement the
+password manger concept while also decoupling such implementation form
+needing to trust a single third party.
 
 \subsection{Storage Tools}
 
@@ -343,4 +359,5 @@ providers.
 
 %%  LocalWords:  CryptoCache OceanStore SFS Plutus Custos SSaaS TPP
 %%  LocalWords:  Rackspace's CloudKeep Custos's CryptDB CleanOS NSA
-%%  LocalWords:  Snowden Mailpile TextSecure ChatSecure
+%%  LocalWords:  Snowden Mailpile TextSecure ChatSecure LastPass
+%%  LocalWords:  OnePassword
