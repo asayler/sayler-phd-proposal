@@ -359,43 +359,134 @@ applications. The work proposed in this document could be sure to
 re-implement such systems while further suppressing the final vestiges
 of single-party trust.
 
-\section{Key Management and Key Escrow Systems}
+\section{Key Management Systems}
 \label{chap:related:keymgmt}
 
-\cite{blaze1996, denning1996}
-\cite{cloudkeep-presentation, cloudkeep}
-\cite{gazzang, porticor, rosen2012}
-\cite{amazon-hsm}
+As mentioned in Section~\ref{chap:challenges:solutions}, one of the
+main hindrances to bootstrapping secure systems\ today is the lack of
+a versatile key-management systems capable of supporting modern use
+cases while also minimizing third party trust. Such key management
+systems are subsets of the larger secret storage problem discussed in
+this proposal. I am not, however, the first to recognize key
+management as one of the critical components to building flexible and
+secure privacy and security enhancing systems.
 
-Rackspace's CloudKeep~\cite{cloudkeep} aims to create a standardized
-key management system for use across multiple applications, avoiding
-the need to re-implement such systems in each application. Similar to
-Custos, CloudKeep aims to ease developer burden while increasing the
-security of end-user applications by focusing security code in a
-centralized, carefully curated system. CloudKeep, however, lacks the
-generic flexibility and powerful semantics of Custos's authentication
-and access control mechanisms.
+\subsection{Key Management in Storage Systems}
 
-As we have shown, however, many
-of these system suffer from the entanglement of key management and the
-underlying encryption. We are not the first to recognize the
-challenges this entanglement imposes. SFS~\cite{mazieres1999} and
-Plutus~\cite{kallahalla2003} were designed to separate cryptographic
-key management from encrypted data storage, allowing for more flexible
-key management in the process. But both SFS and Plutus fail to fully
-define a standardized, generic, and flexible external system for
-storing and managing keys, making a generic ``Secret Storage as a
-Service'' architecture impossible to realize with either system. In
-particular, SFS purposely avoids specifying any key management
-solution, instead focusing on mechanisms that allow the user to select
-their own key management system (e.g. Custos). Plutus provides basic
-key management functionality, but it bundles these tightly with the
-underlying file system, forcing the user to use both or neither and
-preventing the user from selecting dedicated third party SSaaS
-providers.
+As discussed previously, many existing secure storage systems fail to
+meet the needs of today's users due to the fact that their restrictive
+and tightly coupled key management systems fail to accommodate a range
+of modern use cases. A number of existing secure file systems have
+acknowledged the issues created by tightly coupling key management
+with a specific storage solution (or of ignoring key management all
+together and forcing the user to deal with securing their keys
+themselves). These systems represent a step toward more flexible key
+management, and by proxy, more usable secure file storage.
 
+Systems like Plutus~\cite{kallahalla2003} are designed to isolate key
+management as a dedicated system component. While this is the first
+step toward solving many of the key management problems, Plutus simply
+shifts key management into the client, providing some degree of
+user-facing key management flexibility, but failing to provide a
+standardized and general key management
+system. SFS~\cite{mazieres1999} takes this separation a step further
+by proposing various standardize mechanisms by which a user might
+manage keys and an externally-facing interface for doing so. But even
+SFS fails to define a general system for key management, instead
+focusing on mechanisms that allow the user to select their own key
+management system.
+
+A system such as SFS, however, could be interfaced with a general
+secret storage systems such as those proposed in this document. Such
+applications of s standardized secret storage systems are discussed
+further in Chapter~\ref{chap:apps}.
+
+\subsection{Key Escrow}
+
+Key escrow systems represent on common form of key management system.
+key escrow systems exist with the aim of fitting client-side key
+management into hierarchical organizational frameworks where upper
+level members may need access to subordinate's keys. Such systems have
+also been proposed in regulatory environments where law enforcement or
+regulatory personal must be able to access certain forms of otherwise
+secure data. Escrow systems also prove beneficial in situations where
+a key holder would like to hedge against the loss of their copy of the
+key without having to fully trust any other single party with a
+copy. Such systems often leverage secret-sharing schemes such as
+Shamir~\cite{shamir1979} to accomplish there goals.
+
+Early key escrow systems merely provided a trusted third party with a
+secondary copy of a given data encryption key (and/or generated data
+encryption keys in a manner such that two separate keys could be used
+to decrypt any given piece of data)~\cite{denning1996}; e.g. the
+infamous NSA-backed Clipper chip. These systems, however, fail the
+single-trusted-third-party test, requiring a high degree of user trust
+in at least one external entity. To overcome such trust
+concentrations, Blaze proposes a distributed key escrow system that
+makes key escrow requests transparent and leverages a distributed
+consensuses to avoid any single rouge actor missing such a system to
+steal a key or gain unauthorized access to end-user
+data~\cite{blaze1996}.
+
+While distributed key management systems such as those proposed by
+Blaze succeed in managing trust in any singular third party, they fail
+to provide for a more general key management system that moves beyond
+traditional escrow-based user cases (e.g. key sharing for multi-device
+sync or key sharing for document collaboration). Furthermore, the
+existing scholarship around key escrow systems fail to explore the
+benefits and possibilities inherent in the general and standardized
+secret storage systems described in this proposal. The general secrets
+storage systems described in this proposal can, however, fulfill many
+of the traditional roles of a key-escrow system.
+
+\subsection{Cloud Key Management}
+
+Perhaps the most closely related work to that proposed here is the
+various cloud-backed key-management systems introduced over the
+previous five years. These systems are a reaction to many of the
+developer-facing use cases discussed in
+Section~\ref{chap:challenges:usecases}. They aim to make key
+management and secure key storage primitives available to developers
+building atop cloud platforms.
+
+Rackspace's CloudKeep\cite{cloudkeep-presentation, cloudkeep} aims to
+create a standardized key management system for use across multiple
+applications, avoiding the need to re-implement such systems in each
+application. Similar to the SSaaS system proposed in this document,
+CloudKeep aims to ease developer burden while increasing the security
+of end-user applications by focusing security code in a centralized,
+carefully curated system. Similar commercial systems also exist with
+the aim of proving developers with turnkey key-management
+systems~\cite{gazzang, porticor, rosen2012}. Such systems, however,
+lack the generic secret-storage flexibility of the systems discussed
+here. They also lack the cross-platform standardized necessary to
+incentive some of the trust-preserving behavior discussed in
+Chapter~\ref{chap:ssaas}.
+
+Finally, various IaaS platforms have begun offering cloud-based
+Hardware Security Module (HSM) solutions. HSMs traditionally refer to
+dedicate hardware co-processors capable of storing user cryptographic
+keys in a manner that prevents them from ever being extracted. Such
+processors are then tasked with performing all necessary cryptographic
+operations using such keys on the users behalf. Standardized
+interfaces such as PKCS11~\cite{pcks11-standard} exist to allow
+programs to communicate and utilize such hardware. The benefits of
+such chips lie in their ability to securely store cryptographic keys
+and to perform cryptographic operations without exposing such keys to
+the shared computer memory space, potentially leaking them in the
+process (i.e. as in Heartbleed~\cite{heartbleed}. )Amazon has recently
+begun offering a cloud-backed HSM service~\cite{lorier-pkcs11} that
+aims to make the benefits of dedicated HSM hardware available in the
+virtualized world of the cloud~\cite{amazon-hsm}. Such systems, while
+helpful for developers who wish to build HSM-dependent systems that
+operate on local or cloud hardware, still require placing a high
+degree to trust in a single third party to faithfully operate such
+virtual HSMs. The SSaaS work discussed in this proposal could
+potentially be used to build similar ``soft'' HSM systems without
+requiring single third party trust~\cite{lorier-pkcs11}.
 
 %%  LocalWords:  CryptoCache OceanStore SFS Plutus Custos SSaaS TPP
 %%  LocalWords:  Rackspace's CloudKeep Custos's CryptDB CleanOS NSA
-%%  LocalWords:  Snowden Mailpile TextSecure ChatSecure LastPass
-%%  LocalWords:  OnePassword Diffie SpiderOak Tresorit Wuala
+%%  LocalWords:  Snowden Mailpile TextSecure ChatSecure LastPass IaaS
+%%  LocalWords:  OnePassword Diffie SpiderOak Tresorit Wuala Shamir
+%%  LocalWords:  HSMs PKCS Heartbleed
