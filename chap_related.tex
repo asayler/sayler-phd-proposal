@@ -263,19 +263,23 @@ TextSecure~\cite{openwhisper} system or
 ChatSecure~\cite{chatsecure}. Both systems rely on the Off-the-Record
 securing messaging protocol to achieve encrypted, authenticated, and
 forward-secure\footnote{Forward secrecy is a property of secure
-  communication that ensures that short-term sessions keys used to
+  communication that ensures that the short-term sessions keys used to
   protect individual messages can not be derived from any long-term
   authentication or related keys. In short, it guarantees that prior
-  communication can not be decrypted even when and adversary manages
-  to compromise a long-term user key at a future date.} real-time
-communication between two or more parties~\cite{otr-v3, borisov2004,
-  goldberg2009}. Such systems aim to make secure real-time
-communication as simple as possible, and have shown promise in terms
-of popularity and usability. But these systems are not necessarily
-well suited to replace PGP since they rely on the real-time nature of
-chat communication to attain forward secrecy. Similarly usable and
-forward-secure solutions for non-real-time systems like email systems
-remain elusive.
+  messages can not be decrypted in the future should an adversary
+  manage to compromise a long-term user key at any point. Such systems
+  are commonly implemented by decoupling session keys form user
+  authentication keys, using of a systems such as Diffie-Hellman key
+  derivation~\cite{diffie1976} to generate the former while only
+  relying on the latter for the prevention of Man-in-the-Middle
+  attacks.} real-time communication between two or more
+parties~\cite{otr-v3, borisov2004, goldberg2009}. Such systems aim to
+make secure real-time communication as simple as possible, and have
+shown promise in terms of popularity and usability. But these systems
+are not necessarily well suited to replace PGP since they rely on the
+real-time nature of chat communication to attain forward
+secrecy. Similarly usable and forward-secure solutions for
+non-real-time systems like email systems remain elusive.
 
 While secure communication systems are seeing a lot of development and
 showing promise, all of the solutions discussed above are
@@ -310,18 +314,48 @@ their credentials, and by proxy, access to their online services and
 accounts.
 
 Password management systems share some of the same goals I propose in
-this document - namely the storage of end-user secrets in a secure and
-easy-to-use manner. Thus, password storage can be viewed as a special
-case of the more generic Secret Storage as a Service model. In this
-work, I'll present more versatile and generalized solutions to the
-secret storage problem. Such solution could be used to implement the
-password manger concept while also decoupling such implementation form
-needing to trust a single third party.
+this document -- namely, the storage of end-user secrets in a secure
+and easy-to-use manner. Thus, password storage can be viewed as a
+special case of the more generic Secret Storage as a Service model. In
+this work, I'll present more versatile and generalized solutions to
+the secret storage problem. Such solution could be used to implement
+the password manger concept while also decoupling such implementation
+form needing to trust a single third party.
 
 \subsection{Storage Tools}
 
-\cite{spideroak}
+Beyond secure communication and password storage lies the more general
+problem of arbitrary secure user storage. As mentioned in
+Section~\ref{chap:challenges:usecases}, many user expect such storage
+to provide multi-user and multi-device support in addition to raw
+secure storage, disqualifying many of the traditional encrypted file
+system solutions form the running. Popular storage services like
+Dropbox~\cite{dropbox} or Google Drive~\cite{google-drive} are common
+today, but these solutions provide the associated third parties with
+unfettered access to user data, making them unsuitable for users who
+wish their data to remain private.
 
+To overcome issues with systems like Dropbox while still affording
+users access to modern file-store amenities, systems such as
+SpiderOak~\cite{spideroak}, Tresorit~\cite{tresorit}, and
+Wuala~\cite{wuala} have been built with the aim of providing users
+with a Dropbox-like alternative that does not require trusting the
+storage provider. Such services shift the encryption of data into the
+client, helping to ensure the server only ever holds an encrypted copy
+of said data. None the less, the confidentially and privacy claims
+made by such services, however, have been shown to be
+dubious~\cite{Wilson2014}, largely due to the fact the a user must
+still place a large degree of trust in the backing third party in
+order to facilitate sharing use cases.
+
+As before, however, these solutions are purpose built for secure
+storage, and fail to provide a more general solution for minimizing
+third party trust. Furthermore, as mentioned above, these services
+still rely on a moderate degree of trust in a single third party in
+order to facilitate sharing use cases and to provide end-user
+applications. The work proposed in this document could be sure to
+re-implement such systems while further suppressing the final vestiges
+of single-party trust.
 
 \section{Key Management and Key Escrow Systems}
 \cite{blaze1996, denning1996}
@@ -360,4 +394,4 @@ providers.
 %%  LocalWords:  CryptoCache OceanStore SFS Plutus Custos SSaaS TPP
 %%  LocalWords:  Rackspace's CloudKeep Custos's CryptDB CleanOS NSA
 %%  LocalWords:  Snowden Mailpile TextSecure ChatSecure LastPass
-%%  LocalWords:  OnePassword
+%%  LocalWords:  OnePassword Diffie SpiderOak Tresorit Wuala
