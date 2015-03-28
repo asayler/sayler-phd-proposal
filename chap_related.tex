@@ -217,11 +217,78 @@ designs to better account for the key management challenges limiting
 the use of such systems today.
 
 \section{Enhancing End-User Security}
-\cite{openpgp, pgp, gnupg}
-\cite{enigmail, mailpile, koch2011}
+
+The Edward Snowden leaks, as well as the numerous highly publicized
+privacy failures of a range of companies from Facebook to Target, have
+fueled renewed calls for improved security and privacy enhancing
+technologies aimed at end-users. In response to these calls, a number
+of organizations have begun offering new classes of security and privacy
+enhancing tools. Many of these tools share the goals proposed in this
+work -- namely the creation of easy-to-use security and privacy enhancing
+tools well adapted for modern usage demands.
+
+\subsection{Communication Tools}
+
+Many of the recent security and privacy enhancing tools have focused
+on securing user-to-user communication. Both the contents of and
+meta-data associated with such communication has been the focus of
+many of the NSA leaks~\cite{schneier-metadata}. In reaction, we've
+seen the creation of new and advocacy for existing secure communion
+tools.
+
+Email is one of the primary communication medium today. The
+traditional tools of for securing emails, OpenPGP~\cite{openpgp} and
+its various implementation (e.g. GnuPG~\cite{gnupg} and Symantec
+PGP~\cite{pgp}), are not new. But they have seen renewed levels if
+interest after Edward Snowden reveled his use of such tools and
+advocated for them as effective NSA counter measures. Unfortunately
+these tools remain no more usable today then they were 20 years ago,
+leading to the multitude of usability issues discussed in
+Section~\ref{chap:background:usability}. In response, tools like
+Mailpile~\cite{mailpile} and Whiteout~\cite{whiteout} have been
+created with the aim of making PGP-based email security more friendly
+for the average user. Similarly, Google and Yahoo have both engaged in
+efforts aimed and making PGP-like encryption and authentication
+systems available to their webmail users~\cite{google-endtoend,
+  yahoo-endtoend}. Other systems such as STEED aim to adapt
+traditional PGP principles to make the primitives simpler for the
+average user to deal with~\cite{koch2011}.
+
+But even these recent pushes to re-skin PGP and make it more usable
+can't overcome many of the fundamental issues with the
+system~\cite{green-pgp}. Nor are they well suited for securing another
+major form of modern communion: real-time chat. To overcome these
+deficiencies, systems like Open Whisper's
+TextSecure~\cite{openwhisper} system or
+ChatSecure~\cite{chatsecure}. Both systems rely on the Off-the-Record
+securing messaging protocol to achieve encrypted, authenticated, and
+forward-secure\footnote{Forward secrecy is a property of secure
+  communication that ensures that short-term sessions keys used to
+  protect individual messages can not be derived from any long-term
+  authentication or related keys. In short, it guarantees that prior
+  communication can not be decrypted even when and adversary manages
+  to compromise a long-term user key at a future date.} real-time
+communication between two or more parties~\cite{otr-v3, borisov2004,
+  goldberg2009}. Such systems aim to make secure real-time
+communication as simple as possible, and have shown promise in terms
+of popularity and usability. But these systems are not necessarily
+well suited to replace PGP since they rely on the real-time nature of
+chat communication to attain forward secrecy. Similarly usable and
+forward-secure solutions for non-real-time systems like email systems
+remain elusive.
+
+While secure communication systems are seeing a lot of development and
+showing promise, all of the solutions discussed above are
+communication-specific solutions. As such, they are complimentary to
+the more work presented in this proposal related to general methods
+for reducing third party trust and managing secrets and cryptographic
+keys.
+
+\subsection{Password Managers}
+
 \cite{lastpass, onepassword, apple-icloud}
 \cite{schneier-passwords, krebs-passwords, brodkin-passman}.
-\cite{spideroak}
+
 
 Password management systems (e.g.~\cite{lastpass} share some of the
 same goals as Custos and can be viewed as a subset of the more generic
@@ -234,6 +301,11 @@ user leverages. Custos could be used as the secret storage back end
 for a range of existing password manager front ends, providing more
 flexible password access control semantics in the process and allowing
 the user to select a SSaaS provider of their choice.
+
+\subsection{Storage Tools}
+
+\cite{spideroak}
+
 
 \section{Key Management and Key Escrow Systems}
 \cite{blaze1996, denning1996}
@@ -270,4 +342,5 @@ providers.
 
 
 %%  LocalWords:  CryptoCache OceanStore SFS Plutus Custos SSaaS TPP
-%%  LocalWords:  Rackspace's CloudKeep Custos's CryptDB CleanOS
+%%  LocalWords:  Rackspace's CloudKeep Custos's CryptDB CleanOS NSA
+%%  LocalWords:  Snowden Mailpile TextSecure ChatSecure
