@@ -205,5 +205,61 @@ court orders~\cite{eff-canary}. The semi-centralized nature of SSPs
 make them a desirable point at which to audit and detect unauthorized
 access requests for user data.
 
+\subsection{Clients}
+
+While SSPs form one half of the SSaaS architecture, the other half is
+formed by clients connecting to and leveraging data from
+SSPs. Chapter~\ref{chap:apps} discusses potential SSaaS use cases and
+application in detail. I outline some of the basics of SSaaS client
+deign here.
+
+An SSaaS client is any system designed to connect to and utilize a
+Secret Storage Provider service. Clients communicate with one or more
+SSaaS providers via the SSaaS API. Clients can store and retrieve
+secrets with each SSP, managing secret access control settings, and
+retrieve secret access audit info. Examples of SSaaS client
+applications include encrypted file systems, secure communication
+systems, dedicated crypto-processing systems, etc. Any system that
+stands to benefit from offloading secret storage and management to a
+dedicated system, either for the purpose of gaining benefits form the
+logically centralized nature of an SSP (e.g. for the purpose of
+accessing secrets from multiple devices or for sharing them with
+multiple users) or simply to avoid implementing a full secret
+management and access control stack locally, is a good candidate for
+integration into an SSaaS architecture.
+
+Is the simplest case, each SSaaS client communicates with a single
+upstream SSP via a standard SSaaS protocol. The standardized protocol
+allows the end-user to specify which SSP they wish to use, but each
+secret is stored with only a single SSP. The downside to such
+arrangements lies in the fact that storing each secret with only a
+single SSP raises both trust and availability concerns (the details of
+which are discussed below). To overcome such concerns, I believe it
+will often be desirable for each SSaaS client to interact with a
+network of several upstream SSPs. In this situation, each secret can
+be sharded between multiple SSPs - increasing reliability while
+reducing trust.
+
+Such multi-SSP arrangement, however, raise client side management
+issues. How are access control rules shared between SSPs? How does the
+client keep multiple SSPs in sync? And so on... Answering such
+questions is some of the work I propose to undertake in
+Chapter~\ref{chap:planned}. But the complexity of such solutions will
+likelihood call for the creation of a standardize SSaaS client library
+that can be utilized by multiple applications. Such a library avoids
+the need for each SSaaS client to reimplement SSaaS communication and
+management primitives directly. Building on the idea of a common SSaaS
+client library is the idea of a common SSaaS management
+application. Many of the SSaaS-related management features,
+e.g. setting up access control requirements, checking audit logs,
+etc., are common across all SSaaS client applications. It may thus be
+desirable to offload such functions to a general SSaaS client
+management applications in cases where such functions need not be
+tightly coupled with a given SSaaS-backed applications. Such
+offloading allows the primary SSaaS-backed applications to focus
+purely on the secret storage and retrieval side of the SSaaS API while
+dedicated management applications handle all of the access control and
+auditing side of the SSaaS API.
+
 %%  LocalWords:  SSaaS SSPs FPs SSP HTTPS TBD SSaaS's SSP's FP
 %%  LocalWords:  Shamir's BitCoin
