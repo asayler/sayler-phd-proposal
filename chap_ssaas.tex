@@ -31,3 +31,57 @@ manner that allows for a range of multi-device and multi-user use
 cases and that avoids placing high degrees of trust in signaler third
 parties. I present the design and justification of such a system in
 this chapter.
+
+\section{Architecture}
+\label{chap:ssaas:arch}
+
+Secret Storage as a Service (SSaaS) is a cloud architecture where
+users utilize dedicated Secret Storage Providers (SSPs) in addition to
+the traditional Feature Providers (FPs) like Amazon, Dropbox, Gmail,
+or Facebook. An SSP is tasked with the storage of and access control
+to a variety of user secrets from cryptographic keys to personal
+data. In the normtiize case, users will limit themselves to storing
+crtopgphclly protect data on thrid-party FP servers while storign teh
+associted crtipgrhic keys proticign such data with a network of
+SSPs. This allows SSPs to be selected on the basis of their
+trustworthiness while traditional feature providers can be selected on
+the basis of their features. The SSaaS model differs from the
+traditional cloud model by allowing users to distribute trust across
+multiple third parties (or no third parties at all), ensuring that any
+single entity need not be fully trusted, while still enabling many
+existing cloud use cases.
+
+\subsection{Stored Secrets}
+
+What kind of secrets do we store with an SSP? I believe that users
+should really be able to store arbitrary data with any SSP, allowing
+open ended secret storage based applications. That said, the SSP model
+works best when secrets stored are not inherently sensitive or
+revealing when taken alone. This property helps to mitigate the amount
+we must trust each SSP. Thus, storing secrets like cryptographic keys
+that alone revel no private user data are generally preferable to
+storing privacy revealing secrets like plain-text passwords, social
+security numbers, etc. I do, however, leave the decision of what to
+store with each SSP up to each user and application, and we'll explore
+various types of secret storage in Chapter~\ref{chap:apps}.
+
+Another consideration related to what secrets to store with an SSP is
+size. I anticipate SSP-based storage selling at a premium price vs
+more traditional cloud storage options like S3~\cite{amazon-s3}. This
+is due to the difference in priorities between Secret Storage and
+generic cloud storage. An SSP is primarily concerned with safeguarding
+user secrets and faithfully implementing a user's access control
+specifications for each secret. These priorities may very well incur
+additional costs not necessary in a more traditional cloud storage
+environments: e.g. the need to locate data centers in specific legal
+jurisdictions, a greater emphasis of resistant to compelled violations
+via legal representation, etc. Thus, it may be desirable for the user
+to minimize the amount of data stored with an SSP as a cost
+optimization: again making use cases such as storing cryptographic
+keys with an SSP while storing the encrypted data with a more
+traditional provider desirable.
+
+For these reasons, I feel that storing cryptographic keys with an SSP
+is a common enough use case that some SSPs may specifically optimize
+for it. Such ``Key Storage as a Service'' (KSaaS) SSPs represent a
+subset of the generic SSaaS model.
