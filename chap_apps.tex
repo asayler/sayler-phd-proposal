@@ -70,9 +70,72 @@ and security by reducing exposure to third parties without incurring
 undue additional usability burdens or denying access to desirable use
 cases.
 
-\subsection{Server Full Disk Encryption}
+\subsection{Server Data Encryption}
+
+Beyond consumer-oriented SSaaS-backed encryption systems, there's
+strong case for using SSaaS-backed encryption systems for
+datacenter-based servers. Leveraging virtual (as well as physical)
+servers hosted in cloud data centers is an extremely popular mode of
+infrastructure deployment. Unfortunately, as mentioned in
+Chapter~\ref{chap:challenges}, the administrator's lack of physical
+access to such servers makes it difficult to utilize privacy-enhancing
+technologies like Full Disk Encryption (FDE) or file-system level
+encryption. In the FDE case, users are generally required to provide
+some form of decryption pass-phrase or physical dongle key at boot
+time in order to securely bootstrap the system. Similarly, even in the
+file-system level encryption case, encryption systems generally
+require some form of interactive mechanism to provide the necessary
+security pass-phrase bootstrapping the system. Indeed, the lack of
+such human-in-the-loop controls hints to serious flaws in the security
+of traditional encryption systems. Since administrators generally lack
+easy physical access to datacenter-based servers as well as
+interactive presence on headless server-oriented machines in general
+using traditional encryption systems with must server remains
+difficult, if not impossible.
+
+These deficiencies can largely be resolved by relying on SSaaS-backed
+encryption systems - either full disk or file-system oriented. Using
+SSaaS, a user would configure each server to store their file
+encrypting and verification keys with an SSP (or SSPs), configuring
+each server to request the keys from the SSP at boot or on access to
+an encrypted file. Non-interactive authentication could be provided
+using contextual security techniques (e.g. do you expect a server to
+be rebooted at a certain time of day each day?) to allow for such
+encryption systems to operate largely autonomously. In more sensitive
+situations, the SSPs access control system could even keep the user in
+the loop as in the traditional encryption use cases by asking them to
+provide a pass-phrase or decryption approval via text message or
+similar out-of-band real time communication method each time key
+access is required.
+
+Such systems would allow users to store sensitive data on servers
+while minimizing the degree of trust they must place in third-party
+data center hosts. Such servers would store most data in an encrypted
+data, ensuring that a physical search of the server or other
+interference from the data center host would revel little data. Online
+online/in-use data would be decrypt at any given time, and even that
+data would be difficult for the data center host to access without
+employing high degrees of subterfuge. Even in cases where the data
+center host does manage to leverage their control of the underlying
+physical systems to trick an SSP into providing decryption keys in
+unattended situations, the SSP would still be able to log and audit
+the event - making ti extremely difficult for a data center host to
+access secure user data in an undetected manner.
+
+Possible implementation of server-based encryption efforts are
+discussed further in Chapter~\ref{chap:planned} as part of my
+proposed efforts. Such implementation stand to create mechanism to
+significantly decrease the amount of trust developers (and by proxy,
+their users) must place in the providers of hosted server
+infrastructure without significantly raising the cost or overhead of
+leveraging such services.
 
 \subsection{Mobile Device Encryption}
+
+
+\subsection{Personal Data Repository}
+
+
 
 \section{Communication}
 
@@ -83,4 +146,6 @@ cases.
 \subsection{Managed SSH}
 
 
-%%  LocalWords:  SSaaS CMAC SSPs SSP's SSP
+\section{Other}
+
+%%  LocalWords:  SSaaS CMAC SSPs SSP's SSP FDE
