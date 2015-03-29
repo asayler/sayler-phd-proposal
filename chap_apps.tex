@@ -23,7 +23,7 @@ associated encryption keys with one or more Secret Storage Providers.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[height=250px]{./figs/out/App-FileStore.pdf}
+  \includegraphics[height=200px]{./figs/out/App-FileStore.pdf}
   \caption{SSaaS-Backed Cloud File Storage System}
   \label{fig:apps-filestore}
 \end{figure}
@@ -181,7 +181,7 @@ guarantees).
 
 \begin{figure}[t]
   \centering
-  \includegraphics[height=250px]{./figs/out/App-DataRepo.pdf}
+  \includegraphics[height=200px]{./figs/out/App-DataRepo.pdf}
   \caption{SSaaS-Backed Personal Data Repo}
   \label{fig:apps-datarepo}
 \end{figure}
@@ -222,7 +222,51 @@ it (see the discussion in Section~\ref{chap:ssaas:trust}).
 
 \section{Communication}
 
+\begin{figure}[t]
+  \centering
+  \includegraphics[height=200px]{./figs/out/App-SecureEmail.pdf}
+  \caption{SSaaS-Backed Secure Email System}
+  \label{fig:apps-secureemail}
+\end{figure}
 
+The applications of SSaaS are not limited to data storage. Another
+potential area of applications involves secure communication between
+two or more parties. Such secure messaging systems are in growing
+demand, especially after the Edward Snowden revelations related to US
+Government monitoring of email and associated digital communication
+systems~\cite{gellman-muscular, greenwald-collect,
+  greenwald-prism}. While solutions like GnuPG~\cite{gnupg} exist to
+allow users to secure the contents of their mail, their complexity
+tends to limit their use to a small subset of advanced
+users~\cite{green-challenge, whitten1999}. The secure communication
+paradigm could be simplified through the use of SSPs in the SSaaS
+model.
+
+Figure~\ref{fig:apps-secureemail} illustrates a potential SSaaS secure
+communication use case. In this application, a user's mail client
+would encrypt the contents and subject of a user's email prior to
+sending it with a locally-generated single-use symmetric encryption
+key. The client would then upload this key to the user's SSP where the
+user would specify that their intended recipients should have read
+access to the key. The user could then send the encrypted mail. When
+received, the recipient's mail client would request the required key
+from the sender's SSP, providing appropriate credentials to prove
+their identity in the process, decrypt, and read the email. This
+system would be capable of supporting multi-recipient systems like
+newsgroups and would also allow the user to grant read access to
+additional users after the fact (e.g. should the recipient wish to
+forward the email to an additional trusted party), both capabilities
+that traditional public-key based email encryption struggle to
+support. Similar applications could be designed for real-time
+communication such as chat.
+
+As in previous cases, third party trust can be minimized by sharing
+keys across multiple SSPs. Furthermore, such systems could guarantee
+some degree of forward secrecy by having the SSP automatically expire
+and delete keys after a certain period of time -- something that
+traditional email encryption systems struggle to support. Such designs
+have the potential to raise the default level of security inherent in
+mass digital communication with significantly inconveniencing users.
 
 \section{Authentication}
 
@@ -231,4 +275,4 @@ it (see the discussion in Section~\ref{chap:ssaas:trust}).
 
 \section{Other}
 
-%%  LocalWords:  SSaaS CMAC SSPs SSP's SSP FDE iOS Repo
+%%  LocalWords:  SSaaS CMAC SSPs SSP's SSP FDE iOS Repo Snowden
