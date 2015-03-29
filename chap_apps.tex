@@ -132,6 +132,50 @@ leveraging such services.
 
 \subsection{Mobile Device Encryption}
 
+Beyond of the world of hosted storage a server systems, the SSaaS
+model provides benefit for the protection of local storage as well.
+In particular, mobile devices such as phones tables and laptops store
+huge quantities of personal information. Yet these devices are more
+prone to theft and loss then traditional computing systems such as
+desktops and servers. The encryption and protection of such devices is
+thus a high priority when working to improve the privacy and security
+of many users.
+
+Traditional device encryption systems have become prevalent in Android
+and iOS-base mobile devices~\cite{ars-android-encrypt,
+  ars-ios-encrypt}. Such systems are useful for ensuring that
+device-stored data can not be accessed when devices are shutdown or
+(when properly designed) locked, but they do little to protect data
+when the phone is (are has recently been) in use. Furthermore, the
+encryption keys for shut systems are stored locally (often via an HSM)
+and are generally only protected with a pin or short pass-phrase.
+
+Such encryption systems could be converted to an SSaaS model where the
+keys are stored with one or more SSPs, providing a number of benefits
+over existing systems. First, since keys are stored off-device in an
+SSaaS-backed encryption system, it's easy to revoke access to the keys
+remotely in the event that a device is lost or stolen, ensuring that
+an attacker can not guess a user's PIN and access their data. Second,
+such a systems could be used to protect individual pieces of data
+separately vs the current practice of unlocking all data when the
+device starts up. In doing so, it would be possible for a user to set
+per-app access control rules with their SSP, effectively reducing the
+trust the user must place in the apps they install on their
+devices. Users could leverage the SSaaS model to audit all app data
+access and limit apps to accessing only the data they are expected to
+need. Finally, an SSaaS system could provide more flexible access
+control semantics's on mobile device then the standard
+Everything/Nothing access model common today. For example, as SSaaS
+system could be setup to provide keys to one set of data to User A
+while providing keys to a separate set of data for User B --
+effectively protecting discreet sets of data on multi-user
+devices. Similarly, an SSaaS system could be configured to provide
+access overrides in specific situations -- e.g. allowing an authorized
+backup user to access the device and the data it stores in the event
+that the primary user become incapacitated (e.g. similar to the
+functionality proposed by Google's Inactive Account
+Manager~\cite{atlantic-google-iam}, but with cryptographic
+guarantees).
 
 \subsection{Personal Data Repository}
 
@@ -148,4 +192,4 @@ leveraging such services.
 
 \section{Other}
 
-%%  LocalWords:  SSaaS CMAC SSPs SSP's SSP FDE
+%%  LocalWords:  SSaaS CMAC SSPs SSP's SSP FDE iOS
