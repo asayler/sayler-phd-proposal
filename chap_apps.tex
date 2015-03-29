@@ -23,7 +23,7 @@ associated encryption keys with one or more Secret Storage Providers.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=150px]{./figs/out/App-FileStore.pdf}
+  \includegraphics[height=250px]{./figs/out/App-FileStore.pdf}
   \caption{SSaaS-Backed Cloud File Storage System}
   \label{fig:apps-filestore}
 \end{figure}
@@ -179,7 +179,46 @@ guarantees).
 
 \subsection{Personal Data Repository}
 
+\begin{figure}[t]
+  \centering
+  \includegraphics[height=250px]{./figs/out/App-DataRepo.pdf}
+  \caption{SSaaS-Backed Personal Data Repo}
+  \label{fig:apps-datarepo}
+\end{figure}
 
+Moving past traditional applications of storage and encryption, we
+could also leverage the SSaaS model to create a dedicated repository
+of personal user info (e.g SSN, address, etc). Entering personal user
+data on various websites is a common user requirement for placing
+orders, creating accounts, etc. This practice is undesirable for
+several reason. First, it is highly burdensome: users are continually
+forced to reenter the same info and must ensure they keep it up to
+date across multiple sites. Second, it distributes a lot of sensitive
+user data across a large number of actors in a manner that is very
+difficult for a user to control. Instead, I propose that a user shard
+their data across several SSPs and then point websites that require it
+directly at the SSPs themselves. The user can then specify Access
+Control rules with each SSP allowing specific websites access to the
+minimum data they require.
+
+Not only does this approach provide a central repository where the
+user can enter personal data and keep it up to date (e.g. when
+moving), but it also allows the user to limit each site's access to
+only certain data and provides an audit trail for the user to track
+exactly which sites have accessed which
+data. Figure~\ref{fig:apps-datarepo} illustrates such a use case. In
+this case, as opposed to the previous encrypted data + SSP-backed
+crypto-key use cases, we'll be storing sensitive user data directly
+with our SSPs. As such it will be important to shard the data across
+multiple SSPs in order to minimize the trust we must place in each
+individual SSP.
+
+Such applications could go a long ways toward minimizing the amount of
+sensitive personal data we have stored with large number of third
+parties in favor of concentrating it on only a handful of SSPs. Doing
+so both reduces the trust we must place with any single SSP and ensure
+the data is being stored with parties better incentivized to protect
+it (see the discussion in Section~\ref{chap:ssaas:trust}).
 
 \section{Communication}
 
@@ -192,4 +231,4 @@ guarantees).
 
 \section{Other}
 
-%%  LocalWords:  SSaaS CMAC SSPs SSP's SSP FDE iOS
+%%  LocalWords:  SSaaS CMAC SSPs SSP's SSP FDE iOS Repo
