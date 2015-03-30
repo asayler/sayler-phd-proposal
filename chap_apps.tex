@@ -5,7 +5,9 @@ As mentioned in previous chapters, the SSaaS model can be utilized
 across a range of existing and proposed applications. In each case,
 the model allows users to reduce the trust they must place in any
 single third party while retaining support for popular use cases
-today. I present several potential SSaaS applications in this chapter.
+today. I present several potential SSaaS applications in this
+chapter. Some of these applications were presented previously
+in~\cite{custos-trios}.
 
 \section{Storage}
 
@@ -405,7 +407,60 @@ the SSaaS model is deigned with the security and privacy of the
 configuration data it might store as a first principle, not a
 secondary concern.
 
-\section{Other}
+\section{Dedicated Crypto Processor}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{./figs/out/App-PKCS11.pdf}
+  \caption{SSaaS-Backed Dedicated Crypto Processor}
+  \label{fig:app-pkcs11}
+\end{figure}
+
+The recent Heartbleed bug~\cite{heartbleed} exposed one of the main
+risks of embedding cryptographic secret storage within the
+applications requiring access to these secrets: when applications
+break, they also risk exposing access to the private keys stored in
+the same memory segments. The Heartbleed fallout has forced everyone
+to reevaluate whether or not giving public-facing services direct
+access to cryptographic keys is a good idea. There has long existed an
+alternative: using a hardware security module (HSM) to perform
+dedicated crypto processing and key storage on behalf of other
+services. Such systems ensure that cryptographic keys are never
+exposed outside of the secure hardware module. Programs communicate
+with the HSM via a standard protocol like
+PKCS\#11~\cite{pcks11-standard}, sending the HSM clear-text data to
+encrypt and getting back the encrypted ciphertext in
+return. Unfortunately, most existing HSM solutions don't scale to the
+levels required for high-volume services. This has led some to suggest
+moving to a software-based ``HSM'' model~\cite{lorier-pkcs11}. Such
+softHSM systems would still ensure cryptographic keys remain stored in
+separate isolated memory spaces while also out-performing traditional
+HSM systems.
+
+A software-based dedicated crypto processing system is an ideal use
+case an SSaaS-backed system. Figure~\ref{fig:app-pkcs11} shows the
+potential design of such a system. Here, a Secret Storage Provider
+provider supplies the back-end key storage for a dedicated crypto
+processing server which performs cryptographic operations (e.g. SSL
+encryption and authentication) on behalf of a web-server. In this
+setup, the web-server never accesses any private cryptographic keys
+directly, mitigating one of the major risks Heartbleed
+exposed. Furthermore, the logically centralized nature of an SSaaS SSP
+allows dedicated crypto processing servers to scale horizontally
+(e.g. multiple load-balancing instances) as demand requires. Storing
+all keys via one or more SSPs allows new crypto processing instances
+to immediately access these keys without the need to utilize ad-hoc
+key-syncing or configuration management interfaces. Furthermore, The
+SSP's auditing functionality ensures that you always know which keys
+have been accessed by which systems, placing hard bounds on what an
+attacker may or may not have had access too: a luxury that
+Heartbleed-prone servers did not have.
+
+Such a design combines the benefits of a dedicated crypto-processor,
+separate from any front-end system, with the third-party trust liming
+nature of the SSaaS ecosystem. This combination allows for high speed
+cryptographic processing without placing a high degree of trust in any
+single system or party.
 
 %%  LocalWords:  SSaaS CMAC SSPs SSP's SSP FDE iOS Repo Snowden IaaS
-%%  LocalWords:  JumpCloud
+%%  LocalWords:  JumpCloud Heartbleed PKCS softHSM
