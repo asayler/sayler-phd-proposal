@@ -1,7 +1,79 @@
-\chapter{Planned Work}
+\chapter{Proposed Work}
 \label{chap:planned}
 
-\section{Surveys}
-\section{Multi-Party Sharding}
-\section{Implementations}
+Thus far, I've laid out an overview of the SSaaS model as a means for
+limiting third party trust and increasing the security and privacy of
+today's computing users across a range of modern use cases. In this
+chapter, I propose the remaining work that will be completed for
+inclusion in my dissertation. This work all builds on or expands the
+work discussed thus far.
+
+\section{Existing Services Surveys}
+
+The first body of work I propose involves taking the Trust framework
+presented in Chapter~\ref{chap:trust} and applying it to a variety of
+existing services of the purpose of analyzing the degree of third
+party trust usage of each service entails. Such surveys will be
+useful in further demonstrating the current state of the art and
+security challenges posed by existing systems. I propose analyzing the
+trust models of several classes of existing cloud services, each of
+which is discussed briefly in the following subsection.
+
+Such survey will analyze the publicly available information about
+currently available services, including both provider-provided
+documentation, independent analyses, and examples of known security
+failures. In some cases it may also be necessary to experiment with the
+services directly for the purpose of further exploring how they should
+be categorized within my proposed trust analyses framework. These
+analysis will provide the basis designing SSaaS-backed solutions that
+exhibit more desirable trust profiles then existing systems.
+
+\subsection{Consumer Web Services}
+
+One proposed trust analysis survey will include an in-depth analysis of
+several prototypical end-user facing cloud services. Paternal services
+for analysis include:
+
+\begin{packed_item}
+\item Cloud storage services such as Dropbox~\cite{dropbox},
+  SpiderOak~\cite{spideroak}, and BitTorrent
+  Sync~\cite{bittorrent-sync}.
+\item Social media, communication, and related services such as
+  Facebook~\cite{facebook}, Gmail~\cite{google-gmail}, and
+  Uber~\cite{uber}.
+\item Password managers such as LastPass~\cite{lastpass} and
+  OnePassword~\cite{onepassword}.
+\item Financial services such as banks, aggregators like
+  Mint~\cite{mint}, and payment services such as Google
+  Wallet~\cite{google-wallet} and Apple Pay~\cite{apple-pay}.
+\end{packed_item}
+
+\subsection{Developer Web Services}
+
+A second proposed trust analyses survey will focus on common
+developer-facing third party services. Potential services for analysis
+include:
+
+\begin{packed_item}
+\item IaaS providers such as Amazon EC2~\cite{amazon-ec2},
+  RackSpace~\cite{rackspace-compute}, and Google Compute
+  Engine~\cite{google-compute}.  Sync~\cite{bittorrent-sync}.
+\item Traditional configuration management solutions such as
+  Chef~\cite{chef} and Puppet~\cite{puppet}.
+\item Cloud key management services such as OpenStack
+  Barbican~\cite{openstack-barbican}, Amazon Cloud
+  HSM~\cite{amazon-hsm}, and Gezzang zTrustee~\cite{gazzang}.
+\end{packed_item}
+
+\section{Implementation}
+
+\subsection{SSP Version 2}
+
+\subsection{Multi-Party Sharding}
+
+\subsection{Clients}
+
 \section{Analysis}
+
+%%  LocalWords:  SSaaS SpiderOak Uber IaaS RackSpace OpenStack SSP
+%%  LocalWords:  Barbican Gezzang zTrustee LastPass OnePassword
