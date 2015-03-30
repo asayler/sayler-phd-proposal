@@ -11,7 +11,7 @@ SRCS = $(TEX) $(REFS)
 FIG_TMP = tmp.eps
 FIGS = $(patsubst %, figs/out/%.pdf, \
          TrustModel-Seperated TrustModel-Traditional \
-         Arch-Sharded \
+         Arch-Sharded App-FileLocker \
          App-FileStore App-DataRepo App-SecureEmail \
          App-SSHServer App-SSHAgent App-PKCS11)
 
