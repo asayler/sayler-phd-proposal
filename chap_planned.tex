@@ -67,13 +67,116 @@ include:
 
 \section{Implementation}
 
-\subsection{SSP Version 2}
+Beyond applying my proposed trust analysis framework to a range of
+existing services, I propose several implementation advancements of my
+existing SSaaS prototype. These advancements will build on the Custos
+work discussed in Chapter~\ref{chap:custos}, either improving or
+replacing existing implementations. I discuss the main proposed
+implementation projects below.
+
+\subsection{Version 2 SSP Server and API}
+
+I propose creating an updated SSP server implementation to replace the
+Custos proof-of-concept SSP server presented in
+Chapter~\ref{chap:custos}. The existing Custos server is performance
+limited due to it's lack of high performance backing data store. I
+propose a rewrite of the system capable of leveraging production-level
+backing stores such as Redis~\cite{redis}. Furthermore, the existing
+system would benefit form improvements with respect to its
+authentication and authorization systems. These systems will be
+improved to include simpler interfaces, making it easier to add
+plugins to support new access control systems. Finally, I plan to make
+the auditing system simpler to interface with third party auditing
+systems such as LogRythm~\cite{logrythm} or
+Splunk~\cite{splunk}. Collectively, this work will constitute the
+creation of the version 2 SSP prototype.
+
+In addition to updating the SSP server prototype, this will be a good
+opportunity to make any necessary changes to the Custos SSaaS
+API. Potential API changes will be made with an aim toward ensuring
+the API is in compliance with current REST
+standards~\cite{ibm-restful} and best
+practices~\cite{rest-bestpractices}. Updated will also be made with an
+eye to learning from similar recently released secret-storage APIs
+such as those of OpenStack Barbican~\cite{openstack-barbican}. These
+changes will result in the creation of the Version 2 Custos SSaaS API.
 
 \subsection{Multi-Party Sharding}
 
+One of the major unexplored parts of the discussed SSaaS model is the
+use of multi-party sharding to avoid having to trust a single SSP. In
+order to avoid centralizing trust in a single location, such sharding
+must be performed and managed from the client-side. This raises a
+number of questions and challenges:
+
+\begin{packed_item}
+\item How do we properly abstract the secret sharding process so that
+  SSaaS clients may leverage it without undue overhead?
+\item How do we help users to chose a proper set of SSPs to minimize
+  their exposure to the varied trust failures (e.g. collusion
+  violations and compelled violations) outlined in
+  Chapter~\ref{chap:trust}? The answer to this question would appear
+  to have parallels with existing failure-resistant storage systems
+  such as Ceph's CRUSH maps~\cite{ceph-crush}.
+\item How do we best distribute access control rules across multiple
+  SSPs in a manner that minimizes SSP collusion as well as management
+  overhead?
+\end{packed_item}
+
+I propose to explore potential answers to these questions by
+integrating multi-party sharding support into an updated version of
+the Custos client-side interface libraries. Making multi-arty sharding
+simple to use and straightforward to manage will be a key component of
+using it to minimize the degree of trust users must place in
+individual SSPs.
+
 \subsection{Clients}
+
+In addition to improving the server-side implementation and adding
+more robust support for multi-party sharding, I propose to build out
+several SSaaS client applications similar to those discussed in
+Chapter~\ref{chap:apps}. These applications will allow further
+demonstration of the potential benefits of the SSaaS model and will
+provide usable system against which various SSaaS concepts may be
+evaluated. In particular, I propose focusing on several SSaaS data
+encryption clients including:
+
+\begin{packed_desc}
+\item[Ceph Encryption Support:] Ceph~\cite{ceph} is a popular
+  distributed file system commonly used by IaaS systems such as
+  OpenStack~\cite{openstack}. As such, SSaaS-backed encryption support
+  to Ceph would allow developers to utilize Full Disk Encryption
+  mechanisms on cloud-hosted VMs, a use case that is currently quite
+  challenging to obtain. I propose adding SSaaS-backed encryption
+  support to the librbd~\cite{ceph-librbd-python, ceph-librbd-src}
+  and/or rbd-fuse~\cite{ceph-rbdfuse} components of Ceph, allowing VMs
+  and other programs that leverage such components to perform
+  encrypted reads and writes to the underlying Ceph storage
+  cluster. In doing so, the user will be able to reduce their trust in
+  the Ceph provider while still leveraging the benefits of using
+  Ceph-backed VMs in the cloud.
+\item[File-system Encryption Support:] In addition to Ceph-based FDE,
+  it would also be useful to have a workable file-system level
+  SSaaS-backed encryption solution. Thus, I propose improving the
+  existing fuse-based EncFS system discussed in
+  Chapter~\ref{chap:custos} and/or adding SSaaS support to an existing
+  encrypted file system such as eCryptFS~\cite{ecryptfs}. Such a
+  system will allow users to leverage SSaaS-backed file encryption
+  atop existing file-system-like interfaces such as
+  NFS~\cite{sandberg1985}, Dropbox~\cite{dropbox}, or Google
+  Drive~\cite{google-drive}.
+\item[Cloud Encryption Support:] I also propose exploring the benefits
+  that would come form integrating SSaaS encryption support directly
+  with one or more cloud storage clients such as
+  Dropbox~\cite{dropbox}. Such a purpose-built solution potentially
+  has the ability to smooth over sharing management and multi-device
+  sync by unifying the sharing support of both the SSaaS ecosystem as
+  well as the backing storage provider in a single interface.
+\end{packed_desc}
 
 \section{Analysis}
 
 %%  LocalWords:  SSaaS SpiderOak Uber IaaS RackSpace OpenStack SSP
-%%  LocalWords:  Barbican Gezzang zTrustee LastPass OnePassword
+%%  LocalWords:  Barbican Gezzang zTrustee LastPass OnePassword Redis
+%%  LocalWords:  Custos SSPs LogRythm Splunk Ceph's desc Ceph librbd
+%%  LocalWords:  rbd FDE EncFS eCryptFS
