@@ -13,7 +13,8 @@ FIGS = $(patsubst %, figs/out/%.pdf, \
          TrustModel-Seperated TrustModel-Traditional \
          Arch-Sharded App-FileLocker \
          App-FileStore App-DataRepo App-SecureEmail \
-         App-SSHServer App-SSHAgent App-PKCS11)
+         App-SSHServer App-SSHAgent App-PKCS11 \
+	     Custos-Overview Custos-OU Custos-ACS)
 
 all: pdf
 
