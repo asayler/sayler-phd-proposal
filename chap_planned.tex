@@ -9,6 +9,7 @@ inclusion in my dissertation. This work all builds on or expands the
 work discussed thus far.
 
 \section{Existing Services Surveys}
+\label{chap:planned:survey}
 
 The first body of work I propose involves taking the Trust framework
 presented in Chapter~\ref{chap:trust} and applying it to a variety of
@@ -66,6 +67,7 @@ include:
 \end{packed_item}
 
 \section{Implementation}
+\label{chap:planned:implement}
 
 Beyond applying my proposed trust analysis framework to a range of
 existing services, I propose several implementation advancements of my
@@ -175,6 +177,49 @@ encryption clients including:
 \end{packed_desc}
 
 \section{Analysis}
+\label{chap:planned:analysis}
+
+The final component of my proposed work will be to analyze the trust,
+security, performance, and capabilities of the proposed
+implementations discussed above. The analysis will focus on the
+improvements and trade-offs offered by SSaaS-backed applications and
+the SSaaS model relative to existing and alternate solutions. The
+analysis serve will test on the assertions made in this proposal and
+evaluate the degree to which they hold up in production-level systems.
+
+To analyze trust and security, I'll apply the trust framework
+discussed in Chapter~\ref{chap:trust} to the proposed
+implementations. Doing so will also allow comparisons with existing
+solutions analyzed under the same model as proposed in
+Section~\ref{chap:planned:survey}. The trust and security analysis
+will also focus on the proposed secret sharding implementation with
+the goal of evaluating the suitability of the proposed methods for
+practical third-party risk mitigation.
+
+While ideal performance is not a stated goal of the proposed work, I
+aim to undertake basic performance measurements such as those
+undertaken in~\cite{custos-trios}. The goal of such an analysis will
+be to established the performance trade-offs and overhead employing
+SSaaS methods entail relative to non-SSaaS solutions. Understanding
+this overhead will help to make informed decisions about where and how
+to employ SSaaS methods in a manner that maximize the security and
+privacy benefits will minimizing potential performance losses.
+
+Finally, the capability analyses will take stock of the capabilities
+and features of the proposed implementations relative to existing
+solution. The aim of such an analysis will be to confirm or refute the
+assertions that SSaaS systems can increase privacy and security
+without unduly hindering access to popular features. The analysis will
+also details the management and access control capabilities of the
+proposed SSaaS implementations.
+
+These analyses, combined with the proposed surveys and implementation
+advances, constitute the body of work proposed for the completion of
+my doctoral degree. The results of the proposed work will be used to
+expand the ideas outlines in this document, leading to the creation of
+my full desertion. I hope to complete all such propose work over the
+course of the next year for submission by the end of the Spring 2016
+semester.
 
 %%  LocalWords:  SSaaS SpiderOak Uber IaaS RackSpace OpenStack SSP
 %%  LocalWords:  Barbican Gezzang zTrustee LastPass OnePassword Redis
