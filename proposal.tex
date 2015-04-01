@@ -79,39 +79,41 @@
   between users' desired use cases and their ability to control and
   protect their data. Today, users are often forced to choose between
   leveraging modern technologies and services, potentially exposing
-  their data to a variety of third parties in the process, and
-  maintaining privacy and control of their data.
+  their data to a variety of questionably trustworthy third parties,
+  and maintaining privacy and security of their data.
 
   I feel these two choices represent a false dichotomy that can be
   resolved by disentangling the security and access control mechanisms
-  used to protect user data from the underlying technologies and third
-  parties that store and act on this data. In particular, I propose
-  isolating the set of core user secrets (e.g. passwords,
-  cryptographic keys, etc) that can be used to bootstrap the
-  protection of all other user data and storing these core secrets
-  with a dedicated, standardized, and service-oriented secret storage
-  system. Such a Secret Storage as a Service (SSaaS) architecture
-  allows users to reduce the trust they must place in individual
-  technologies or third parties while still providing mechanisms to
-  support the range of multi-user, multi-device use-cases popular
+  used to protect user data from the underlying third parties that
+  store and act on this data. To accomplish this disentanglement, I
+  propose isolating core user secrets (e.g. passwords, cryptographic
+  keys, etc) and storing these core secrets via a dedicated,
+  standardized, and service-oriented secret storage system. Such
+  secrets can be leveraged to bootstrap further privacy and security
+  enhancing techniques (e.g. via the client-side encryption of
+  third-party stored user data). This ``Secret Storage as a Service''
+  (SSaaS) model allows users to reduce the trust they must place in
+  any single third party while still providing mechanisms to support
+  the range of cloud-based, multi-user, multi-device use-cases popular
   today.
 
   In this dissertation proposal, I present an overview of the
-  challenges to the security and privacy of user data inherent
-  today. I introduce a framework for evaluating the degree to which we
-  must trust various third parties inherent in a range of popular use
-  cases, as well as the mechanisms by which this trust can be
+  challenges posed to the security and privacy of user data today. I
+  introduce a framework for evaluating the degree to which we must
+  trust various third parties across a range of popular usage
+  patterns, as well as the mechanisms by which this trust can be
   violated. I explore the problems with the traditional third party
-  trust model and discuss ways in which SSaaS helps alleviate these
-  issues. I discuss the qualities a desirable SSaaS ecosystem would
-  have, present an SSaaS prototype, and propose several applications
-  where the SSaaS model can significantly increase user security and
-  privacy while also supporting a variety of modern use
-  cases. Finally, I propose the additional research I will undertake
-  to complete this dissertation, including a survey of modern services
-  and technologies using the proposed trust-analysis framework, a more
-  robust SSaaS survey implementation, and a variety of useful SSaaS
-  client implementations.
+  trust model and discuss ways in which the SSaaS model helps
+  alleviate these issues. I discuss the qualities a desirable SSaaS
+  ecosystem would have, propose several applications where the SSaaS
+  model can significantly increase user security and privacy, and
+  present a first-generation SSaaS prototype. Finally, I propose the
+  additional research I will undertake to complete this dissertation,
+  including a survey of modern services and technologies using the
+  proposed trust-analysis framework, the implementation of a
+  second-generation SSaaS prototype, the implementation of a variety
+  of useful SSaaS-backed encryption applications, and an analysis of
+  the security, performance, and capabilities of said systems.
 
 }
 
@@ -159,4 +161,4 @@
 
 \end{document}
 
-%%  LocalWords:  SSaaS tex Custos
+%%  LocalWords:  SSaaS tex Custos ssaas custos
