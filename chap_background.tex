@@ -2,65 +2,107 @@
 \label{chap:background}
 
 This work builds on a number of established topics related to
-computing, privacy, and security. I touch on the basics of each in
-this section. Chapter~\ref{chap:related} touches on further related
-work.
+computing, privacy, and security. I touch on the fundamentals of each
+in this chapter. Chapter~\ref{chap:related} touches on more directly
+related work.
 
 \section{Cryptography}
 \label{chap:background:crypto}
 
 Many of the topics discussed in this proposal leverage cryptographic
 primitives as the basis of various security and privacy
-guarantees. This is largely because it represent a security primitive
-that does not rely on trusting specific people, platforms, or systems
-in order to securely function. Instead, it requires that we place our
-trust in only one thing: the underlying math. This has led to the
-proliferation of cryptography as the security primitive on which many
-other security features are built.
+guarantees. This is largely because cryptography represent a security
+primitive that does not rely on trusting specific people, platforms,
+or systems in order to securely function. Instead, it requires that we
+place our trust in only one thing: the underlying math. This has led
+to the proliferation of cryptography as the primitive on which many
+security and privacy enhancing features are built.
 
 \subsection{Symmetric Cryptography}
 
 Modern cryptographic systems come in two flavors: symmetric
 cryptographic and asymmetric cryptography. Symmetric cryptography
-algorithms function on the principle that a single ``key'' is used to
-both encrypt and decrypt a message. This key must be securely stored,
-or if shared, securely exchanged between parties. Anyone with the key
-can decrypt the corresponding ciphertext the key was used to
-create. The security of a symmetric encryption cipher tends to be
-directly related to the length of the encryption key: the longer the
-key, the more secure the data encrypted with it is.
+algorithms function on the principle that a single ``key'' is used for
+both halves of given cryptographic operation (e.g. encryption and
+decryption). Asymmetric algorithms (discussed in the next section)
+overcome this limitation.
+
+The core symmetric cryptography operation is symmetric
+encryption. Symmetric encryption algorithms use a single key to both
+encrypt and decrypt a message. This message, once encrypted, can not
+be deciphered without access to the associated secret key. This key
+must be securely stored, or if shared, securely exchanged between
+parties. Anyone with the key can decrypt the corresponding ciphertext
+the key was used to create; anyone without can not. The security of a
+symmetric encryption cipher tends to be proportional to the length of
+the encryption key: the longer the key, the more secure the data
+encrypted with it is. Common modern symmetric encryption algorithms
+include block-ciphers such as AES~\cite{nist2001} and
+TwoFish~\cite{schneier1998} as well as stream ciphers such as (the now
+deprecated) RC4~\cite{rc4-source}\footnote{Many block ciphers can
+  actually be used as stream ciphers by leveraging operation modes
+  such as the CTR and OFB.}.
+
+In addition to encryption and decryption, symmetric cryptography
+algorithms can also be used to provide secure message integrity and
+authenticity verification. Such keyed hash algorithms leverage a
+secret symmetric authentication key to generate a message
+authentication code (MAC) across a given piece of data. This MAC can
+then be shipped to another user along with the data over which it was
+generated. Any other holder of the authentication key who receives
+said data can recompute the MAC value independently, comparing their
+computed value to the one that was sent and verifying the authenticity
+and integrity of the associated data in the process. In this manner,
+users who share a symmetric authentication key can ensure that the
+data they send to each other is not tampered with in transit and that
+it comes from another holder of the required key. MAC algorithms can
+be built from existing hash functions
+(e.g. HMAC-SHA-256~\cite{kelly2007}) using mechanisms such as
+HMAC~\cite{krawczyk1997} or from existing symmetric block ciphers
+(e.g. AES-CMAC~\cite{song2006}) using mechanisms such as
+CMAC~\cite{Black2005, dworkin2005}. In most situations, both
+encryption and authentication are used in tandem to form a secure
+challenge capable of communicating data that is indecipherable to
+outsiders and over which any outside data tampering can be detected.
 
 While symmetric cryptography algorithms are useful in situations where
 a single actor will be both encrypting and decrypting a piece of data
 (and thus can hold the required key personally), they pose a major
-challenge it situations where multiple parties wish to communicate
-securely. In this situation, the parties must find a way to securely
-communicate the required symmetric key. In the absence of
-cryptographic methods, the only way to securely exchange a key while
-avoiding both eavesdroppers and interlopers is to meet in person and
-exchange the key manually. The tediousness and lack of practicality of
-this task, especially in modern digital communication systems where
-multiple actors may be continents apart, led researchers to seek a
-better method for secure data exchange in the absence of an inherently
-secure communication channel.
+challenge it situations where multiple parties wish to communicate or
+exchange data securely. In such situations, the parties must find a
+way to securely communicate the required symmetric encryption and
+authentication keys manually out-of-band. In the absence of additional
+cryptographic methods, the only real way to securely communicate such
+keys while avoiding both eavesdroppers and interlopers is to meet in
+person and generate or exchange keys manually. This task is tedious
+and impractical for all but the simplest of situations, especially
+given the modern digital communication landscape where multiple actors
+may be continents apart. The challenges of securely bootstrapping
+symmetric cryptography systems led researchers to seek a better method
+for secure data exchange in the absence of an inherently secure
+communication channel.
 
 \subsection{Asymmetric Cryptography}
 
-The major breakthrough in solving this challenge came in 1976 with
-Diffie and Hellman's publication of ``New Directions in
-Cryptography''~\cite{diffie1976}. Diffie and Hellman proposed a system
-for asymmetric cryptography: a cryptography system in which one key is
+The major breakthrough in solving this challenge came in 1976 when
+Diffie and Hellman proposed a system for asymmetric cryptography
+(i.e. public-key cryptography)~\cite{diffie1976}\footnote{Asymmetric
+  cryptographic was actually independently developed by the GCHQ (the
+  British signal-intelligence counterpart to the US National Security
+  Agency) in the early 1970s prior to the publication of Diffie and
+  Hellman's paper, but this work was classified and remained a secret
+  until the late 1990s.}: a cryptography system in which one key is
 used for encryption while a second related key is used for
-decryption. When properly designed, it is computationally unfeasible
-to derive one of the keys in an asymmetric cryptography system form
-the other, allowing a user to publish one of their keys for the public
-to consume while keeping their other key private. A member of the
-public can then use the user's public key to encrypt a message that
-only the holder of the private key will be able to decrypt. If all
-members of the public maintain such public/private key pairs, it
-becomes possible for any user to send any other user a message that
-only the recipient an read without requiring any form of secure
-communication channel.
+decryption. When properly designed, it is computationally infeasible
+to derive one of the keys in an asymmetric cryptography system from
+the other, allowing a user to publish one of their keys for public
+consumption while keeping the corresponding key private. A member of
+the public can then use a user's public key to encrypt a message that
+only the holder of the corresponding private key will be able to
+decrypt. If all members of the public maintain such public/private key
+pairs, it becomes possible for any user to send any other user a
+message that only the recipient can read without requiring an
+in-person meeting or similar out-of-band secure communication channel.
 
 Asymmetric cryptography relies on the existence of ``trapdoor''
 functions in order to operate. These functions can be quickly solved
@@ -69,43 +111,57 @@ a special piece of information (e.g. the 'key'). Factoring large
 numbers is a classic example of a trapdoor function (and the method on
 which many modern public key encryption systems are based). Factoring
 large numbers is computationally difficult in cases where some piece
-of secret information (e.g. one of the factors) is not known.
-
+of secret information (e.g. one of the factors) is not known. While,
 Diffie and Hellman proposed a potential implementation of a public key
-cryptography system, although the first practical public key crypto
-system came a few years latter with the invention of the
-RSA~\cite{rivest1978} algorithm. In addition to public/private key
-systems, Diffie and Hellman also proposed a system for joint key
-generation where two parties can negotiate a secrete key across an
-insecure connection. Like asymmetric cryptography, such a system can
-be used to bootstrap secure communications across an insecure
-connection by allowing two parties to derive a secret key that can
-then be used to facilitate further secret communication using a
-symmetric encryption algorithm.
+cryptography system, the first practical public key crypto system came
+a few years latter with the invention of the RSA~\cite{rivest1978}
+algorithm. In addition to public/private key systems, Diffie and
+Hellman also proposed a system for joint key generation where two
+parties can negotiate a secrete across an insecure connection. Like
+asymmetric cryptography, such a system can be used to bootstrap secure
+communications across an insecure channel by allowing two parties to
+derive a mutual secret that can then be used to facilitate further
+secure communication using a symmetric encryption and authentication
+algorithm.
 
-Diffie and Hellman also introduce the concept that asymmetric
-encryption can be used to build the two additional core cryptographic
-primitives we have come to rely upon: cryptographic verification and
+Asymmetric encryption can be used to build the two additional core
+asymmetric cryptography primitives: cryptographic verification and
 cryptographic authentication. Cryptographic verification (also called
 a cryptographic ``signature'') is essentially the reverse of
 asymmetric encryption: instead of a member of the public using another
 party's public key to encrypt a message that only the target party can
-read, the target party uses their private key to encrypt a message
-that the public can then decrypt using the target's public key. Since
-only the target has access to the private key, and is thus capable of
-generating such a message, the target can ``prove'' that a given
-message comes from them and that it has not been altered in
-transit. Just as asymmetric encryption gives rise to cryptographically
-secure signatures, cryptographically secure signatures can give rise
-to cryptographically secure authentication. If a user generates a
-signed message saying ``I am John'' and sends it to an authentication
-server, the server can verify that the message signature is valid by
-checking it using John's public key, and thus authenticating John in
-the process. The server need only have a list of public keys for each
-user. It can then leverage the assertion that only the indented user
-has access to the corresponding private key for each of the server's
-public keys, and is thus the only one capable of generating a signed
-message on the user's behalf, as the basis of user authentication.
+read, they instead use their own private key to encrypt a message that
+the public can then decrypt using the signers public key. Since only
+the owner of a given key-pair should have access to the private key
+necessary to generate such a message, the owner can ``prove'' to the
+public that a given message comes from them. Similar to symmetric MAC
+systems, asymmetric signatures can also be used to verify that signed
+data has not been altered in transit since any alteration would result
+in a verification failure when a member of the public decrypts the
+message signature.
+
+Just as asymmetric encryption gives rise to cryptographically secure
+signature algorithms, cryptographically secure signature algorithms
+give rise to cryptographically secure authentication systems. If a
+user generates a signed message saying ``I am John'' and sends it to
+an authentication server, the server can verify that the message
+signature is valid using John's public key, authenticating John in the
+process. The server need only have a list of public keys for each
+approved user. It can then leverage the assertion that only the
+indented user has access to the private key corresponding to each
+approved public key, and is thus the only one capable of generating a
+signed message on that user's behalf, as the basis of user
+authentication.
+
+As mentioned above, both symmetric and asymmetric cryptography are
+often used together. Asymmetric cryptography is useful for
+bootstrapping a secure communication channel by allowing the secure
+exchange of symmetric encryption and authentication keys over a
+previously insecure channel. These session keys can then be used to
+continue all further communication using symmetric encryption and MAC
+algorithms. Symmetric algorithms tend to be more performant then
+asymmetric algorithms, making such split-type crypto systems
+desirable.
 
 \subsection{Secret Sharing}
 
@@ -113,19 +169,19 @@ Beyond the rise of public key cryptography, one of the other major
 cryptographic breakthroughs of the last fifty years was the invention
 of cryptographically secure secret sharing schemes. In particular, Adi
 Shamir (the 'S' form ``RSA'') proposed a practical and robust secret
-sharing scheme in his 1979 paper ``How to share a
-secret''~\cite{shamir1979}. In this work, Shamir lays out the basics
-of what has come to be known as Shamir Secret Sharing: a method for
-splitting a piece of information up into two or more pieces in a
-manner such that holders of any subset of the pieces cannot infer any
-information about the pieces they do not hold or the original
-information block as a whole. Shamir Secret Sharing allows a user to
-divide a piece of D data into N pieces of which K or more pieces can
-be used to recompute the original value of D. A user with fewer than K
-pieces, however, has no more information about the value of D than a
-user with no pieces. This system provides a highly useful method for
-distributing information amongst multiple parties or systems in
-situations where no single party or system can be fully trusted.
+sharing scheme in 1979~\cite{shamir1979}. In this work, Shamir lays
+out the basics of what has come to be known as Shamir Secret Sharing:
+a method for splitting a piece of information up into two or more
+pieces such that holders of any subset of the pieces cannot infer any
+information about the pieces they do not hold or the original block as
+a whole. Shamir Secret Sharing allows a user to divide a piece of D
+data into N pieces of which K or more pieces can be used to recompute
+the original value of D. A user with fewer than K pieces, however, has
+no more information about the value of D than a user with no
+pieces. This system provides a highly useful method for distributing
+information amongst multiple parties or systems in situations where no
+single party or system can be fully trusted. Such systems can also be
+used to provide redundancy by selecting N to be greater than K.
 
 Shamir Secret Sharing, unlike all known asymmetric encryption
 techniques, does not rely on computational complexity as the basis of
@@ -568,4 +624,5 @@ computing systems of the 21st century.
 %%  LocalWords:  SSaaS SSP Lenovo SSPs IaaS Diffie Hellman's Adi VFS
 %%  LocalWords:  Shamir NTFS AFS CIFS SMB SFS OceanStore CFS SiRiUS
 %%  LocalWords:  Plutus Miltchev ACL LAFS Rackspace CAPEX OPEX PUE
-%%  LocalWords:  PaaS Heroku SaaS aaS FOSS
+%%  LocalWords:  PaaS Heroku SaaS aaS FOSS TwoFish OFB HMAC SHA CMAC
+%%  LocalWords:  GCHQ cepheus DAC SELinux RBAC
