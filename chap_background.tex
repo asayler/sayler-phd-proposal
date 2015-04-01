@@ -385,19 +385,22 @@ of granting or denying specific permissions to the actor.
 
 Computer-based access control systems have been with us since the
 earliest multi-user (e.g. time sharing) operating systems became
-popular in the 1970s and 1980s. Early access control systems were
-primarily focused around the Unix model of access control: users,
-groups, and read/write/execute file-level permissions. Authentication
-in these early systems was generally limited to username:password
-combinations, the mechanisms of which were hard coded into the
-\texttt{login} program. Each user was a member of one or more groups
-and each file had a owner and group. The three file permissions, read,
-write, and execute, were granted on the basis of a user's relationship
-to a given file: either the user was the file owner, the user was a
-member of the file group, or the user was neither of these
-things. This model is fairly flexible, and continues to be used today
-as the core access control model in many Unix-like operating systems
-(e.g. BSD, Linux, OSX, etc).
+popular in the 1970s and 1980s~\cite{saltzer1974}. Early access
+control systems were primarily focused around the Unix model of access
+control: users, groups, and read/write/execute file-level
+permissions. Authentication in these early systems was generally
+limited to username:password combinations, the mechanisms of which
+were hard coded into the \texttt{login} program. Later, more flexible
+pluggable authentication systems such as PAM were
+created~\cite{samar1996, linux-pam, openpam}. In such Unix-lake access
+control systems each user is a member of one or more groups and each
+file has an owner and group. The three file permissions (read, write,
+and execute) are granted on the basis of a user's relationship to a
+given file: either the user is the file owner, the user is a member of
+the file's group, or the user is neither of these things. This
+model is fairly flexible, and continues to be used today as the core
+access control model in many Unix-like operating systems (e.g. BSD,
+Linux, OSX, etc).
 
 Access Control List (ACL) based schemes gained prominence in 1990s and
 were popularized by the Windows NT family of operating systems. ACLs
@@ -407,10 +410,10 @@ and system-level (e.g. shutdown, connect to network, etc)
 permissions. ACLs are associated with specific system objects
 (e.g. files, folders, OS subsystems, etc) and map a user or group to a
 list of permission that user or group possess. They generalize the
-Unix access model to accommodate a wider range of permissions and
-mappings between permissions and actors. ACL-based systems have been
-integrated into many modern Unix-like operating systems as an optional
-extension beyond the tradition Unix permissioning scheme.
+Unix access control model to accommodate a wider range of permissions
+and mappings between permissions and actors. ACL-based systems have
+been integrated into many modern Unix-like operating systems as an
+optional extension beyond the tradition Unix permissioning scheme.
 
 Exiting access control schemes are often grouped into one of two
 classes: Mandatory Access Control (MAC) systems or Discretionary
@@ -425,7 +428,7 @@ set their own permissions on objects they own or create, and to
 transfer these permissions to other users. A MAC-based system can be
 thought of as similar to a DAC system where the system administrator
 owns all files and never transfer this ownership to any other
-user. Traditional Unix access control systems as well ACL access
+user. Traditional Unix access control systems as well as ACL access
 control systems can generally be used in either MAC or DAC based
 systems. MAC systems are generally preferred in high security
 environments where the centralized management models they offer lead
@@ -445,14 +448,13 @@ indirection between users and permissions. In an RBAC system, users
 are assigned to one or more roles. Each role is then assigned one or
 more permissions. This model simplifies management by separating
 permission assignment from specific users. RBAC permissions are
-assigned assigned on the basis of specific positions or duties within
-an organization and mapped to specific roles. Users are then assigned
-to these roles on the basis of whether or not they hold a specific
+assigned on the basis of specific positions or duties within an
+organization and mapped to specific roles. Users are then assigned to
+these roles on the basis of whether or not they hold a specific
 positions or are required to perform a specific duty. Thus, adding or
 removing users does not require any modification to permission
 mappings, only role mappings. Likewise, adding or removing permissions
-does not require modifying user mappings, only role
-mappings.
+does not require modifying user mappings, only role mappings.
 
 \section{The Cloud}
 
@@ -632,4 +634,4 @@ computing systems of the 21st century.
 %%  LocalWords:  Shamir NTFS AFS CIFS SMB SFS OceanStore CFS SiRiUS
 %%  LocalWords:  Plutus Miltchev ACL LAFS Rackspace CAPEX OPEX PUE
 %%  LocalWords:  PaaS Heroku SaaS aaS FOSS TwoFish OFB HMAC SHA CMAC
-%%  LocalWords:  GCHQ cepheus DAC SELinux RBAC
+%%  LocalWords:  GCHQ cepheus DAC SELinux RBAC eCryptFS Ceph
