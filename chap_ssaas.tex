@@ -264,25 +264,24 @@ API.
 \label{chap:ssaas:economics}
 
 Part of the the argument in favor of the SSaaS model is
-economics. Today, users primary select cloud services on the basis of
-their features. When they pay for these services, they're primarily
+economics. Today, users primarily select cloud services on the basis
+of their features. When they pay for these services, they're primarily
 paying to support the core features such service provide. Privacy and
 security, while concerns, are often secondary goals. Furthermore, on
 many free cloud services, the ability to harvest user data is the
-basis for the service providers business model. These situations
+basis of the service provider's business model. These situations
 create a number of perverse incentives in terms of a traditional
-feature providers goals with respect to user security and
+feature provider's goals with respect to user security and
 privacy~\cite{anderson2001}. In the first case, the feature provider
 simply does not prioritize user security since that's not the primary
-basis on which users are choosing to pay for a service. In the
-secondary case, a feature provider might actively work to subvert sue
-security and privacy in order to further leverage user data to
-generate income.
+basis on which users are choosing to pay for a service. In the second
+case, a feature provider might actively work to subvert user security
+and privacy in order to further leverage user data to generate income.
 
-The SSaaS model aims to rectify these issues by introducing the SSP
-actors whose primary goal is the protection of user secrets and from
-whom users purchase secret storage services on the basis of security
-and privacy guarantees first and foremost. Thus, SSaaS's ability to
+The SSaaS model aims to rectify these issues by introducing SSP actors
+whose primary goal is the protection of user secrets and from whom
+users purchase secret storage services on the basis of security and
+privacy guarantees first and foremost. Thus, SSaaS's ability to
 separate secret storage duties from feature provider duties allows
 users to purchase each service on the basis of its associated merits,
 avoiding the issues associated with putting features in direct
@@ -294,26 +293,26 @@ optimized for the respective priorities of each field.
 Beyond the removal of perverse incentives brought about by the
 separation of SSPs for FPs, it will also be desirable to encourage a
 competitive market amongst multiple SSP providers. In order to achieve
-such a market, I advocate for the standardizing of a single
+such a market, I advocate for the standardization of a single
 inter-compatible SSaaS protocol. Such a standard protocol gives users
 a high degree of mobility between competing SSPs providers, avoiding
-vendor lock in. This, in turn, increase the competitive pressures
-between providers. In short, the aim of a SSaaS ecosystem is to make
-security and privacy trade-able commodities, and to leverage market
-powers to price and improve both. A competitive market for secret
-storage has a number of security and privacy enhancing benefits
+vendor lock-in. This mobility, in turn, increases the competitive
+pressures between providers. In short, the aim of an SSaaS ecosystem
+is to make security and privacy tradable commodities, and to leverage
+market powers to price and improve both. A competitive market for
+secret storage has a number of security and privacy enhancing
 benefits:
 
 \begin{packed_desc}
-\item[Reputation] If users can easily switch between SSPs, it forces
-  SSPs to compete on the basis of their privacy preserving
-  reputations. SSPs who can do a superior job avoid the trust
-  violations discussed in Chapter~\ref{chap:trust} can attract more
-  users and/or command a higher price for their services. Since SSP's
-  reputation is tied solely to their ability to faithfully protect
-  user secrets, they will not be able to ``iron over'' any
+\item[Reputation:] If users can easily switch between SSPs, it forces
+  SSPs to compete on the basis of their security and privacy
+  preserving reputations. SSPs who can do a superior job avoiding the
+  trust violations discussed in Chapter~\ref{chap:trust} can attract
+  more users and/or command a higher price for their services. Since a
+  SSP's reputation is tied solely to their ability to faithfully
+  protect user secrets, they will not be able to ``iron over'' any
   privacy-related reputation failings with superior end-user feature
-  sets as many traditional cloud providers do today\footnote{As an
+  sets -- as many traditional cloud providers do today\footnote{As an
     example, consider Facebook's numerous trust
     violations~\cite{goel2014, lomas2014, tsukayama2014} and the fact
     that such violations have had no noticeable impact on the number
@@ -321,12 +320,12 @@ benefits:
     such network benefit from additional services beyond secret
     storage were they to violate user's trust; instead, users would
     simply switch to a new SSP.}.
-\item[Multiple Providers] A healthy ecosystem of competing SSPs will
+\item[Multiple Providers:] A healthy ecosystem of competing SSPs will
   allow users to select from multiple independent providers over which
   they may shard a single secret. As I'll discuss below, this
   multi-SSP practice provides a number of benefits over relying on a
-  single SSP, from additional trust reductions to redundancy.
-\item[Cost] As in other competing markets, having a number of
+  single SSP, from additional trust reduction to redundancy.
+\item[Cost:] As in other competitive markets, having a number of
   competing providers will allow the user to select a provider that
   offers the best combination of cost and service.
 \end{packed_desc}
@@ -335,24 +334,24 @@ The SSaaS model also provides business benefits related to
 insurance. Having a dedicated entity in charge of protecting user
 secrets (and by proxy, any other data protected by those secrets)
 simplifies the process of evaluating risk and liability related to the
-projection of sensitive data. Similar to the model used by Certificate
+protection of sensitive data. Similar to the model used by Certificate
 Authorities, SSPs could provide insurance polices to their users to
 indemnify them against any loss relating from a trust violation on the
 part of the SSP. Likewise, SSPs would underwrite such user-facing
 insurance polices with their own insurance polices provided by
-independent third party insurers. These insurers would need to perform
+independent third-party insurers. These insurers would need to perform
 independent audits of SSP infrastructure and polices in order to
 evaluate trust violation risk, further enticing SSPs to fundamentally
-deign themselves for the avoidance of trust violations. Such insurance
-benefits are not as readily available in the mixed trust + feature
-cloud ecosystem of today since it's far harder to evaluate the privacy
-violation risk of a company whose primary objectives are more complex
-then secret storage alone. The increasing regulation of user privacy
-rights and the penalties associated with violating user privacy
-further incentives a system where privacy and security are severable
-properties that can be independently regulated, evaluated, and
-indemnified - unconnected to the user-facing feature set of a given
-third party service.
+deign themselves for the avoidance of such trust violations. Such
+insurance benefits are not as readily available in the mixed trust +
+feature cloud ecosystem of today since it's far harder to evaluate the
+privacy violation risk of a company whose primary objectives are more
+complex then secret storage alone. The increasing regulation of user
+privacy rights and the penalties associated with violating user
+privacy further incentive a system where privacy and security are
+severable properties that can be independently regulated, evaluated,
+and indemnified -- unconnected to the user-facing feature set of a
+given third-party service.
 
 Likewise, SSaaS provides compliance benefits to users storing highly
 regulated data. Instead of having to individually verify that each
@@ -362,12 +361,12 @@ SSP meets the necessary regulations. Once verified, a single SSP could
 be reused with multiple FPs without having to undergo further
 compliance verification. SSPs might even proactively obtain specific
 compliance certifications to make it easy for their users to comply
-with specific regulations, regardless of which feature-proving cloud
+with specific regulations, regardless of which feature-providing cloud
 service a user wishes to leverage. Such practices would likely prove
 highly beneficial in tightly-regulated fields such as health care
 (e.g. requiring HIPPA~\cite{hippa} compliance), education
-(e.g. requiring FERPA~\cite{ferpa} compliance), and online payments
-(e.g. requiring PCI DSS~\cite{pcidss} compliance).
+(e.g. requiring FERPA~\cite{ferpa} compliance), and online payment
+processing (e.g. requiring PCI DSS~\cite{pcidss} compliance).
 
 \section{Security and Trust}
 \label{chap:ssaas:trust}
