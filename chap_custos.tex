@@ -436,12 +436,12 @@ Chapter~\ref{chap:planned}.
 
 \section{Implementation}
 
-I've created a prototype implementations of both a Custos server and
-one sample Custos client. These implementations exist to test and
+I've created prototype implementations of both a Custos server and a
+sample Custos client. These implementations exist to test and
 demonstrate the basic SSaaS concepts proposed here. Expanding these
 prototypes is part of the proposed work in Chapter~\ref{chap:planned}.
 
-\subsection{Custos Server}
+\subsection{SSP Server}
 
 The Custos SSP server~\cite{custos-repo-server} is implemented in
 Python. It is designed to use off-the-shelf key-value stores for
@@ -451,15 +451,15 @@ Chains and the associated Access Attribute modules. The server
 leverages the Flask~\cite{python-flask} web framework to implement the
 Custos API, and provides HTTPS support via the Apache~\cite{apache}
 web server. The server is capable of handling a few hundreds key
-request per second, depending on the complexity of the associated
+requests per second, depending on the complexity of the associated
 ACCs. Increasing the performance of the SSP server is the topic of
 future work.
 
-\subsection{Sample Client: EncFS}
+\subsection{EncFS}
 
 To test the Custos SSP server and demonstrate an SSaaS-aware
-application, I created
-\texttt{EncFS}~\cite{custos-repo-encfs}. \texttt{EncFS} is a simple
+application, I created \texttt{EncFS}, a sample SSaaS
+client~\cite{custos-repo-encfs}. \texttt{EncFS} is a simple
 FUSE-based~\cite{fuse} layered file system that provides transparent
 client side-encryption atop an underlying file store. \texttt{EncFS}
 offloads its key storage duties to the the Custos SSP Server using the
@@ -470,12 +470,12 @@ protocol~\cite{custos-repo-libcustos}.
 \texttt{EncFS}'s utilization of the SSaaS model allows it to support
 many cloud-based use cases not readily supported by traditional
 encrypted file-systems, all while minimizing the trust placed in
-cloud-based storage providers and Custos-based SSPs. For example, when
+cloud-based storage providers and Custos SSPs. For example, when
 mounted atop a Dropbox-backed directory, \texttt{EncFS} allows a user
 to ensure that Dropbox has no access to the plain-text contents of a
 user's files. None the less, users can still use Dropbox to sync a
 file across multiple devices or share it with other users. The user
-must simply update the access control attributes for a given files'
+must simply update the access control attributes for a given file's
 encryption key stored via their Custos SSP to allow access from other
 user-owned devices or by other collaborating users. \texttt{EncFS}
 accomplishes this without any need to modify Dropbox's storage
