@@ -2,35 +2,34 @@
 \label{chap:ssaas}
 
 As discussed in Chapter~\ref{chap:challenges}, the reliance on third
-parties inherent to many popular use cases today poses a number of
-privacy and security related challenges. Fortunately, cryptographic
-techniques including encryption and authentication provide the
-necessary primitives for building a systems that increases the
-security and privacy of users by reducing their exposure to third
-party-related abuse. Such systems also provide additional security
-outside of the traditional third-party risk model by ensure that
-systems such as mobile devices that are prone to loss or theft remain
-security even when outside the position of their
-owners. Unfortunately, cryptography is not merely ``magic fairy dust''
-that we can sprinkle on any security or privacy problem to make it
+parties inherent to many popular use cases poses a number of privacy
+and security related challenges. Fortunately, cryptographic techniques
+including encryption and authentication provide the necessary
+primitives for building a systems that increases the security and
+privacy of users by reducing their exposure to third party-related
+abuses of trust. Such systems also provide additional security outside
+of the traditional third-party risk model by ensuring that systems
+such as mobile devices that are prone to loss or theft remain secure
+even when outside the position of their owners. Unfortunately,
+cryptography is not merely ``magic fairy dust'' that we can sprinkle
+on any security or privacy problem to make it
 disappear~\cite{smith2003}. Effectively using cryptographic technique
 to secure our data involves ensuring that cryptography-employing
-security and privacy enhancing solution are designed securely and
-usability.
+security and privacy enhancing solution are designed in a secure and
+usable manner.
 
-The key to designing secure and usable cryptographic data security
+The crux to designing secure and usable cryptographic data security
 solutions lies in providing secure and flexible secret storage systems
-that can be leveraged to manage and access the associated
-cryptographic keys protecting any such system. The failure of
-traditional cryptographic systems to account for key management has
-led many such systems to be unusable, insecure, and/or ill adapted to
-modern user cases. I propose the creation of a standardized Secret
-Storage as a Service system designed to provide users with the
-necessary tools for managing secrets such as cryptographic keys in a
-manner that allows for a range of multi-device and multi-user use
-cases and that avoids placing high degrees of trust in signaler third
-parties. I present the design and justification of such a system in
-this chapter.
+that can be leveraged to manage and store the cryptographic keys
+associated with any such system. The failure of traditional
+cryptographic systems to account for key management has led many such
+systems to be unusable, insecure, and/or ill-adapted to modern use
+cases. I propose the creation of a standardized Secret Storage as a
+Service system designed to provide users with the necessary tools for
+managing secrets such as cryptographic keys in a manner that allows
+for a range of use cases and that avoids placing high degrees of trust
+in any single third party. I present the design and justification of
+such a system in this chapter.
 
 \section{Architecture}
 \label{chap:ssaas:arch}
@@ -41,50 +40,50 @@ the traditional Feature Providers (FPs) like Amazon, Dropbox, Gmail,
 or Facebook. An SSP is tasked with the storage of and access control
 to a variety of user secrets from cryptographic keys to personal
 data. In the normative case, users will limit themselves to storing
-cryptographically protect data on third-party FP servers while storing
+cryptographically-protect data on third-party FP servers while storing
 the associated cryptographic keys protecting such data with a network
 of SSPs. This allows SSPs to be selected on the basis of their
 trustworthiness while traditional feature providers can be selected on
-the basis of their features. The SSaaS model differs from the
+the basis of their feature sets. The SSaaS model differs from the
 traditional cloud model by allowing users to distribute trust across
 multiple third parties (or no third parties at all), ensuring that any
 single entity need not be fully trusted, while still enabling many
-existing cloud use cases.
+popular use cases.
 
 \subsection{Stored Secrets}
 
 What kind of secrets do we store with an SSP? I believe that users
-should really be able to store arbitrary data with any SSP, allowing
-open ended secret storage based applications. That said, the SSP model
+should be able to store arbitrary data with any SSP, allowing open
+ended secret storage based applications. That said, the SSP model
 works best when secrets stored are not inherently sensitive or
 revealing when taken alone. This property helps to mitigate the amount
 we must trust each SSP. Thus, storing secrets like cryptographic keys
 that alone revel no private user data are generally preferable to
 storing privacy revealing secrets like plain-text passwords, social
 security numbers, etc. I do, however, leave the decision of what to
-store with each SSP up to each user and application, and we'll explore
+store with each SSP up to each user and application. I'll explore
 various types of secret storage in Chapter~\ref{chap:apps}.
 
 Another consideration related to what secrets to store with an SSP is
 size. I anticipate SSP-based storage selling at a premium price vs
-more traditional cloud storage options like S3~\cite{amazon-s3}. This
-is due to the difference in priorities between Secret Storage and
-generic cloud storage. An SSP is primarily concerned with safeguarding
-user secrets and faithfully implementing a user's access control
-specifications for each secret. These priorities may very well incur
-additional costs not necessary in a more traditional cloud storage
-environments: e.g. the need to locate data centers in specific legal
-jurisdictions, a greater emphasis of resistant to compelled violations
-via legal representation, etc. Thus, it may be desirable for the user
-to minimize the amount of data stored with an SSP as a cost
-optimization: again making use cases such as storing cryptographic
-keys with an SSP while storing the encrypted data with a more
-traditional provider desirable.
+more traditional cloud storage options like Amazon
+S3~\cite{amazon-s3}. This is due to the difference in priorities
+between Secret Storage and generic cloud storage. An SSP is primarily
+concerned with safeguarding user secrets and faithfully implementing a
+user's access control specifications for each secret. These priorities
+may very well incur additional costs not present in more traditional
+cloud storage environments: e.g. the need to locate data centers in
+specific legal jurisdictions, a greater emphasis of resistant to
+compelled violations via legal representation, etc. Thus, it may be
+desirable for the user to minimize the amount of data stored with an
+SSP as a cost optimization: again making use cases such as storing
+cryptographic keys with an SSP while storing the encrypted data with a
+more traditional provider desirable.
 
 For these reasons, I feel that storing cryptographic keys with an SSP
 is a common enough use case that some SSPs may specifically optimize
 for it. Such ``Key Storage as a Service'' (KSaaS) SSPs represent a
-subset of the generic SSaaS model.
+subset of the general SSaaS model.
 
 \subsection{Secret Storage Providers}
 
@@ -109,8 +108,7 @@ with other users while maintaining the ability to revoke shared access
 to future versions of a data set. Such ``lazy
 revocation''~\cite{kallahalla2003} capabilities can be built atop
 versioning schemes that maintain access control information on a
-per-version basis. Such applications are discussed further in
-Chapter~\ref{chap:apps}.
+per-version basis.
 
 I foresee each SSP exposing its key-value secret store via a RESTful
 HTTPS-based API. The ubiquity of RESTful interfaces in modern
@@ -133,10 +131,10 @@ and controlled by individual users for each secret they store with the
 SSP. The SSP is in charge of faithfully enforcing the access control
 specification.
 
-An access control specification control who can create, access,
-modify, or delete each secret. In contains information regarding both
-authentication (how a user provides they are who they claim to be) as
-well as authorization (what permission each authenticated user is
+An access control specification dictates who can create, access,
+modify, or delete each secret. It contains information regarding both
+authentication (how a user proves they are who they claim to be) as
+well as authorization (what permissions each authenticated user is
 granted). I foresee SSPs offering a standard access control framework
 in order to promote interoperability between multiple SSPs.
 
@@ -146,27 +144,28 @@ support of a range of use cases, the access control model must be
 expressive enough to avoid artificially limiting the user to specific
 use cases or secrets. For example, one use case might require a single
 user to satisfy multiple challenges in order to gain access to a
-highly sensitive secret while another might require autonomous access
+highly sensitive secret while another might allow autonomous access
 from system possessing an approved token during specific times of day
-to access less sensitive secrets used by autonomous processes (e.g. a
-data-center server booting an encrypted hard disk or backup systems).
+to access secrets used by autonomous processes (e.g. a data-center
+server booting an encrypted hard disk or using a secure backup
+system).
 
 In addition to the key:value storage API operations discussed
-previously, an SSP will also expose endpoints for manipulating the
+previously, an SSP will also expose API endpoints for manipulating the
 access control parameters associated with each secret as part if the
 standard REST API. This interface will allow users to update access
 control information to allow data sharing with other users, revoke
 prior shared access, etc. This interface will, in turn, require it's
 own access control specification to ensure that only approved
-modification can be made to any secret's access control rules.
+modifications can be made to any secret's access control rules.
 
 \subsubsection{Auditing}
 
 In addition to access control, each SSP should provide auditing
-information related to the manner in which id:secret pair is accessed
-or modified. This information is useful to the user in order to
-provide additional transparency into the manner in which secrets are
-utilized. This auditing can be as simple as basic logging of all
+information related to the manner in which each id:secret pair is
+accessed or modified. This information is useful to the user in order
+to provide additional transparency into the manner in which secrets
+are utilized. This auditing can be as simple as basic logging of all
 secret access or as complex as a system that automatically analyzes
 access patterns to try to detect anomalies that might indicate
 potential trust violations.
@@ -177,32 +176,33 @@ compromised, audit information can provide a valuable indication of
 the scope of the damage. Furthermore, auditing plays an important role
 in allowing users to understand the semantics of access revocations:
 since it's unfeasible to revoke access to data another user has
-already read, audit information provides a user with the scope of
-potential revocable outstanding authorization allowances. E.g. if User
-A shares a secret with User B by granting them read access to it via
-their SSP, but then decides they'd rather revoke that access, User A
-can check the audit logs to determine if User B has yet accessed the
-shared secret and thus whether or not guaranteed revocation is even
-possible.
+already read (and potentially copied out-of-band), audit information
+provides a user with the scope of potentially revocable outstanding
+authorization allowances. E.g. if User A shares a secret with User B
+by granting them read access to it via their SSP, but then decides
+they'd rather revoke that access, User A can check the audit logs to
+determine if User B has yet accessed the shared secret and thus
+whether or not guaranteed revocation is even possible.
 
 As in the prior cases, an SSPs auditing capabilities will need to be
 exposed via a REST interface to allow client applications to leverage
 audit data. Likewise, audit API functions will need their own set of
-access control specifications in order to control who was access to
+access control specifications in order to control who has access to
 audit information or the ability to delete that information. As
 before, standardizing this interface is desirable from an SSP
 interoperability standpoint.
 
 It may also be desirable for SSPs to employ some form of
 publicly-verifiable audit trail, similar to the concepts discussed in
-~\cite{blaze1996}. Such systems might today be constructed using
-block-chain-based primitives such as those available in the BitCoin
-crypto-currency network~\cite{Nakamoto2008}. Such systems might
-provide more robust variants on the ``warrant cannery'' concept that
-has recently become popular amongst a range of third party services
-providers as a counter measure against secret warrants, subpoenas, and
-court orders~\cite{eff-canary}. The semi-centralized nature of SSPs
-make them a desirable point at which to audit and detect unauthorized
+\cite{blaze1996} or \cite{laurie2013}. Alternatively, such systems
+might today be constructed using block-chain-based primitives such as
+those available in the BitCoin crypto-currency
+network~\cite{Nakamoto2008}. Such systems might provide more robust
+variants on the ``warrant cannery'' concept that has recently become
+popular amongst a range of third-party services providers as a counter
+measure against secret warrants, subpoenas, and court
+orders~\cite{eff-canary}. The semi-centralized nature of SSPs make
+them a desirable point at which to audit and detect unauthorized
 access requests for user data.
 
 \subsection{Clients}
@@ -210,56 +210,55 @@ access requests for user data.
 While SSPs form one half of the SSaaS architecture, the other half is
 formed by clients connecting to and leveraging data from
 SSPs. Chapter~\ref{chap:apps} discusses potential SSaaS use cases and
-application in detail. I outline some of the basics of SSaaS client
-deign here.
+applications in detail. I outline some of the basics of SSaaS client
+deign and operation here.
 
 An SSaaS client is any system designed to connect to and utilize a
 Secret Storage Provider service. Clients communicate with one or more
-SSaaS providers via the SSaaS API. Clients can store and retrieve
-secrets with each SSP, managing secret access control settings, and
-retrieve secret access audit info. Examples of SSaaS client
-applications include encrypted file systems, secure communication
-systems, dedicated crypto-processing systems, etc. Any system that
-stands to benefit from offloading secret storage and management to a
-dedicated system, either for the purpose of gaining benefits form the
-logically centralized nature of an SSP (e.g. for the purpose of
-accessing secrets from multiple devices or for sharing them with
-multiple users) or simply to avoid implementing a full secret
-management and access control stack locally, is a good candidate for
-integration into an SSaaS architecture.
+SSP via the SSaaS API. Clients can store and retrieve secrets with
+each SSP, managing secret access control settings, and retrieve secret
+access audit info. Examples of SSaaS client applications include
+encrypted file systems, secure communication systems, dedicated
+crypto-processing systems, etc. Any system that stands to benefit from
+offloading secret storage and management to a dedicated system, either
+for the purpose of gaining benefits from the logically centralized
+nature of an SSP (e.g. for the purpose of accessing secrets from
+multiple devices or for sharing them with multiple users) or simply to
+avoid implementing a full secret management and access control stack
+locally, is a good candidate for integration into an SSaaS
+architecture.
 
 Is the simplest case, each SSaaS client communicates with a single
 upstream SSP via a standard SSaaS protocol. The standardized protocol
-allows the end-user to specify which SSP they wish to use, but each
-secret is stored with only a single SSP. The downside to such
-arrangements lies in the fact that storing each secret with only a
-single SSP raises both trust and availability concerns (the details of
-which are discussed below). To overcome such concerns, I believe it
-will often be desirable for each SSaaS client to interact with a
-network of several upstream SSPs. In this situation, each secret can
-be sharded between multiple SSPs - increasing reliability while
-reducing trust.
+allows the end-user to specify which SSP they wish to use, and to
+change SSPs as desired. The downside to such arrangements lies in the
+fact that storing each secret with only a single SSP raises both trust
+and availability concerns (the details of which are discussed
+below). To overcome such concerns, I believe it will often be
+desirable for each SSaaS client to interact with a network of several
+upstream SSPs. In this situation, each secret can be sharded between
+multiple SSPs - increasing reliability while also reducing trust.
 
 Such multi-SSP arrangement, however, raise client side management
 issues. How are access control rules shared between SSPs? How does the
 client keep multiple SSPs in sync? And so on... Answering such
 questions is some of the work I propose to undertake in
-Chapter~\ref{chap:planned}. But the complexity of such solutions will
-likelihood call for the creation of a standardize SSaaS client library
+Chapter~\ref{chap:planned}. The complexity of such solutions will
+likely call for the creation of a standardized SSaaS client library
 that can be utilized by multiple applications. Such a library avoids
 the need for each SSaaS client to reimplement SSaaS communication and
-management primitives directly. Building on the idea of a common SSaaS
-client library is the idea of a common SSaaS management
-application. Many of the SSaaS-related management features,
-e.g. setting up access control requirements, checking audit logs,
-etc., are common across all SSaaS client applications. It may thus be
-desirable to offload such functions to a general SSaaS client
-management applications in cases where such functions need not be
-tightly coupled with a given SSaaS-backed applications. Such
-offloading allows the primary SSaaS-backed applications to focus
-purely on the secret storage and retrieval side of the SSaaS API while
-dedicated management applications handle all of the access control and
-auditing side of the SSaaS API.
+management primitives directly. Furthermore, it may also be desirable
+to create a common SSaaS management application. Many of the
+SSaaS-related management features, e.g. setting up access control
+requirements, checking audit logs, etc, are common across all SSaaS
+client applications. It may thus be desirable to offload such
+functions to a general SSaaS client management applications in cases
+where such functions need not be tightly coupled with a given
+SSaaS-backed applications. Such offloading allows the primary
+SSaaS-backed applications to focus purely on the secret storage and
+retrieval side of the SSaaS API while dedicated management
+applications handle the access control and auditing side of the SSaaS
+API.
 
 \section{Economics}
 \label{chap:ssaas:economics}
