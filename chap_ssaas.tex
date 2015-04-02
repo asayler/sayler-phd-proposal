@@ -373,31 +373,32 @@ processing (e.g. requiring PCI DSS~\cite{pcidss} compliance).
 
 As mentioned in Chapter~\ref{chap:trust}, use cases that involve
 splitting user data into cryptographically-protected core data and the
-associated cryptographic keys (e.g. secrets) and storing each with
-separate providers inherently decrees the amount that any single
-provider must be afforded. If, however, we wish to store unencrypted
-user data directly with an SSP, potentially because a given use case
-can't easily be split into encrypted data and encryption keys, we must
-place a higher degree of trust in an SSP. In the split encrypted data
-+ cryptographic secrets use case, we must only trust the SSP with the
-storage (\emph{S}) and metadata (\emph{M}) capabilities, the same
-capabilities with which we must trust the FP. But in the case where an
-SSP directly stores raw user data, we must expand their capability
-profile to also include the access (\emph{R} ) and manipulation
-(\emph{W}) capabilities. Are SSPs any more worthy (i.e. less likely to
-violate) this increased level of trust than a traditional FP?
+associated cryptographic keys (i.e. secrets) and storing each with
+separate providers inherently decreases the level of trust that any
+single provider must be afforded. If, however, we wish to store
+unencrypted user data directly with an SSP, potentially because a
+given use case can't easily be split into encrypted data and
+encryption keys, we must place a higher degree of trust in an SSP. In
+the split encrypted data + cryptographic secrets use case, we must
+only trust the SSP with the storage (\emph{S}) and metadata (\emph{M})
+capabilities, the same capabilities with which we must trust the
+FP. But in the case where an SSP directly stores raw user data, we
+must expand their capability profile to also include the access
+(\emph{R} ) and manipulation (\emph{W}) capabilities. Are SSPs any
+more worthy (i.e. less likely to violate) this increased level of
+trust than a traditional FP?
 
-Even in such a worst-case trust scenario, I believe that SSPs are less
-likely to violate user trust. As outlined in
-\S~\ref{chap:ssaas:economics}, SSPs have economic incentives well
-aligned with upholding a user's trust where as traditional FPs often
-have economic incentives in direct conflict with upholding user
-trust. This fact alone decreases their likelihood of trust violation
-by disincentivizing implicit violations (\emph{P}-type) and putting a
-higher premium on avoiding unintentional (\emph{U}-type), insider
-(\emph{I}-type), and outsider (\emph{O}-type) violations. I thus feel
-that users are thus better off trusting SSPs with raw sensitive data
-than FPs.
+Even in such a heightened degree of trust scenario, I believe that
+SSPs are less likely to violate user trust than traditional FPs. As
+outlined in \S~\ref{chap:ssaas:economics}, SSPs have economic
+incentives well aligned with upholding a user's trust where as
+traditional FPs often have economic incentives in direct conflict with
+upholding user trust. This fact alone decreases their likelihood of
+trust violation by disincentivizing implicit violations
+(\emph{P}-type) and putting a higher premium on avoiding unintentional
+(\emph{U}-type), insider (\emph{I}-type), and outsider (\emph{O}-type)
+violations. I thus feel that users are better off trusting SSPs with
+raw sensitive data than FPs.
 
 \begin{figure}[t]
   \centering
@@ -409,53 +410,53 @@ than FPs.
 None the less, it's best if users can avoid placing high degrees of
 trust in any third party, FP or SSP. Fortunately, there is a viable
 alternative for avoiding additional trust even in the raw-secret
-storage SSP use case (and for further reducing trust even in the split
-use case): cryptographically sharding a single user secret across
-multiple SSPs. As shown in Figure~\ref{fig:ssaas-sharded}
-Cryptographic secret sharing systems such as Shamir's $(k, n)$
-threshold scheme~\cite{shamir1979} ensure that a secret split into $n$
-shares can not be reassembled using fewer than $k$ shares in an
-information theoretically secure manner\footnote{Information-theoretic
-  security is an even higher level of security guarantee then
-  traditional cryptographic security. Where as cryptographic security
-  relies on assumptions about what kinds of math problems are or are
-  not hard for computers to solve, information-theoretic security
-  requires no such assumptions -- instead deriving security from
-  fundamental and universal properties of information theory.}. Such
-schemes could easily be applied in an SSaaS ecosystem to avoid
-affording (\emph{R}) and (\emph{W}) capabilities to an SSP, even when
-storing raw user data. In addition, secret sharing schemes have
-benefits related to redundancy and data availability. Since $(k, n)$
-threshold schemes include redundant shares in any case where $n > k$,
-users can split their secrets into $n$ shards and insure that their
-secrets will be recoverable as long as at least $k$ SSPs remain
-operational and in possession of the stored shard. As such I foresee
-sharding secrets, be they cryptographic keys or raw data, across
-multiple SSPs being a standard best-practice in SSaaS ecosystems for
-both the trust reduction and increased reliability benefits such
-practice incur.
+storage SSP use case (and for further reducing trust in the split data
++ keys use case): sharding a single user secret across multiple
+SSPs. As shown in Figure~\ref{fig:ssaas-sharded} secure secret sharing
+systems such as Shamir's $(k, n)$ threshold scheme~\cite{shamir1979}
+ensure that a secret split into $n$ shares can not be reassembled
+using fewer than $k$ shares in an information theoretically secure
+manner\footnote{Information-theoretic security is an even higher level
+  of security guarantee then traditional cryptographic security. Where
+  as cryptographic security relies on assumptions about what kinds of
+  math problems are or are not hard for computers to solve,
+  information-theoretic security requires no such assumptions --
+  instead deriving security from fundamental and universal properties
+  of information theory.}. Such schemes could easily be applied in an
+SSaaS ecosystem to avoid affording (\emph{R}) and (\emph{W})
+capabilities to an SSP, even when storing raw user data. In addition,
+secret sharing schemes have benefits related to redundancy and data
+availability. Since $(k, n)$ threshold schemes include redundant
+shares in any case where $n > k$, users can split their secrets into
+$n$ shares stored with $n$ independent SSPs. Doing so insures that the
+user can recover their secret as long as at least $k$ SSPs remain
+operational and in possession of their designated share. As such I
+foresee sharding secrets, be they cryptographic keys or raw data,
+across multiple SSPs being a standard best-practice in SSaaS
+ecosystems for both the trust reduction and increased reliability
+benefits such a practice provides.
 
-Even with secret sharing, as in the key-storage use case, users are
-still at risk of a successful trust violation should multiple SSPs
-collude to betray their secrets (\emph{L}-type violation) or should
-multiple SSPs be compelled to turn over user data to a single entity
-(\emph{C}-type violation). As such, we are interested in selecting a
-set of SSPs across which to shard our secrets that minimize \emph{L}
-and \emph{C}-type violation risk. Thus, in addition to the
-reputation-based selection criteria outlined in
-\S~\ref{chap:ssaas:economics}, I propose introduce several additional
-SSP selection criteria:
+Even with secret sharing users are still at risk of a successful trust
+violation should multiple SSPs collude to betray a user's trust
+(\emph{L}-type violation) or should multiple SSPs be compelled to turn
+over shares of user secretes to a single entity (\emph{C}-type
+violation). As such, we are interested in selecting a set of SSPs
+across which to shard our secrets that minimize \emph{L} and \emph{C}
+type violation risk. Thus, in addition to the reputation-based
+selection criteria outlined in \S~\ref{chap:ssaas:economics}, I
+propose several additional SSP selection criteria:
 
 \begin{packed_desc}
 \item[Geopolitical Diversity] An ideal set of SSPs would be located
   across a range of non-cooperating geopolitical domains. This will
-  greatly decrease the likelihood of a (\emph{C}-type violation) by
-  ensuring that no single entity has the ability to compel multiple
-  SSPs to surrender user data.
+  greatly decrease the likelihood of a compelled (\emph{C}-type)
+  violation by ensuring that no single entity has the ability to
+  compel multiple SSPs to surrender user secret shares.
 \item[Ownership Diversity] Similarly, a user should only select SSPs
   owned and operated by independent entities. This decreases the
   likelihood of an (\emph{L}-type violation) by ensuring no single
-  entity can instruct multiple SSPs to collude.
+  entity can instruct multiple SSPs to collude to reconstruct a user
+  secret.
 \end{packed_desc}
 
 If the user selects a diverse set of SSPs, all with strong
