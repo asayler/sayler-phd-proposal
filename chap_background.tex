@@ -465,9 +465,11 @@ computing systems. Instead, numerous companies are more then happy to
 sell you any compute service you require for a pre-established
 time-metered rate. This ``Cloud'' computing model significantly lowers
 the barrier to entry to those needing to leverage compute resources,
-increasing the available compute-backed services and has driving a
-vast shifts in the way we use the Internet, store our data, obtain our
+increasing the availability of such services and driving a vast shift
+in the way we use the Internet, store our data, obtain our
 entertainment, interact with our friends, and more.
+
+\subsection{Benefits}
 
 Today cloud-services providers like Amazon, Google, Microsoft,
 Rackspace, and IBM globally sell over \$150 billion in cloud services
@@ -481,63 +483,63 @@ systems. Namely:
   allows companies to shift what are traditionally one-time up-front
   capitol expenditures (CAPEX, e.g. large arrays of servers) to
   regular operational expenditures (OPEX, e.g. a monthly fee). This
-  fact leads to a number of potential benefits to cloud
-  computing. Where as spinning up traditional compute infrastructure
-  requires a large initial investment, cloud compute infrastructure
-  can be purchased for as low as a few cents each month. This
-  drastically lowers the barrier of entry to those requiring such
-  services by eliminating any large up-front costs. Furthermore,
-  moving to the cloud makes compute infrastructure a regular,
-  predictable expense, easily accounted for when planning
-  budgets. Finally, operational expenditures are often more easily
-  justified at many organizations without requiring major internal
-  review processes, allowing those that purchase compute services via
-  the cloud to retain more direct control over how, when, and what
-  they purchase. All of these factors collaborate to make the OPEX
-  cloud model a more desirable compute purchasing model then the
+  fact gives rise to a number of potential benefits. Where as spinning
+  up traditional compute infrastructure requires a large initial
+  investment, cloud compute infrastructure can be purchased for as low
+  as a few dollars each month. This drastically lowers the barrier of
+  entry to those requiring such services by eliminating any large
+  up-front costs. Furthermore, moving to the cloud makes compute
+  infrastructure a regular, predictable expense, easily accounted for
+  when planning budgets. Finally, operational expenditures are often
+  more easily justified at many organizations without requiring major
+  internal review processes, allowing those that purchase compute
+  services via the cloud to retain more direct control over how, when,
+  and what they purchase. All of these factors interact to make the
+  OPEX cloud model a more desirable purchasing model then the
   traditional CAPEX model.
 \item[Flexibility] \hfill \\ The ``pay-for-what-you-need'' cloud
   purchasing model is also far more flexible then the traditional
   in-house computing model. Where as the traditional model requires
   buyers to accurately predict their future compute requirements
   before making the initial purchase, the cloud allows users to scale
-  infrastructure as required and without any real need to accurate
-  advanced prediction. This makes it far simpler to start a small
-  project and grow it into a larger project without requiring any
-  large up-front cost or guesswork. Likewise, if a project fails to
-  gain traction, it can be efficiently spun down and no one is left
-  holding a bunch of no-longer-useful hardware.
+  infrastructure as required and without any real need for accurate
+  forward demand prediction. This makes it far simpler to start a
+  small project and grow it into a larger project without requiring
+  any large up-front cost or guesswork. Likewise, if a project fails
+  to gain traction, it can be efficiently spun down and no one is left
+  holding a bunch of expensive, but no-longer-useful, hardware.
 \item[Efficiency] \hfill \\ The cloud models offers efficiencies of
-  scale in many attributes not available to traditional in-house
-  compute users. At the macro-level, it is rare for end-user systems
-  to require constant load throughout the day. Instead, services tend
-  to see peek usage at certain times of day related to the diurnal
-  cycles of their users. Large, international cloud service providers
-  can leverage this fact in ways individual hardware operators often
-  fail to do. In particular, such providers can ensure their
-  underlying hardware is uniformly loaded 24/7/365 by spreading the
-  workloads of the underlying tents in different parts of the world
-  across globally located infrastructure and systems. This allows most
-  large cloud services providers to operate their systems and a level
-  and reliable capacity, avoiding the need to oversize systems to
-  account for short-lived peak loads. At the micro level, cloud
-  providers are generally able to co-locate a large number of compute
-  systems in a single data center, allowing them to optimize cooling,
-  power, network, and other resources in manners not available to
-  smaller in-house server farms. On the power and cooling front, it is
-  not uncommon to see cloud data centers that are over $90\%$
-  efficient - e.g. a PUE\footnote{Power Usage Effectiveness: The ratio
-    of total consumed power to useful IT power.} of
+  scale not available to traditional in-house compute users. At the
+  macro-level, it is rare for end-user systems to require constant
+  load throughout the day. Instead, services tend to see peek usage at
+  certain times related to the diurnal cycles of their users. Large,
+  international cloud service providers can leverage this fact in ways
+  individual hardware operators often fail to do. In particular, such
+  providers can ensure their underlying hardware is uniformly loaded
+  24/7/365 by spreading the workloads of a variety of diverse tenants
+  across globally-located infrastructure. This allows large cloud
+  services providers to operate their systems at a steady capacity,
+  avoiding the need to oversize systems to account for short-lived
+  peak loads. At the micro level, cloud providers are generally able
+  to co-locate a large number of compute systems in a single data
+  center, allowing them to optimize cooling, power, network, and other
+  resources in manners not available to smaller in-house server
+  farms. On the power and cooling front, it is not uncommon to see
+  cloud data centers that are over $90\%$ efficient - e.g. a
+  PUE\footnote{Power Usage Effectiveness: The ratio of total consumed
+    power to useful IT power.} of
   $\approx1.1$~\cite{google-efficiency}. On the networking front, such
   co-location allows for higher speed, lower energy, data transfers
   between machines. The net result of all these efficiency gains is
   that cloud providers can generally offer compute resources for less
-  ongoing cost then what a traditional compute deployment can provide.
+  cost then in-house data center deployments.
 \end{packed_desc}
 
+\subsection{Service Classes}
+
 Modern cloud systems come in a range of classes. These classes
-generally divide cloud-services up in to the level of abstraction they
-provide. The common cloud services in use today include:
+generally divide cloud-services up based on the level of abstraction
+they provide. The common cloud services in use today include:
 
 \begin{packed_desc}
 \item[IaaS:] ``Infrastructure as a Service'' systems describe the
@@ -546,39 +548,41 @@ provide. The common cloud services in use today include:
   machine with a pre-installed operating system - atop which they may
   build and implement their own services. This class of cloud services
   represents the more-or-less direct replacement for the traditional
-  in-house compute resources model where a user would start with a raw
-  physical machine and build up form there. Amazon
-  EC2~\cite{amazon-ec2} and Google Compute
-  Engine~\cite{google-compute} are both example of IaaS services.
+  in-house compute model where a user would start with a raw physical
+  machine and build up from there. Amazon EC2~\cite{amazon-ec2} and
+  Google Compute Engine~\cite{google-compute} are both example of IaaS
+  services.
 \item[PaaS:] One step up the stack we have ``Platform as a Service''
   offerings. PaaS systems provide the end user with an environment
   capable of running their code, but abstract away a lot of the lower
-  level details of setting up and managing a full IaaS virtual
+  level details of setting up and managing a full OS and virtual
   machine. This allows users to trade flexibility for simplicity and
   ease of use. Google App Engine~\cite{google-appengine} and
   Heroku~\cite{heroku} are examples of PaaS offerings.
 \item[SaaS:] At the top of the cloud service stack, we have ``Software
-  as a Service''. This class of service is most generally when lay
-  end-users are referring to when they talk about the cloud. SaaS
-  offerings represent fully-fledged services that provide some form of
-  functionally directly to an end user. Examples of SaaS systems
-  include Dropbox~\cite{dropbox}, Gmail~\cite{google-gmail}, and
-  Facebook~\cite{facebook}.
+  as a Service''. This class of service is most generally what
+  consumer end-users are referring to when they talk about the
+  cloud. SaaS offerings represent fully-fledged services that provide
+  some form of functionally directly to an end user. Examples of SaaS
+  systems include Dropbox~\cite{dropbox}, Gmail~\cite{google-gmail},
+  and Facebook~\cite{facebook}.
 \end{packed_desc}
 
 It is not uncommon for one layer of cloud services to be built atop a
 lower layer. E.g. an SaaS system might be built atop a PaaS system,
 itself built atop an IaaS system. Furthermore, the ``...aaS'' inherent
 in the names of each of these layers reflects another cloud trend: the
-ubiquity of service oriented architectures. Such architectures
-abstract any singular useful action into a service that can be
-consumed by users. Such systems encourage the standardization and
-commoditization of a wide range of useful computing jobs. This allows
-developers of new services to lean heavily on other services that have
-already been built: adding only the specific new functionality they
-need without having to build the supporting infrastructure form
-scratch. The end result is yet another mechanisms for accelerating the
-rate of advancement when building systems and services atop the cloud.
+popularity of service oriented architectures. Such architectures
+abstract a set of useful actions into a service that can be consumed
+by users. Such systems encourage the standardization and
+commoditization of a wide range of useful computing tasks. This allows
+developers of new services to lean heavily on existing services:
+adding only the specific new functionality they need without having to
+build the supporting infrastructure from scratch. The end result is
+yet another mechanisms for accelerating the rate of advancement when
+building systems and services atop the cloud.
+
+\subsection{Enabling Technologies}
 
 It's also important to note the technologies underlying the shift
 toward cloud-backed computing infrastructure. In particular, several
@@ -588,16 +592,16 @@ include:
 \begin{packed_desc}
 \item[Commoditization of Hardware] \hfill \\ The cloud, by and large,
   is built using cheap, off-the-shelf commodity hardware. High-end,
-  specially hardware is rare to find in most cloud data
-  centers. Instead, Google, Amazon, etc leverage more or less the same
-  computing components used in most consumer hardware, but in much
-  larger numbers. Cloud providers have discovered that it is more cost
-  effective to utilize cheap consumer parts and simply design systems
-  to cope with the higher rates of failure such parts exhibit then it
-  is to buy ultra-high end parts with lower failures rates but
-  disproportionately higher costs~\cite{}. This shift has made
-  hardware a an easily replaceable and interchangeable commodity in
-  modern data center design, lower the cost and barriers to entry
+  specialty hardware is rare to find in most cloud data
+  centers. Instead, Google, Amazon, and others leverage more or less
+  the same computing components used in most consumer hardware, but in
+  much larger numbers. Cloud providers have discovered that it is more
+  cost effective to utilize cheap consumer parts and simply design
+  systems to cope with the higher rates of failure such parts exhibit
+  then it is to buy ultra-high end parts with lower failures rates but
+  disproportionately higher costs~\cite{atwood2007}. This shift has
+  made hardware an easily replaceable and interchangeable commodity in
+  modern data center design, lowering the cost and barriers to entry
   involved in constructing and maintaining such data centers.
 \item[Virtualization] \hfill \\ Virtualization, the ability to
   simulate one or more ``virtual computers'' running atop a single
@@ -606,29 +610,33 @@ include:
   commonplace occurrence, well supported by commodity hardware and
   software alike. Virtualization is what has made it simple and cost
   effective for cloud-providers to offer their services, slicing
-  discreet physical systems between many users. Virtualization also
-  allows providers to separate users form any singular piece of
-  hardware --- providers can now be migrate users between physical
-  systems in order to meet up-time and load balancing goals without
-  the user even being aware of such a process.
-\item[Free and Open Source Software] \hfill \\ The rise of Linux and
-  related Free and Open Source Software (FOSS) systems has closely
-  tracked the rise of the cloud. This is no coincidence. FOSS systems
-  allow users to quickly and cheaply deploy a range of applications
-  without having to worry about purchasing specialty high-cost
-  software, vendor lock-in, or any number of other barriers to
-  deployment mobility. While the cloud provide cheap, commodity
-  hardware resources, FOSS provides cheap, commodity software to make
-  such resources do useful things.
+  discreet physical systems between many paying users. Virtualization
+  also allows providers to separate users from any singular piece of
+  hardware -- providers can now migrate users between physical systems
+  in order to meet up-time and load balancing goals without the user
+  even being aware of such a process.
+\item[Free and Open Source Software (and Hardware)] \hfill \\ The rise
+  of Linux and related Free and Open Source Software (FOSS) systems
+  has closely tracked the rise of the cloud. This is no
+  coincidence. FOSS systems allow users to quickly and cheaply deploy
+  a range of applications without having to worry about purchasing
+  specialty high-cost software, vendor lock-in, or any number of other
+  barriers to deployment mobility. While the cloud provide cheap,
+  commodity hardware resources, FOSS provides cheap, commodity
+  software to make such resources do useful things. Furthermore, many
+  cloud providers have combined the ubiquity of commodity hardware
+  with the ethos of FOSS to create open-hardware ecosystems -- making
+  it a lot simpler for service providers to build and deploy
+  cloud-optimized computing hardware~\cite{opencompute}.
 \end{packed_desc}
 
 The success of the ``cloud'' is not due to any singular new idea or
 major breakthrough in computing. Instead, it represents the confluence
 of a number of discreet technologies, business cases, and user demands
-that have just so happened to coincide at a mutually beneficial moment
-in time. In doing so, these events have fundamentally shifted the way
-developers and end-users alike consume and interact with the available
-computing systems of the 21st century.
+that have coincided at a mutually beneficial moment in time. In doing
+so, these events have fundamentally shifted the way developers and
+end-users alike consume and interact with the available computing
+systems of the 21st century.
 
 %%  LocalWords:  SSaaS SSP Lenovo SSPs IaaS Diffie Hellman's Adi VFS
 %%  LocalWords:  Shamir NTFS AFS CIFS SMB SFS OceanStore CFS SiRiUS
