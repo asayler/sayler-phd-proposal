@@ -48,7 +48,7 @@ Custos SSP server implements the following components:
   (e.g. access control requirements).
 \end{packed_desc}
 
-\subsection{Custos Access Control}
+\subsection{Access Control}
 \label{chap:custos:arch:ac}
 
 Custos employs a unique access control scheme called Access Control
@@ -390,7 +390,7 @@ for extensible authentication primitive support similar to systems
 like PAM~\cite{samar1996}. Examples of potential Custos AA types are
 shown in Table~\ref{tab:custos-attributes}.
 
-\section{Protocol}
+\subsection{Protocol}
 
 Custos employs a JSON-based RESTful HTTPS protocol for client-server
 communication. The protocol exposes endpoints for secret management
@@ -399,9 +399,9 @@ removing, and modifying access control rules), and auditing
 (e.g. reading or clearing secret access history). Custos allows
 arbitrary cryptographic key data to be associated with each ID for
 secret storage purposes. Each ID:secret pair in Custos is associated
-with a specific group. These groups can be used allow multiple users
-to administrator a set of secrets and to control who can create new
-secrets within a group.
+with a specific group. These groups can be used to allow multiple
+users to administrator a set of secrets and to control who can create
+new secrets within a group.
 
 The Custos API is secured via SSL/HTTPS. Custos servers are
 authenticated over SSL via the standard public key infrastructure
@@ -416,11 +416,11 @@ specific endpoint. Each combination of endpoint and verb defines a
 specific API method. Each method requires a specific permission to
 complete. All API message formats are composed in JSON. Binary data is
 encoded as Base64 ASCII text. Authentication attributes are passed via
-query string as URL encoded JSON. Custos uses UUIDs~\cite{leach2005}
-as keys, each associated with an arbitrary object for values.  The
-full API specification, including detailed message formats, example
-messages, and a list of API methods and endpoints see
-~\cite{custos-masters}.
+query string as URL-encoded JSON. Custos uses UUIDs~\cite{leach2005}
+as keys, each associated with an arbitrary object for values. The full
+API specification, including detailed message formats, example
+messages, and a list of API methods and endpoints
+see~\cite{custos-masters}.
 
 In the Custos protocol, the server is completely agnostic to the
 secret cryptographic keys it stores. Thus, a user may shard their
