@@ -2,7 +2,7 @@
 \label{chap:related}
 
 There are a number of related efforts that also seek to fulfill one or
-more of the goals of this project as outline in
+more of the goals of this project as outlined in
 Section~\ref{chap:intro:goals}. I discuss some of the more pertinent
 of these efforts in this Chapter.
 
@@ -23,57 +23,58 @@ cases, such models seek to answer the questions:
 \end{packed_item}
 
 Security models are a critical part of designing any security
-systems. The security of any given system is only as good as it;s
-weakest link. Security models provide an analyses if the various links
-within and surrounding any given security or privacy enhancing system
--- links that must be considered when determining the overall
-guarantees provided by a given system as well as the exposure of a
-given system to various threats.
+system. The security of a given system is only as good as its weakest
+link. Security models provide an analyses if the various links within
+and surrounding any given security or privacy enhancing system --
+links that must be considered when determining the overall guarantees
+provided by a given system as well as the exposure the system to
+various threats.
 
 \cite{flowerday2006} provides an analyses if how trust and related
 human controls must be considered in the design of any information
-security system. It builds on work in outside the traditional computer
+security system. It builds on work outside the traditional computer
 science space related to theories of trust and privacy in government,
 law, and society~\cite{camp2003}. These works lay the foundation for
 trust analysis in computing systems and tie the concept of trust in
-computing systems to wider theories of trust in privacy as fundamental
-concepts.
+computing systems to wider theories of trust and privacy as
+fundamental concepts.
 
-Beyond trust analyses, there are a number of more general compute
+Beyond trust analyses, there are a number of more general computer
 security models and taxonomies that tend to focus on more traditional
-technical and operational risks and mitigations. ~\cite{abbas2005}
+technical and operational risks and mitigations. \cite{abbas2005}
 discuses security and threat models for Internet-connected
-services. ~\cite{tsipenyuk2005} focuses on common failures in
-application-level security. ~\cite{firesmith2005} dives into an more
+services. \cite{tsipenyuk2005} focuses on common failures in
+application-level security. \cite{firesmith2005} dives into a more
 abstract analysis of safety and security in computing systems and
-provides a framework for analysis software security risks, potential
-harms, amid security requirements. Finally, ~\cite{cebula2010} takes a
+provides a framework for analyzing software security risks, potential
+harms, and security requirements. Finally, \cite{cebula2010} takes a
 comprehensive look at operational cyber-security risks across
-technical, human, process, and external possibilities.
+technical, human, process, and external risks.
 
 While all of these efforts provided a basis for trust, threat, and
 security analysis of computing systems, they do not dive into the
-specific intricacies of modern third-party trust inherent in cloud
-computing systems. This is a deficiency on which I focus in the
-proposal and my future proposed thesis work.
+specific intricacies of the third-party trust requirements inherent in
+cloud computing systems. This is a deficiency on which I focus in
+Chapter~\ref{chap:trust}.
 
 \section{Minimizing Third Party Trust}
 \label{chap:related:minimize}
 
 Uneasiness with having to trust third parties has led to a number of
 efforts to reduce, limit, and control such trust. Many of these
-solution aim to leverage cryptographic primitives as an alternative to
+efforts aim to leverage cryptographic primitives as an alternative to
 a trusted third party (TPP). As mentioned in
-Section~\ref{chap:background:crypto}, cryptographic-based system
-require no trust in external systems or parties, only in the
-underlying math. Others use information theory primitives such as the
-secret sharing schemes also discussed in
-Section~\ref{chap:background:crypto} to try to limit how much damage
-any single trusted third party can do: forcing multiple third parties
-to collude to accomplish most attacks. In many cases, these explore
-the trade-offs between the convenience and capabilities that trusted
-third party systems can provide and the security risks of requiring
-one of more trusted third parties.
+Section~\ref{chap:background:crypto}, cryptographically-based systems
+generally require little to no trust in external systems or parties,
+only in the underlying math. Other efforts use information theory
+primitives such as the secret sharing schemes (also discussed in
+Section~\ref{chap:background:crypto}) to try to limit how much damage
+any single TPP can do. Such efforts generally require multiple third
+parties to collude to accomplish most attacks. In many cases, these
+efforts also explore the trade-offs between the convenience and
+capabilities that trusted third party systems can provide and the
+security risks of requiring one of more trusted third parties. Various
+third-party trust limiting efforts are discussed below.
 
 \subsection{Cryptographic Access Control}
 
@@ -81,39 +82,41 @@ The primary limitation of all of the access control models mentioned
 in Section~\ref{chap:background:ac} is their reliance on a trusted
 arbiter for enforcement: generally this trusted arbiter is the
 operating system or third party system in charge of enforcing the
-access control system. This means that the security of any of these
-access control systems is only as good as the security of the system
-or third party enforcing them. Thus, if the underlying OS or third
-party is compromised, the access control system falls apart. Likewise,
-anyone in control of the underlying OS or enforcement system (e.g. an
+access control system. This means that the security of these access
+control systems is only as good as the security of the system or third
+party enforcing them. Thus, if the underlying OS or third party is
+compromised, the access control system falls apart. Likewise, anyone
+in control of the underlying OS or enforcement system (e.g. an
 administrator) automatically gains full control over the access
-control system. This is an acceptable limitations in many situations,
-especially those based on a centrally managed system with existing
-physical security and administrative safeguards in place. But in
-distributed systems or the cloud where physical and management control
-in not guaranteed, a more robust system that lacks this ``trusted
-arbiter'' requirement is desirable.
+control system and the ability to bypass it\footnote{E.g. as in the
+  case of Edward Snowden's collection of large troves of secret NSA
+  data from a facility where he acted as a systems
+  administrator.}. This is an acceptable limitations in many
+situations, especially those based on a centrally managed system with
+existing physical security and administrative safeguards in place. But
+in distributed systems or the cloud where physical and administrative
+control is not guaranteed, a more robust system that lacks this
+``trusted arbiter'' requirement is desirable.
 
 To overcome the need for a trusted enforcement mechanism in access
 control systems, researchers have turned to cryptographically-based
 access control systems. \cite{goyal2006} and \cite{bethencourt2007}
 propose several cryptographically-based access control systems. These
-systems are based on the concept of Attribute-Based Encryption (ABE)
-schemes. ABE schemes allow a user to encrypt a document in a manner
-such that the access control rules associated with the document are
-part of the encryption process itself. Thus, in order to
-decrypt/access a document, a user must satisfy one or more
-cryptographically guaranteed access control attributes.
-\cite{goyal2006} allows user to encrypt documents that can only be
-decrypted by users possessing specific attribute polices encoded in
-their keys. \cite{bethencourt2007} extends this concept to allow
-documents to be encrypted with a full access control policy embedded
-in the encryption process itself, allowing only users who's private
-keys meet a generalized set of requirements to access the
-documents. Both these systems allow the construction of access control
-systems that do not require any trusted arbiter to regulate access to
-objects. Instead, the access control policy is enforced by the
-underlying encryption itself.
+systems are based on the concept of Attribute-Based Encryption
+(ABE). ABE schemes allow a user to encrypt a document in a manner such
+that the access control rules associated with the document are part of
+the encryption process itself. Thus, in order to decrypt/access a
+document, a user must satisfy one or more cryptographically guaranteed
+access control attributes. \cite{goyal2006} allows user to encrypt
+documents that can only be decrypted by users possessing specific
+attribute polices encoded in their keys. \cite{bethencourt2007}
+extends this concept to allow documents to be encrypted with a full
+access control policy embedded in the encryption itself, allowing only
+users who's private keys meet a generalized set of requirements to
+access the documents. Both these systems allow the construction of
+access control systems that do not require any trusted arbiter to
+regulate access to objects. Instead, the access control policy is
+enforced by the underlying cryptography itself.
 
 Such concepts have not yet been widely deployed in day-to-day use,
 possibly because of the complexity and computational overhead of
@@ -124,13 +127,13 @@ discussed in Section~\ref{chap:challenges:solutions}.
 
 \subsection{Homomorphic Encryption}
 
-The rise of the cloud as the home to much modern data processing
+The rise of the cloud as the home to many modern data processing
 systems has led to questions about the degree to which third-party
 cloud providers should be trusted with access to the data processed on
-their infrastructure. Homomorphic Encryption systems are designed to
+their infrastructure. Homomorphic encryption systems are designed to
 help mitigate this trust. Such systems are designed to perform data
 processing operations on encrypted data directly, avoiding the need to
-decrypt it and expose the unencrypted form to a third party.
+decrypt it and expose the unencrypted data to a third party.
 
 The previous few years have heralded the arrival of numerous
 partially-homomorphic encryption systems capable of performing certain
@@ -138,66 +141,69 @@ classes of data processing and manipulation operations directly on
 encrypted data. System like CryptDB~\cite{popa2011} allow users to
 search and query encrypted data directly, allowing the storage of such
 databases on untrusted infrastructure. Other systems like
-CS2~\cite{kamara2011} provided similar protections and capabilities
-for more generic data storage contexts. Such systems are referred to
-as partially homomorphic schemes since they only allow a subclass of
-all possible operations to be performed on encrypted data. Such
-systems have been fielded and shown to be practical today.
+CS2~\cite{kamara2011} provided similar protections and capabilities in
+more generic data storage contexts. Such systems are referred to as
+partially homomorphic encryption schemes since they only allow a
+subclass of all possible operations to be performed on encrypted
+data. Such systems have been fielded and shown to be practical today.
 
-Beyond partially homophobic encryption schemes, fully homomorphic
+Beyond partially homomorphic encryption schemes, fully homomorphic
 encryption schemes allow for unrestricted classes of operations to be
 performed on encrypted data~\cite{gentry2009}. A number of such
-systems have been proposed - some of which go as far as to propose the
-possibility for encrypting computer programs themselves that can then
+systems have been proposed -- some of which go so far as to propose
+the possibility for encrypting computer programs themselves that will
 be executed by a fully homomorphic processor~\cite{Breuer2013,
-  Brenner2011}. Such system are certainly appealing, but thus far
-building one with suitable low overhead so as to be practical today
+  Brenner2011}. Such system are certainly appealing, but thus far,
+building one with suitably low overhead so as to be practical today
 has proven elusive.
 
-While homomorphic solutions likely will prove to be part of the
-solution to the problem of third party trusty in the cloud, they don't
-inherently solve all of the problems. In the practical since, the
-available systems today are limited to only preforming certain
-operations. Furthermore, while such systems allow the processing of
-data atop untrusted infrastructure, they do not provide a solution for
-the cases where you wish to share plain-text data with other users or
-otherwise assert a use case that requires data to be decrypted in
-order to achieve.
+While homomorphic solutions will likely prove to be part of the
+solution to the problem of third party trust, they don't inherently
+solve all trust-related problems. In the practical since, the
+available homomorphic systems today are limited to only preforming
+certain operations. Furthermore, while such systems allow the
+processing of data atop untrusted infrastructure, they do not provide
+a solution for user cases where you wish to share plain-text data with
+other users or otherwise leverage an application that inherently
+requires data to be decrypted. As in other cases, they also do not
+provide a general solution for the management of the associated
+cryptographic keys protecting such operations.
 
 \subsection{Secure Storage}
 
 Beyond data processing, the ability to securely store data atop third
-party infrastructure while also minimizing the degree to third party
+party infrastructure while also minimizing the degree of third party
 trust this entails has been and remains a desirable goal. As such, a
 number of projects have undertaken efforts aimed at achieving such
-protections.  Secure data storage is one of the most targeted areas by
-security and privacy enhancing systems. And for good reason -- the
-ability to security store data is a key primitive for maintaining the
-security and privacy of our computing systems.
+protections. Secure data storage is one of the most targeted
+applications by security and privacy enhancing systems. And for good
+reason -- the ability to securely store data is a critical primitive
+for maintaining the security and privacy of our computing systems.
 
 A number of traditional client-server encrypted file systems exist
 with the design goal of avoiding server-side
-trust~\cite{kher2005}. systems like CryptoCache~\cite{jensen2000},
-RFS~\cite{dong2011}, and Plutus~\cite{kallahalla2003} are all designed
-to allow users to store files on servers without trusted the server
-itself. Other systems like Keypad~\cite{geambasu2011} and
-CleanOS~\cite{tang2012} are aimed at securing data atop user devices
-and protecting that data when a device is lost or stolen. All of these
-systems deploy various forms of cryptography to obtain their goals.
+trust~\cite{kher2005}. File systems like
+CryptoCache~\cite{jensen2000}, RFS~\cite{dong2011}, and
+Plutus~\cite{kallahalla2003} are all designed to allow users to store
+files on servers without trusting the server itself. Other systems
+like Keypad~\cite{geambasu2011} and CleanOS~\cite{tang2012} are aimed
+at securing data atop user devices and protecting that data when a
+device is lost or stolen. All of these systems employ various forms of
+cryptography to obtain their goals.
  
 Beyond traditional client-server secure storage systems, distributed
 storage systems like Depot~\cite{mahajan2011},
 OceanStore~\cite{kubiatowicz2000}, and Tahoe~\cite{wilcox-o'hearn2008}
 are all designed to minimize trust in the underlying storage
 infrastructure. Such systems allow users to distribute and store files
-across many third-party hosted nodes while also ensuring that the
-failure, either accidental or intentional, of a subset of nodes does
-not result in the loss, corruption, or exposure of user data. Depot
-focuses on data integrity and availability in the presence of
-untrusted nodes. Tahoe focus on data integrity privacy in the response
-of untrusted nodes. OceanStore has elements of both as well as a focus
-on large scale deployments that account for properties like locality
-to enhance performance.
+across many third-party nodes while also ensuring that the failure,
+either accidental or intentional, of a subset of nodes does not result
+in the loss, corruption, or exposure of user data. Depot focuses on
+data integrity and availability in the presence of untrusted
+nodes. Tahoe focus on data integrity and privacy in the presence of
+untrusted untrusted nodes. OceanStore has elements of both as well as
+a focus on large scale deployments that provide for properties like
+data locality to enhance performance.
 
 In many of these systems, however, key management primitives are still
 ignored or pushed down to the user, leading to usability issues and
@@ -478,4 +484,4 @@ requiring single third party trust~\cite{lorier-pkcs11}.
 %%  LocalWords:  Rackspace's CloudKeep Custos's CryptDB CleanOS NSA
 %%  LocalWords:  Snowden Mailpile TextSecure ChatSecure LastPass IaaS
 %%  LocalWords:  OnePassword Diffie SpiderOak Tresorit Wuala Shamir
-%%  LocalWords:  HSMs PKCS Heartbleed
+%%  LocalWords:  HSMs PKCS Heartbleed Snowden's OpenStack Barbican
