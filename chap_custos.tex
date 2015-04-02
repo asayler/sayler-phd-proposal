@@ -1,13 +1,14 @@
 \chapter{Custos: An SSaaS Prototype}
 \label{chap:custos}
 
-Custos~\cite{custos-trios, custos-masters} is a sample SSP and SSaaS
-protocol prototype used to demonstrate and explore SSaaS concepts. It
-includes a reference SSaaS API and protocol, an SSP server, and an
-example SSaaS client. Custos is optimized for cryptographic key
-storage, making it primarily a Key Storage as a Service implementation
-(e.g. KSaaS). I provide an overview of Custos and some of its design insights
-here.
+Custos\footnote{Custos is Latin for ``guard''.}~\cite{custos-trios,
+  custos-masters} is a prototype SSP server, SSaaS protocol, and SSaaS
+client ecosystem used to demonstrate and explore SSaaS
+concepts. Custos is optimized for cryptographic key storage, making it
+primarily a Key Storage as a Service (KSaaS) implementation. I provide
+an overview of Custos and some of its design insights here. Additional
+information is available at \cite{custos-masters} and
+\cite{custos-trios}.
 
 \section{Architecture}
 \label{chap:custos:arch}
@@ -20,8 +21,8 @@ here.
 \end{figure}
 
 Figure \ref{fig:custos-overview} shows the core Custos components. The
-bulk of Custos functionality is handled on the server side. The Custos
-server implements the following components:
+bulk of Custos's functionality is handled on the SSP server side. The
+Custos SSP server implements the following components:
 
 \begin{packed_desc}
 \item[API] Handles all Custos requests, including requests for
@@ -73,7 +74,7 @@ variety of applications.
 In order to discuss the Custos access control system, I must first
 explain the Custos \emph{organizational units} (OUs): the core Custos
 data structures. The Custos architecture specifies three
-organizational units (Figure \ref{fig:custos-ou}): a server, a group,
+organizational units (Figure~\ref{fig:custos-ou}): a server, a group,
 and a key:value object. The server unit is used to specify server-wide
 configuration. A server has one or more groups associated with it. A
 group is used to slice a server between a variety of administrative
@@ -91,16 +92,17 @@ groups and groups create objects.
 
 The Custos access control abstraction revolves around designating an
 \emph{Access Control Specification} (ACS) for each OU in the Custos
-architecture. An ACS consists of three components (Figure
-\ref{fig:custos-acs}). Each ACS contains a full list of the applicable
-\emph{permissions} for the given OU. Associated with each permission
-is one or more \emph{access control chains} (ACCs). Each ACC consists
-of an ordered list of \emph{authentication attributes}.
+architecture. An ACS consists of three components
+(Figure~\ref{fig:custos-acs}). Each ACS contains a full list of the
+applicable \emph{permissions} for the given OU. Associated with each
+permission is one or more \emph{access control chains} (ACCs). Each
+ACC consists of an ordered list of \emph{authentication attributes}.
 
 \subsubsection{Permissions}
 \label{chap:custos:arch:ac:perms}
 
-\begin{table}[t]
+\begin{table}[!t]
+  \footnotesize
   \centering
   \tabulinesep = 2pt
   \begin{tabu} to \textwidth
@@ -209,22 +211,22 @@ of an ordered list of \emph{authentication attributes}.
 Each Custos ACS contains a list of permissions: rights to perform
 specific Custos actions. Custos defines permissions for each OU:
 i.e. per-server permissions, per-group permissions, and per-object
-permissions (Table \ref{tab:custos-permissions}).  Unlike many systems,
-Custos has no notion of object ownership. Instead, it relies on
-explicitly granting each right an owner would traditionally hold via
-explicit permissioning. Custos permissions are initially set when the
-associated OU is created. After creation, each ACS can be updated by
-anyone granted the necessary \texttt{acs\_set} permission for the
-specific OU instance. Custos group and server ACSs also include an
-``override'' permission. This permission can be used to override the
-permissions of a lower-level OU's ACS. For example, anyone gaining the
-\texttt{srv\_grp\_override} permission can use it to gain any of the
-rights normally granted via a group-level permission. Likewise, anyone
-gaining the \texttt{grp\_obj\_override} permission can use it to gain
-any of the rights normally granted via an object-level
-permission. These overrides exist for administrative tasks: allowing
-server admins to manipulate group data, and allowing group admins to
-manipulate object data.
+permissions (Table~\ref{tab:custos-permissions}).  Unlike many access
+control systems, Custos has no notion of object ownership. Instead, it
+relies on explicitly granting each right an owner would traditionally
+hold via explicit permissioning. Custos permissions are initially set
+when the associated OU is created. After creation, each ACS can be
+updated by anyone granted the necessary \texttt{acs\_set} permission
+for the specific OU instance. Custos group and server ACSs also
+include an ``override'' permission. This permission can be used to
+override the permissions of a lower-level OU's ACS. For example,
+anyone gaining the \texttt{srv\_grp\_override} permission can use it
+to gain any of the rights normally granted via a group-level
+permission. Likewise, anyone gaining the \texttt{grp\_obj\_override}
+permission can use it to gain any of the rights normally granted via
+an object-level permission. These overrides exist for administrative
+tasks: allowing server admins to manipulate group data, and allowing
+group admins to manipulate object data.
 
 \subsubsection{Access Control Chains}
 \label{chap:custos:arch:ac:acc}
@@ -329,7 +331,8 @@ following set of transactions would occur:
 \subsubsection{Authentication Attributes}
 \label{chap:custos:arch:ac:aa}
 
-\begin{table}[t]
+\begin{table}[!t]
+  \footnotesize
   \centering
   \tabulinesep = 2pt
   \begin{tabu} to \textwidth
@@ -362,6 +365,30 @@ following set of transactions would occur:
   \caption{Example Authentication Attributes}
   \label{tab:custos-attributes}
 \end{table}
+
+Each Access Control Chain contains one or more Authentication
+Attributes (AAs). An authentication attribute is a generic container
+for authentication data. AAs contain the following information:
+
+\begin{packed_desc}
+\item[Class] The top level classification property of an AA. It is
+  used to designate the nature of a given AA. Currently, Custos
+  specifies two possible values for class: ``implicit'' and
+  ``explicit''. Implicit attributes are those that are automatically
+  associated with a request (like an IP address). Explicit attributes
+  are those that the user provides directly to Custos (like a
+  username).
+\item[Type] Within a given class, the AA type specifies which
+  authentication plugin should handle a specific attribute.
+\item[Value] The value contains the arbitrary data associated with a
+  given attribute.
+\end{packed_desc}
+
+The Custos specification supports a flexible set of authentication
+types. Each AA is processed by a specific AA plugin module allowing
+for extensible authentication primitive support similar to systems
+like PAM~\cite{samar1996}. Examples of potential Custos AA types are
+shown in Table~\ref{tab:custos-attributes}.
 
 \section{Protocol}
 
