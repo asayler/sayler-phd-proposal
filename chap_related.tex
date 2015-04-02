@@ -228,15 +228,15 @@ tools well adapted for modern usage demands.
 Many of the recent security and privacy enhancing tools have focused
 on securing user-to-user communication. Both the contents of and
 meta-data associated with such communication has been the focus of
-many of the NSA leaks~\cite{schneier-metadata}. In reaction, we've
-seen the creation of new and advocacy for existing secure communion
-tools.
+many of the recent NSA leaks~\cite{schneier-metadata}. In reaction,
+we've seen the creation of new tools as well as advocacy for the
+expanded use of existing secure communion tools.
 
-Email is one of the primary communication medium today. The
-traditional tools of for securing emails, OpenPGP~\cite{openpgp} and
+Email is one of the primary communication mediums today. The
+traditional tools of for securing email, OpenPGP~\cite{openpgp} and
 its various implementation (e.g. GnuPG~\cite{gnupg} and Symantec
-PGP~\cite{pgp}), are not new. But they have seen renewed levels if
-interest after Edward Snowden reveled his use of such tools and
+PGP~\cite{pgp}), are not new. But they have seen renewed levels of
+interest after Edward Snowden revealed his use of such tools and
 advocated for them as effective NSA counter measures. Unfortunately
 these tools remain no more usable today then they were 20 years ago,
 leading to the multitude of usability issues discussed in
@@ -248,52 +248,53 @@ efforts aimed and making PGP-like encryption and authentication
 systems available to their webmail users~\cite{google-endtoend,
   yahoo-endtoend}. Other systems such as STEED aim to adapt
 traditional PGP principles to make the primitives simpler for the
-average user to deal with~\cite{koch2011}.
+average end-user to deal with~\cite{koch2011}.
 
-But even these recent pushes to re-skin PGP and make it more usable
-can't overcome many of the fundamental issues with the
+But even these recent pushes to re-skin PGP and make it more user
+friendly can't overcome many of the fundamental issues with the
 system~\cite{green-pgp}. Nor are they well suited for securing another
 major form of modern communion: real-time chat. To overcome these
 deficiencies, systems like Open Whisper's
-TextSecure~\cite{openwhisper} system or
-ChatSecure~\cite{chatsecure}. Both systems rely on the Off-the-Record
-securing messaging protocol to achieve encrypted, authenticated, and
+TextSecure~\cite{openwhisper} and ChatSecure~\cite{chatsecure} have
+been created. Both systems rely on the Off-the-Record secure messaging
+protocol to achieve encrypted, authenticated, and
 forward-secure\footnote{Forward secrecy is a property of secure
   communication that ensures that the short-term sessions keys used to
   protect individual messages can not be derived from any long-term
   authentication or related keys. In short, it guarantees that prior
-  messages can not be decrypted in the future should an adversary
-  manage to compromise a long-term user key at any point. Such systems
-  are commonly implemented by decoupling session keys form user
-  authentication keys, using of a systems such as Diffie-Hellman key
+  messages can not be decrypted should an adversary manage to
+  compromise a long-term user key at an point in the future. Such
+  systems are commonly implemented by decoupling session keys from
+  user authentication keys, using systems such as Diffie-Hellman key
   derivation~\cite{diffie1976} to generate the former while only
   relying on the latter for the prevention of Man-in-the-Middle
-  attacks.} real-time communication between two or more
-parties~\cite{otr-v3, borisov2004, goldberg2009}. Such systems aim to
-make secure real-time communication as simple as possible, and have
-shown promise in terms of popularity and usability. But these systems
-are not necessarily well suited to replace PGP since they rely on the
-real-time nature of chat communication to attain forward
-secrecy. Similarly usable and forward-secure solutions for
-non-real-time systems like email systems remain elusive.
+  attacks during the initial setup process.} real-time communication
+between two or more parties~\cite{otr-v3, borisov2004,
+  goldberg2009}. Such systems aim to make secure real-time
+communication as simple as possible, and have shown promise in terms
+of popularity and usability. But these systems are not necessarily
+well suited to replace PGP since they rely on the real-time nature of
+chat communication to attain forward secrecy. Similarly usable and
+forward-secure solutions for non-real-time systems like email systems
+remain elusive.
 
 While secure communication systems are seeing a lot of development and
 showing promise, all of the solutions discussed above are
 communication-specific solutions. As such, they are complimentary to
-the more work presented in this proposal related to general methods
-for reducing third party trust and managing secrets and cryptographic
+the work presented in this proposal related to general methods for
+reducing third party trust and managing secrets and cryptographic
 keys.
 
 \subsection{Password Managers}
 
-One of the most common form of third-party secret storage available
-toward is that of password management. The well documented failure of
-user-chosen passwords as a reliable security
-mechanisms~\cite{goodin-bible, goodin-passwords} has led experts to
-recommend that all user rely instead on a single password manager
-capable of storing unique and random passwords for each website or
-service they use~\cite{schneier-passwords, krebs-passwords,
-  brodkin-passman}.
+One of the most common forms of third-party secret storage available
+today is that of password storage by end-user password managers. The
+well-documented failure of user-chosen passwords as a reliable
+security mechanisms~\cite{goodin-bible, goodin-passwords} has led
+experts to recommend that users rely instead on a single strong
+password that unlocks a password management service capable of storing
+unique and random passwords for each website or service they
+use~\cite{schneier-passwords, krebs-passwords, brodkin-passman}.
 
 Systems such as LastPass~\cite{lastpass} and
 OnePassword~\cite{onepassword} provide users with a hosted platform on
@@ -302,21 +303,21 @@ single-third party for data storage in order to accommodate the
 multi-device sync and multi-user sharing use cases presented in
 Section~\ref{chap:challenges:usecases}. But in doing so, they require
 the user to place a fair amount of trust in the third-party
-provider. Such systems due tend to perform client-side encryption and
-avoid storing the user's master password in a recoverable form,
-mitigating some potential for third party risk, but at the end of the
-day, they still require the user to trust a single third party with
-their credentials, and by proxy, access to their online services and
-accounts.
+provider. Such systems do tend to perform client-side encryption and
+generally are designed to avoid storing the user's master password in
+a recoverable form, mitigating some of the potential for third party
+abuse, but at the end of the day, they still require the user to trust
+a single third party with their credentials, and by proxy, access to
+their online services and accounts.
 
 Password management systems share some of the same goals I propose in
 this document -- namely, the storage of end-user secrets in a secure
 and easy-to-use manner. Thus, password storage can be viewed as a
-special case of the more generic Secret Storage as a Service model. In
-this work, I'll present more versatile and generalized solutions to
-the secret storage problem. Such solution could be used to implement
-the password manger concept while also decoupling such implementation
-form needing to trust a single third party.
+special case of the more generic Secret Storage as a Service (SSaaS)
+model. In this work, I'll present more versatile and generalized
+solutions to the secret storage problem. Such solution could be used
+to implement the password manger concept while also decoupling such
+implementation from needing to trust any single third party.
 
 \subsection{Storage Tools}
 
@@ -325,7 +326,7 @@ problem of arbitrary secure user storage. As mentioned in
 Section~\ref{chap:challenges:usecases}, many user expect such storage
 to provide multi-user and multi-device support in addition to raw
 secure storage, disqualifying many of the traditional encrypted file
-system solutions form the running. Popular storage services like
+system solutions from the running. Popular storage services like
 Dropbox~\cite{dropbox} or Google Drive~\cite{google-drive} are common
 today, but these solutions provide the associated third parties with
 unfettered access to user data, making them unsuitable for users who
@@ -339,19 +340,19 @@ with a Dropbox-like alternative that does not require trusting the
 storage provider. Such services shift the encryption of data into the
 client, helping to ensure the server only ever holds an encrypted copy
 of said data. None the less, the confidentially and privacy claims
-made by such services, however, have been shown to be
-dubious~\cite{Wilson2014}, largely due to the fact the a user must
-still place a large degree of trust in the backing third party in
-order to facilitate sharing use cases.
+made by such services have been shown to be dubious~\cite{Wilson2014},
+largely due to the fact the a user must still place a large degree of
+trust in the backing third party in order to facilitate file sharing
+with other users.
 
-As before, however, these solutions are purpose built for secure
-storage, and fail to provide a more general solution for minimizing
-third party trust. Furthermore, as mentioned above, these services
-still rely on a moderate degree of trust in a single third party in
-order to facilitate sharing use cases and to provide end-user
-applications. The work proposed in this document could be sure to
-re-implement such systems while further suppressing the final vestiges
-of single-party trust.
+As in previous cases, however, these solutions are purpose built for
+secure storage, and fail to provide a more general solution for
+minimizing third party trust. Furthermore, as mentioned above, these
+services still rely on a moderate degree of trust in a single third
+party in order to facilitate sharing use cases. The work proposed in
+this document could be leveraged to re-implement such systems while
+further suppressing the final vestiges of single-party third-party
+trust.
 
 \section{Key Management Systems}
 \label{chap:related:keymgmt}
