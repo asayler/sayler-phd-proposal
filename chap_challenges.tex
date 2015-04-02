@@ -624,31 +624,29 @@ systems in mind.
 \label{chap:challenges:solutions}
 
 The confluence of modern use cases and modern security concerns place
-restrictions on the manners in which we must build successful privacy
-and security enhancing systems. The security concerns form the basis
-for the treat model against which our system must be designed to
-defend. The requirement that we support modern use cases place
-limitations on the manners in which we may defend against the
-threats. These limitations disqualify many existing solutions and
-underline the need for new approaches.
+restrictions on the manner in which we must design and build
+successful privacy and security enhancing systems. These security
+concerns form the basis for the threat model against which our systems
+must be able to defend. The requirement that we support modern use
+cases place limitations on the manners in which we may defend against
+these threats. These limitations disqualify many existing solutions
+and underline the need for new approaches.
 
 Traditionally the solution to many of the threats discussed in
-\S\ref{chap:challenges:threats} involve the use of
+\S~\ref{chap:challenges:threats} involve the use of
 encryption. Encryption is a desirable security primitive since it
 allows us to protect user data in a manner that is mathematically
-secure, e.g. encrypting does not rely on any system or authority for
+secure: e.g. encryption does not rely on any system or authority for
 the enforcement of its security guarantees, it is instead the
-intrinsic propertied of the underlying math itself that give rise to
-security claims. Thus encryption and related cryptographic primitives
-can serve as the basis for systems that are designed to operate
-securely atop untrusted hardware or systems where a user wished to
-store data in manner where it can not be accessed, modified, or read
-by others.
+intrinsic properties of the underlying math itself that give rise to
+its security claims. Thus encryption and related cryptographic
+primitives can serve as the basis for systems that are designed to
+operate securely atop untrusted hardware or services.
 
 A number of existing encryption systems have been designed and
 deployed with an aim towards protecting user data in the scenarios
 discussed previously. For example, full-disk encryption systems such
-as LUKS~\cite{luks} protest user data at rest and can help guarded
+as LUKS~\cite{luks} protect user data at rest and can help guard
 against data leaks if a storage device is lost, stolen, or otherwise
 acquired by an adversary. Unfortunately, such systems fail to account
 for many modern use cases. In particular, full disk encryption systems
@@ -658,53 +656,55 @@ system. Such requirements are not generally possible to fulfill when
 using cloud-based infrastructure such as IaaS-backed virtual
 machines. Simply doing away with such pass-phrases isn't a viable
 solution either since the security of the entire system rests upon the
-user and only the user being able to provide such information. I.e. a
-full disk encryption system that stores a copy of the user pass-phrase
-locally to avoid the need for the user to type it in is no more secure
-then a system without encryption at all. You're either giving an
-adversary a unlocked box or you're giving an adversary a locked box as
-well as the key required to unlock it; neither scenario results in a
-security benefit for the original box owner.
+intended user, and only that user, being able to provide such
+information. I.e. a full disk encryption system that stores a copy of
+the user pass-phrase locally to avoid the need for the user to type it
+in is no more secure then a system without encryption at all. You're
+either giving an adversary a unlocked box or you're giving an
+adversary a locked box as well as the key required to unlock it;
+neither scenario results in a security benefit for the owner of the
+box.
 
 There also exist various run-time encryption systems that avoid many
-of the issue associated with using full disk encryption systems in the
-cloud. In particular, file-level encryption systems like
+of the issues associated with using full disk encryption systems in
+the cloud. In particular, file-level encryption systems like
 eCryptfs~\cite{ecryptfs} could conceivably be used to locally encrypt
 user data before uploading it to a cloud service such as Dropbox or
 Apple's iCloud. Such an action would serve to greatly reduce the
 degree to which the user must trust either Dropbox or
 Apple. Unfortunately such actions do not mesh well with many of the
-desired multi-device and multi-user use cases common today. For
-example, encrypting data on one's laptop, storing it on Dropbox, and
-then trying to access it from another device such as a phone or tablet
-will fail. This is due to the fact that the keys used to encrypt the
-data, and those required to decrypt and access the data, only exist on
-the original laptop, making ti impossible to access the data form
-another device -- the very propose behind putting it on Dropbox in the
-first place. The sure could manually move their keys between devices
-to overcome this issue, but doing so likely presents an unachievable
-challenge for most lay users. Furthermore, if the user is capable of
-easily transferring keys between devices via machines other then
-Dropbox, why can't they just do that with files as well and avoid
-Dropbox all together? Likewise, if a user wishes to share data with
-another iCloud or Dropbox user, they are now also required to exchange
-the necessary decryption key information as well. Such exchanges are
-challenging for most users to perform in a practical and secure
-manner, and requiring them greatly increases the overhead to
-multi-user sharing, making it unlikely that most users would employ
-such tactics in the first place.
+desired multi-device and multi-user use cases mentioned
+previously. For example, encrypting data on one's laptop, storing it
+on Dropbox, and then trying to access it from another device such as a
+phone or tablet will fail. This is due to the fact that the keys used
+to encrypt the data, and that are thus required to decrypt and access
+the data, only exist on the original laptop, making it impossible to
+access the data from another device -- the very propose behind putting
+it on Dropbox in the first place. The user could manually move their
+keys between devices to overcome this issue, but doing so likely
+presents an unachievable challenge for most lay users. Furthermore, if
+the user is capable of easily transferring keys between devices via
+machines other then Dropbox, why can't they just do that with files as
+well and avoid Dropbox all together? Likewise, if a user wishes to
+share data with another iCloud or Dropbox user, they are now also
+required to exchange the necessary decryption key information
+out-of-band in addition to enabling the normal sharing
+mechanisms. Such exchanges are challenging for most users to perform
+in a practical and secure manner, and requiring them greatly increases
+the overhead to multi-user sharing, making it unlikely that most users
+would employ such tactics in the first place.
 
 Thus, I assert that most traditional encryption systems are not good
-fits for the modern use cases required by users today. Fortunately, in
-these situations it is not the encryption itself that is flawed. This
-is fortunate since modern state-of-the-art encryption is really quite
-a powerful security tool and it would be a major loss to not be able
-to leverage it in future privacy and security enhancing
-systems. Encryption is a viable tool for helping us reduce the trust
-we must place in various third parties.
+fits for the poplar third-party backed use cases today. Fortunately,
+in these situations it is not the encryption itself that is
+flawed. This is fortunate: modern state-of-the-art encryption is quite
+a powerful tool and it would be a major loss to be unable to leverage
+it in pursuit of privacy and security enhancing systems. Encryption is
+a viable tool for helping us reduce the trust we must place in various
+third parties.
 
 Instead, the issue breaking common use cases today is the lack of
-secure, usable, and tolerant key management systems. Such systems
+secure, usable, and flexible key management systems. Such systems
 would work in conjunction with traditional encryption solution to
 allow users to deploy encryption systems while also ensuring that they
 have access to the associated keys when and where they need
@@ -713,9 +713,9 @@ to such keys to ensure only authorized devices and users may leverage
 them to decrypt user data. In fact, encryption key storage represents
 just a subset of the larger secret storage problem: How can a a user
 securely store various secrets (encryption keys, passwords, personal
-data, etc) in a manner such that they can access it when and where
-ever they need it while also ensuring that no authorized access to the
-data is ever allowed?\footnote{This question is merely a variant of
+data, etc) in a manner that allows them to access them when and where
+desire while also ensuring that no unauthorized access to these
+secrets is ever allowed?\footnote{This question is merely a variant of
   the Always/Never paradox often encountered when attempting to build
   secure systems. The problem was probably most famously encountered
   during the Cold War in the design of nuclear weapons: How can you
