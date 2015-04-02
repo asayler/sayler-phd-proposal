@@ -16,9 +16,9 @@ interaction in which we partake.
 The cloud computing model, by its very nature, further amplifies the
 number of parties we must trust. But what does it mean to trust a
 third party in the cloud? Before discussing the details of an SSaaS
-ecosystem, it's helpful to further define what I mean my
-``trust''. I can then compare the trust models available in the cloud
-today with those available via SSaaS.
+ecosystem, it's helpful to further define ``trust''. In this chapter,
+I define a model for analyzing trust and apply this model to compare
+traditional cloud-backed offerings to SSaaS-backed offerings.
 
 \section{Analyses Framework}
 \label{chap:trust:framework}
@@ -124,33 +124,33 @@ service in order to reap the benefits each service provides. Figure
 relationship between a user, their private data, and a traditional
 cloud service provider.
 
-We can analyze our Dropbox example from \S~\ref{chap:intro:example}
-using our proposed framework. To begin, what capabilities is a normal
+We can analyze the Dropbox example from \S~\ref{chap:intro:example}
+using my proposed framework. To begin, what capabilities is a normal
 Dropbox user entrusting to Dropbox? Clearly, users must trust Dropbox
-to faithfully store their data since that is Dropbox's core use case,
+to faithfully store their data since that is Dropbox's core purpose,
 so we have granted Dropbox the \emph{S} capability. Furthermore users
 must also grant Dropbox the ability to read and access their data
 (i.e. the \emph{R} capability) in order to support Dropbox's sharing
 and syncing features. While Dropbox doesn't generally utilize it,
 users are also effectively granting the manipulation (\emph{W})
-capability as well since the user has no mechanisms for ensuring
-that Dropbox can't manipulate their data. Finally, Dropbox has full
-access to user metadata related to their usage of the service,
-granting them the \emph{M} capability. Thus, Dropbox users are fully
-trusting Dropbox with all possible trust capabilities.
+capability as well since the user has no mechanisms for ensuring that
+Dropbox can't manipulate their data. Finally, Dropbox has full access
+to user metadata related to their usage of the service, granting them
+the \emph{M} capability. Thus, Dropbox users are fully trusting
+Dropbox with all possible trust capabilities.
 
 But how likely is it that Dropbox might misuse any of these
 capabilities, thus violating the user's trust and privacy? In terms of
 implicit violations (\emph{I}), Dropbox charges users for storage, and
 thus shouldn't generally rely on reading or sharing user data for
 advertising purposes. Furthermore, such a business model relies on
-Dropbox remaining in its paying users good graces, disincentivizing
+Dropbox remaining in its paying users' good graces, disincentivizing
 potentially questionable behavior. None the less, there is evidence of
 Dropbox opening user files for unknown
 reasons~\cite{vintsurf-dropbox}, which might indicate a possible
 \emph{I} violation. The user has no way to prevent an \emph{I}
 violation when using Dropbox, so we can do no more than give Dropbox
-the benefit of the doubt.
+the benefit of the doubt in this area.
 
 In terms of compelled (\emph{C}) violations, Dropbox is a US-based
 company, and is thus susceptible to a variety of government-sponsored
@@ -196,13 +196,13 @@ potential for violations paradigm.
 
 In order to enhance user privacy in the cloud, we must move beyond the
 traditional full-trust, easily violated model presented in
-\S~\ref{chap:trust:traditional}. Of the two components of our trust
+\S~\ref{chap:trust:traditional}. Of the two components of my trust
 framework, degree of trust and potential for violation, degree is the
 easier to control quality: what capabilities to trust a cloud provider
-with is largely within the user's control, where as the method in which
-trust might be violated is largely outside of a user's control. We
-will thus focus our solution on mitigating degree of trust first and
-methods of violation second.
+with is largely within the user's control, where as the method in
+which trust might be violated is largely outside of a user's
+control. I will thus focus my solution on mitigating degree of trust
+first while disincentivizing methods of violation second.
 
 The ideal trust model begins with the principle of least
 privilege~\cite{saltzer1975}: we should only afford a cloud provider
@@ -210,27 +210,27 @@ the minimal degree of trust necessary to provide the intended
 features. Furthermore, in order to monitor cloud providers for
 potential trust violations, we would also like to maintain some degree
 of auditing over any capability we entrust to a provider. Minimal,
-audited trust is the basis of our ideal trust model.
+audited trust is the basis of my ideal trust model.
 
-Applying the ideal trust model to the previous Dropbox example, I
+Applying this ideal trust model to the previous Dropbox example, I
 conclude that Dropbox should really only be afforded the storage
 (\emph{S}) capability: after all, there is no real need for Dropbox to
 ever be able to access (\emph{R}) or manipulate (\emph{W}) user data
-in order to blindly sync files across device or share them with
-others. While Dropbox does not need the metadata (\emph{M}) capability
+in order to blindly sync files across device or share them with other
+users. While Dropbox does not need the metadata (\emph{M}) capability
 to simply support the desired user case, it is far more difficult for
 the user to limit this capability then the \emph{R} or \emph{W}
-capabilities. We thus will also concede this capability to Dropbox as
+capabilities. I thus will also concede this capability to Dropbox as
 well. We have thus reduced Dropbox's capabilities from four (full
 trust) to two (minimal trust).
 
 But how can we enforce this limited trust profile when using Dropbox?
 Figure~\ref{fig:trust-ssaas} shows my proposed SSaaS solution to this
-problem.I introduce a new actor: the Secret Storage Provider (SSP)
-into the mix. I then restrict the user to only storing encrypted data
-with Dropbox. The user stores the associated encryption and
-verification keys with the SSP. Assuming we utilize strong encryption
-and integrity systems like AES~\cite{nist2001} +
+problem. I introduce a new actor: the Secret Storage Provider (SSP)
+into the mix. I then restrict the user to only storing encrypted and
+authenticated data with Dropbox. The user stores the associated
+encryption and verification keys with the SSP. Assuming we utilize
+strong encryption and integrity systems like AES~\cite{nist2001} +
 CMAC~\cite{dworkin2005}, Dropbox can not feasibly decrypt and access
 the user's data nor can they manipulate user data without
 detection. Storing the keys with an SSP, as opposed to simply forcing
@@ -244,7 +244,7 @@ but with significantly less trust in Dropbox itself.
 But have we simply replaced one third party with another? Why is the
 SSP any more trustworthy than Dropbox itself? There are several reason
 why we might expect an SSP to be less prone to trust violations then a
-feature provider like Dropbox, and we'll discuss these in
+feature provider like Dropbox. I'll discuss these in
 \S\ref{chap:ssaas}. But in terms of degrees of trust, we really aren't
 affording the SSP any greater degree of trust then Dropbox. Both are
 entrusted with the \emph{S} and \emph{M} capabilities, but neither has
@@ -259,17 +259,21 @@ same regulatory jurisdiction, it may still be possible for a single
 entity to compel (\emph{C}-type violation) them both or provide data
 that would allow an adversary to elevate their capabilities to include
 \emph{R} and \emph{W}. Likewise, if Dropbox and the SSP collude to
-violate a user's trust, a capability elevation will occur. This latter
-point introduces a new violation type into our framework:
+violate a user's trust, a similar capability elevation will
+occur. This latter point introduces a new violation type into my
+framework:
 
 \begin{packed_desc}
-\item[Colluding (L):] \hfill \\
-  This class of violation occurs when multiple trusted parties collude
-  to gain capabilities over user data beyond what the user intended
-  each to have. An example would be an SSP sharing the user's
-  encryption keys with the feature provider storing the corresponding
-  encrypted data.
+\item[Colluding (L):] \hfill \\ This class of violation occurs when
+  multiple trusted parties collude to gain capabilities over user data
+  beyond what the user intended each individually to have. An example
+  would be an SSP sharing the user's encryption keys with the feature
+  provider storing the corresponding encrypted data.
 \end{packed_desc}
 
-I further discuss SSP trust and violation mitigation in
+This framework provided the basis for analyzing third party trust as
+well as the basic argument in favor of SSaaS as trust-reducing
+system. I discuss SSP trust and violation mitigation further in
 \S~\ref{chap:ssaas}.
+
+%%  LocalWords:  SSaaS FISC SSP CMAC
