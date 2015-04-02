@@ -1,33 +1,33 @@
 \chapter{Challenges to Privacy and Security}
 \label{chap:challenges}
 
-\section{Modern Use Cases}
-\label{chap:challenges:usecases}
-
 As mentioned in Chapter~\ref{chap:intro}, the last 10+ years have
 heralded the rapid expansion of a number of digital data related use
 cases. In order to accommodate these use-cases, most modern services
-leverage some form of third-party compute or data processing
+leverage some form of third-party compute or data storage
 systems. These third-party systems, however, raise questions about the
 privacy and security of user data. In particular, to what degree can
-we trust various third-parties with user data and are there mechanisms
-that allow us to control or reduce this degree of trust? Before we can
-answer these questions, it's important to note that any proposed
-solution that fails to support modern desirable use cases is unlikely
+we trust various third-parties with user data? And as a corollary: are
+there mechanisms that allow us to control or reduce this degree of
+trust?
+
+\section{Modern Use Cases}
+\label{chap:challenges:usecases}
+
+Before we can answer these questions, it's important to note that any
+proposed solution that fails to support modern use cases is unlikely
 to succeed in a market where users are voluntarily turning to
-third-party services on the basis of the features they can
-provide. Thus, we must start by understanding the predominant modern
-use-cases
+third-party services for the features they can provide. Thus, we must
+start by understanding the predominant modern use-cases. We can divide
+these cases into two categories: consumer focused use cases and
+developer focused use-cases. Consumer use cases are those that matter
+to the average lay computer user. Likewise, developer use cases are
+those that matter to back-end developers and service providers.  Both
+set of use cases represent requirements that modern security and
+privacy enhancing solutions must be able to accommodate if they are to
+be widely adopted and used.
 
-We can divide these cases into two categories: end-user focused user
-cases and developer focused use-cases. End-user use cases are those
-that matter to the average consumer. Likewise, developer-focused use
-cases are those that matter to back-end developers and service
-providers.  Both set of use cases represent requirements that modern
-security and privacy enhancing solutions must be able to accommodate
-if they are to be widely adopted and used.
-
-\subsection{End-User Use Cases}
+\subsection{Consumer Use Cases}
 
 Today's end-users expect modern software to support a range of common
 behaviors. Chief amongst these are the ability to support the use of
@@ -36,21 +36,22 @@ sharing with other users, and the ability to provide turn-key data
 processing capabilities or other services which act on user data.
 
 \subsubsection{Multi-Device}
+
 It's not uncommon for a single user to utilize multiple computing
 devices. For example, a user might have a personal laptop, a work
 desktop, a smart phone, and a tablet. As such, users expect to be able
 access their data from any of their devices. Similarly, many modern
-users treat compute devices as essentially disposable. When a user
-loses a phone or has a laptop stolen, they still expect to be able to
-continue to access their data on any replacement device. The
-multi-device and ephemeral-device nature of the average end-user has
-lead to the rise of a number of solutions that aim to separate a users
-data from any singular device and to ensure that users may access
-their data regardless of device. Such solutions can generally be
-placed into two groups: services that sync user data between devices
-(i.e. sync services) and services that store all user data in a
-centralized and globally accessible location and provide a manner for
-users to access this from each device (i.e. locker services).
+users treat compute devices as disposable: when a user loses a phone
+or has a laptop stolen, they still expect to be able to continue to
+access their data on a replacement device. The multi-device and
+ephemeral-device nature of the average consumer has lead to the rise
+of a number of solutions that aim to separate a user's data from any
+single device and to ensure that users may access their data
+regardless of device. Such solutions can generally be placed into two
+groups: services that sync user data between devices (i.e. sync
+services) and services that store all user data in a centralized and
+globally accessible location and provide a manner for users to access
+this date from each device (i.e. locker services).
 
 Sync services operate on the premise that user data will be stored
 locally on each device, but will also be automatically kept in sync
@@ -59,72 +60,74 @@ of their data regardless of device, even when each device stores
 independent, localized copies of this data. Such services generally
 accomplish this by providing either a centralized or a decentralized
 service that tracks user data on each device and updates data across
-all devices when it is add, removed, or modified on any single
+all devices when it is added, removed, or modified on any single
 device. Sync services are often a desirable solution to the
 multi-device data access problem for several reasons:
 
 \begin{packed_desc}
 \item[Bandwidth Efficient:] Sync services only require Internet access
-  to reflect data changes between devices. The act of reading data can
-  be serviced directly from the local copy, avoiding the need to
-  consume bandwidth by communicating with an external services or
-  another device. This is a desirable quality in situations where
-  bandwidth is at a premium and would either be cost prohibitive or
-  performance restricting to consume every time data needs to be
-  read. Sync services tend to be bandwidth efficient even when
-  modifying data since they can cache a series of updates locally,
-  only syncing the final state to other devices, as opposed to having
-  to translate every individual update across the network.
+  to update data between devices. The act of reading data already
+  present on a device only requires access to the local copy, avoiding
+  the need to consume bandwidth communicating with an external
+  server. This is a desirable quality in situations where bandwidth is
+  at a premium and would either be cost prohibitive or performance
+  restricting to consume every time data needed to be read. Sync
+  services tend to be bandwidth efficient even when modifying data
+  since they can cache a series of updates locally, only syncing the
+  final differential state to other devices.
 \item[Offline Support:] As an extension to the previous point, sync
   services are capable of operating in situations where no Internet or
   network connection is available. Since all data access is available
   locally, user may continue to access and modify data even when they
   can not connect to the sync service. The sync service will simply
-  wait for the network connection to return and then update any Lola
+  wait for the network connection to return and then update any local
   changes on other devices. While this can lead to issues when users
-  make conflicting modification on multiple devices while offline, in
+  make conflicting modifications on multiple devices while offline, in
   general it represents a more graceful failure model then a system
   that requires an Internet connection for any form of data
-  access. This also acts as a hedge against the sync service provider
-  shutting down, etc; even in such a situation the use will still
-  retain local copes of all their data that they could then use to
+  access. This also acts as a hedge against a sync service provider
+  shutting down: even if a sync service goes under, the user will
+  still retain local copes of all their data that they could use to
   bootstrap a new sync service.
 \item[No Central Storage:] Since sync services are only concerned with
   syncing changes between devices, it's not inherently necessary for
-  such services to store a copy of all user data in a central
+  such services to store a copy of user data in a central
   location. This allows such systems to be built using distributed
-  device-to-device design when desired. In practice, many sync systems
-  do store a copy of all user data in order to facilitate the
+  device-to-device designs when desired. In practice, many sync
+  systems do store a copy of all user data in order to facilitate the
   bootstrapping of new devices, but this is not an inherent
   requirement of the sync service architecture.
 \end{packed_desc}
 
 One of the main challenges to sync services is their local storage
 requirement. While such a requirement allows for some of the benefits
-list above, it also limits the total available storage afforded to
-each user to the size of their smallest device. In situations where a
-user wishes to store more data then can be fit on any single device,
-locker services may offer a more desirable solution.
+listed above, it also limits the total available storage afforded to
+each user to the size of their smallest device. Most sync services
+offer partial-sync options to help mitigate such issues, but these
+tend to be burdensome to configure and are often relegated to the
+purview of advanced users. In situations where a user wishes to store
+more data then can be fit on any single device, locker services may
+offer a more desirable solution.
 
 Locker service operate by storing all user data on a central server
-and then proving mechanisms for users to access and modify this data
+and then providing mechanisms for users to access and modify this data
 there. Such services are reminiscent of more traditional networked
 file systems such as NFS~\cite{sandberg1985} or
-SMB~\cite{microsoft-smb2}. Data lock services store all user data in a
-networked location where each individual user device may access it for
-the propose of reading, modifying, or deleting data. Since such
-systems only have a single logical copy of each file, the user is
-presented with a singular view of their data regardless of which
-devices they chose to access it from. Such services have several
-desirable qualities:
+SMB~\cite{microsoft-smb2}. Data locker services store all user data in
+a logically-centralized and globally-accessible location where each
+individual user device may access it for the propose of reading,
+modifying, or deleting data. Since such systems only have one logical
+copy of each file, the user is presented with a single view of their
+data regardless of which device they chose to access it from. Such
+services have several desirable qualities:
 
 \begin{packed_desc}
 \item[No Local Storage:] Locker services store all data in online
   locations, generally atop data-center-based servers. Thus, unlike
   sync services, they require no local storage. This is useful in
-  situations where local storage is limited (e.g. on phones) but where
-  the user still wishes to have access to a large amount of data
-  (e.g. a video collection). Likewise, locker services avoid waiting
+  situations where local storage is limited (e.g. on phones), but
+  where the user still wishes to have access to a large amount of data
+  (e.g. a video collection). Likewise, locker services avoid wasting
   unnecessary local space by creating multiple copies of each file on
   each device. Additionally, the lack of local copies may be desirable
   in situations where local devices are prone to theft or may
@@ -134,14 +137,15 @@ desirable qualities:
   (logical) copy of the data at any time. This ensures that situations
   where the user makes conflicting modifications to a piece of data
   are far less likely then in sync-based solutions. This property can
-  also increase the usefulness of such systems in multi-user scenarios
-  where more then one person might be accessing and modifying data.
+  increase the usefulness of such systems in multi-user scenarios
+  where more then one person might be accessing and modifying data
+  simultaneously.
 \item[Centralized Control:] Due to the manner in which most locker
   services store their data, such services often provide more
-  centralized control point then a potentially detailed sync
+  centralized control point then a potentially distributed sync
   service. Such control may be desirable in corporate environments
   where a single administrator wishes to track user file access,
-  sharing, etc.
+  modifications, etc.
 \end{packed_desc}
 
 One of the main downsides to locker services is their requirement for
@@ -149,14 +153,14 @@ always-online access. Thus, in situations where network access is
 impossible or where high-bandwidth usage is not practical, locker
 services can prevent users from access their data. Thus, locker
 services may operate best on local area networks and in other
-situations where network bandwidth is reliable and plentifully. in
-situations where networks access is not guaranteed, sync services may
+situations where network bandwidth is reliable and plentifully. In
+situations where network access is not guaranteed, sync services may
 offer a more desirable solution.
 
-Today, sync services tend to be the more popular solution for
-individual end-users. Such users generally want access to their data
-across multiple devices in multiple locations (home, work, in public,
-etc) - requiring the data to be available in locations where a
+Today, sync services tend to be the more popular solution for most
+end-users. Such users generally want access to their data across
+multiple devices and in multiple locations (home, work, public,
+etc) -- requiring the data to be available in locations where a
 reliable network is not always available. Thus, sync service dominate
 multi-device data access solution landscape. Examples of popular
 centralized sync services today include Dropbox~\cite{dropbox}
@@ -168,82 +172,77 @@ Users~\cite{smith-stats}).  An examples of a decentralized sync
 service is BitTorrent Sync~\cite{bittorrent-sync} ($\approx2$ Million
 Users~\cite{smith-stats}).
 
-Locker services are also available, especially in situations where
-network access is reliable and centralized control desirable:
-e.g. business environments. In such situations traditional in-house
-networked file system solution may provide the locker
-service. Alternatively, there are cloud services that provide users
-with online locker-like data access: e.g. system like
+Locker services are also available and tend to be most popular in
+situations where network access is reliable and where centralized
+control is desirable: e.g. business environments. In such situations
+traditional in-house networked file system solution may provide the
+locker service. Alternatively, there are cloud services that provide
+users with online locker-like data access: e.g. systems like
 OwnCloud~\cite{owncloud} implement the WebDAV
 protocol~\cite{goland1999} for remote file access over the
 Internet. Similarly, distributed systems like Least Authority's Simple
 Secure Storage Service~\cite{leastauthority-s4} (S4, built atop
 Tahoe-LAFS~\cite{wilcox-o'hearn2008}) offer Internet-wide multi-device
-access to a central data store. Furthermore, some sync services are
-also capable of operating more like locker services. Systems like
+access to a distributed data store. Furthermore, some sync services
+are also capable of operating more like locker services. Systems like
 Microsoft OneDrive allow users to specify which files are copied
-locally (and thus available for offline access) and which are stores
+locally (and thus available for offline access) and which are stored
 only on the server and streamed to the user as
 required~\cite{microsoft-onedrive-online}. There have also been a
 number of popular special-purpose locker services designed to promote
-multi-device access to data, particular in the media space. Systems
-like Google Music~\cite{google-music} allow users to upload music
-files which they can then access and stream to multiple
-devices. Similarly, on the distributed (and generally less-legal)
-front, systems like Popcorn Time~\cite{popcorntime} allow users to tap
-into each others video libraries to stream content to their own
-devices.
+multi-device access to specific classes of data. In the media space,
+systems like Google Music~\cite{google-music} allow users to upload
+music files which they can then access and stream to multiple
+devices. Similarly, distributed systems like Popcorn
+Time~\cite{popcorntime} allow users to (often illegally) tap into each
+others video libraries to stream content to their own devices.
 
-Users' ownership of multiple computing devices has lead to a strong
-desire for each user to be able to access their data from any
-device. In response to this desire, a number of third-party backed
-services have sprung up to provide user with either sync or locker
-based multi-device file access. Any technology aimed at enhancing the
-security or privacy of end user data is going to need to account for
-and support the multi-device nature of modern users.
+As shown above, users' ownership of multiple computing devices has
+lead to a strong desire for users to be able to access their data from
+any device. In response to this desire, a number of third-party backed
+services have sprung up to provide users with multi-device file
+access. Any technology aimed at enhancing the security or privacy of
+end-user data is going to need to account for and support the
+multi-device nature of modern users.
 
 \subsubsection{Multi-User}
 
 In addition to using multiple compute devices, many users today desire
-the ability to share and collaborate with other users. This requires
-the ability to share data with other users or to have multiple users
-access a central copy of any given piece of data. In response to these
-desires, many services today offer various mechanisms for multi-user
-sharding and collaboration. Similar to the multi-device use case, the
-solution in this space can be roughly grouped into two categories:
-distributed services that allows users to share copies of data with
-other users and centralized services that allow multiple users access
-to a central copy of the data.
+the ability to share and collaborate with other users. In response to
+these desires, many cloud services offer various mechanisms for
+multi-user sharing and collaboration. Similar to the multi-device use
+case, the solutions in this space can be roughly grouped into two
+categories: distributed services that allows users to share copies of
+data with other users and centralized services that allow multiple
+users access to a central copy of the data.
 
 In many cases the same solutions discussed previously that enable the
 multi-device use case also provide multi-user sharing
 capabilities. This is true of sync service like Dropbox or Drive that
 not only allow users to sync files amongst their devices, but also
-allow them to share files with other users to sync to their
-devices. In many ways, this is just an extension of the sync service
-model with the extension that now users may also include devices other
-then their own ion the sync set. Similarly, locker-style multi-device
-solutions often also includes support for multi-user use cases. For
-example, traditional networked file systems like NFS provide both
-multi-device access and multi-user support. Likewise, systems like
-Least Authority's S4 provide primitives for sharing files with
-multiple users.
+allow them to share files with other users. In many ways, this is just
+an extension of the sync service model with the extension that now
+users may also include devices other then their own in the sync
+set. Similarly, locker-style multi-device solutions often
+include support for multi-user use cases. For example, traditional
+networked file systems like NFS provide both multi-device access and
+multi-user support. Likewise, systems like Least Authority's S4
+provide primitives for sharing files with multiple users.
 
 Unlike the sync use case, however, adding support for multi-user
-sharing requires providers to provide access control primitives in
-addition to basic file syncing primitives. These primitives allow
-users to control the manner in which either users may access and use
-the shared data, in effect proving users with the necessary tools to
-place limes on the degree to which they trust other users. Many
-services provide fairly traditional file-like access control schemes
-were each user may be granted read and/or write permissions to a
-specific piece of data. Data owners can use these permission to craft
-access control polices for the group of user with which they wish to
-share a given file.
+sharing requires providing access control primitives in addition to
+basic file syncing primitives. These primitives allow users to control
+the manner in which other users may access and use the shared
+data. Such controls are necessary to allows users to place limits on
+the degree to which they trust other users. Many services provide
+fairly traditional file-like access control schemes were each user may
+be granted read and/or write permissions to a specific piece of
+data. Data owners can use these permission to craft access control
+polices for the group of user with which they wish to share data.
 
-It's also common to see support for various from of multi-user sharing
-in a range of hosted services, from social networking apps to
-web-based document editors. Social Network systems like
+It's also common to see support for various forms of multi-user
+sharing in a range of hosted services, from social networking apps to
+web-based document editors. Social network platforms like
 Facebook~\cite{facebook} have extensive support for sharing photos,
 videos, status messages, and other user-generated continent. Such
 systems also provide the data originator with the ability to place
@@ -254,29 +253,29 @@ Docs~\cite{google-docs} or Microsoft Office
 Online~\cite{microsoft-officeonline} offer users the ability to
 interactively compose and collaborate on document creation and
 editing. Such systems are inherently multi-user, generally giving the
-user the ability to chose who else can view and edit the document.
+user the ability to chose who else can view and edit each document.
 
 Multi-user use cases are a key component of many computing systems
 today. As in the multi-device cases, support for multi-user scenarios
 is an important component of any privacy and security enhancing
 technology. Technologies that lock the user out of such use cases are
-unlikely to be popular with most users today.
+unlikely to be effective solutions for most users today.
 
 \subsubsection{Hosted Services and Processing}
 
-In addition to the multi-device and multi-user scenarios users expect
-support for today, many user also expect support for various hosted
-services and data processing solution. In many ways, this expectation
-follows form users' multi-device and multi-user expectations: whereas
-the traditional computing model involves users running locally
-installed applications for the purpose of processing or interacting
-with data, such a model fails to properly account for the multi-device
-and multi-user requirements of many modern use cases. Thus, many data
+In addition to the multi-device and multi-user scenarios discussed
+above, many user also expect support for various hosted services and
+data processing solution. In many ways, this expectation follows from
+users' multi-device and multi-user expectations: whereas the
+traditional computing model involves users running locally installed
+applications for the purpose of processing or interacting with data,
+such a model fails to properly account for the multi-device and
+multi-user requirements of many modern applications. Thus, data
 processing services that would have traditionally been installed
 locally, are now run as hosted services atop third party
-infrastructure. Using such service requires user to be able to share
+infrastructure. Using such services requires users to be able to share
 data with third parties for the purpose of leveraging such
-services. Unlike purse multi-device syncing or multi-user sharing
+services. Unlike pure multi-device syncing or multi-user sharing
 services, data processing service provide some benefit to the user
 above and beyond the mere storage, transfer, or sharing of data.
 
@@ -285,30 +284,30 @@ data include the social networking and document editing solutions
 mentioned previously. In both cases, these services take user data and
 leverage it to provide an additional benefit to the user: e.g. the
 ability to interact and communicate with one's friends or the ability
-to create and expand content with a colleague. Other examples of
-hosted services include various ``Big Data'' systems that leverage
-vast swaths of user data to provide insights into user behavior or
-patterns in user actions. For example, ``Internet of Things'' (IoT)
-devices are becoming increasingly popular supporting a user's ability
-to track things like their day-to-day power consumption~\cite{neurio}
-or record their exercise habits~\cite{fitbit}. The data from such
-devices in generally passed back to third party processing platforms
-where potentially useful insights are drawn form it and returned to
-the user. Often such systems leverage their access to wide swaths of
-user data to return more useful information then the data form any
-single user could provide. It seems like that such services will
-continue to grow in popularity as the cost of deploying IoT devices
-drops and the collective benefits of access to large data sets
-increases.
+to create and expand written documents with a colleague. Other
+examples of hosted services include various ``Big Data'' systems that
+leverage vast swaths of user data to provide insights into user
+behavior or patterns in user actions. For example, ``Internet of
+Things'' (IoT) devices that enable a user to track things like their
+day-to-day power consumption~\cite{neurio} or record their exercise
+habits~\cite{fitbit} are becoming increasingly popular. The data from
+such devices in generally passed back to third party processing
+platforms where useful insights are drawn from it and returned to the
+user. Often such systems leverage their access to data form a
+multitude of users to return more useful information then the data
+from any single user could provide. It seems likely that such services
+will continue to increase in popularity as the cost of deploying IoT
+devices drops and the collective benefits of access to large data sets
+grows.
 
 Modern privacy and security enhancing technologies must account for
-the fact that many users may wish to leverage hosted third party
-services. Such technologies should ideally provide users with the
-ability to share data with such services in a controlled manner and to
-transparently audit the manner in which such services are using user
-data. Failure to support such scenarios will likely make any given
-privacy and security enhancing technology impractical for many current
-and future use cases.
+the fact that many users may wish to leverage hosted third party data
+processing services. Such technologies should provide users with the
+ability to share data with data processing services in a controlled
+manner and to transparently audit the manner in which such services
+are using the shared data. Failure to support such scenarios will
+negate the benefits for any privacy and security enhancing technology
+across many current and future use cases.
 
 \subsection{Developer Use Cases}
 
@@ -316,7 +315,7 @@ Beyond end-user use cases, developers are also heavy users of modern
 third party cloud services. As such, there are a number of backend use
 cases that would also benefit from privacy and security enhancements
 with respect to third party trust. Giving developers the tools to
-better protect cloud-baked systems allows them to build more secure
+better protect cloud-backed systems allows them to build more secure
 end-user services. Furthermore, developers are often some of the
 heaviest users of cloud services, so ensuring that they can adequately
 protect their data and services hosted atop third party infrastructure
@@ -332,29 +331,27 @@ be considered when designing security or privacy enhancing
 technologies: lack of full-stack control and the need to scale
 dynamically.
 
-In most IaaS and PaaS systems, a developer will not have full control
-of the hardware stack on which they are operating from the ground
-up. Traditional security and privacy enhancing technologies often rely
-on full control of the entire deployment stack, from the raw hardware
-all the way through the user-facing software, in order to guarantee
-any level of security. In a world where most developer rely on IaaS
-and PaaS systems for production deployment, such full stack control is
-not possible. The less a trust a developer must place in their IaaS or
-PaaS providers, the more direct control they retain over the security
-and privacy of their applications. Modern security and privacy
-enhancing technology systems should be capable of operating securely
-even when the underlying hardware or platform can not be fully vetted
-or trusted.
+Traditional security and privacy enhancing technologies often rely on
+full control of the entire deployment stack, from the raw hardware all
+the way through the user-facing software, in order to guarantee any
+level of security. In a world where most developers rely on IaaS and
+PaaS systems for production deployment, such full stack control is
+generally not possible. The less trust a developer must place in their
+IaaS or PaaS providers, the more direct control they retain over the
+security and privacy of their applications. Modern security and
+privacy enhancing technology systems should be capable of operating
+securely even when the underlying hardware or platform lies outside of
+the developers full control.
 
 Additionally, cloud-based deployments are often scaled up and down
 dynamically as load requires. An application that begins running atop
 a single virtual machine may need to scale up to 10s or 100s of
 virtual machines as the load increases. Modern cloud platforms are
 designed to support such scaling. Thus, any privacy or security
-enhancing systems designed to protect such systems must also be cable
-of rapid and dynamic scalability. Failure to support such dynamics
-will make it difficult for developers to adapt a given security and
-privacy enhancing technology in an IaaS/PaaS based world.
+enhancing systems designed to protect such systems must also be
+capable of rapid and dynamic scalability. Failure to support such
+dynamics will make it difficult for developers to adapt a given
+security and privacy enhancing technology in an IaaS/PaaS based world.
 
 \subsubsection{Remote, Headless, and Automated}
 
@@ -366,27 +363,29 @@ access is sometimes required by security enhancing technologies for
 the purpose of bootstrapping various encryption systems using
 SmartCards, USB drives, etc. Unfortunately the remote, cloud-based
 nature of many modern systems do not allow for such physical-access
-tied mechanisms.
+dependent mechanisms.
 
 Similarly, most IaaS-backed servers or PaaS-backed services are
-expected to autonomously operate heedlessly (e.g. without a human
+expected to autonomously operate headlessly (i.e. without a human
 operator present) for long stretches of time. Thus, it is not
 appropriate to expect developers to be able to provide interactive
 keyboard input in support of a security or privacy enhancing
 technology. For example, most existing full-disk encryption systems
 require a user to enter a pre-boot password each time the system
-reboots. Such systems do not operate in a modern cloud-backed
-environment and thus are not possible to use in such
+reboots. Such systems can not operate in a modern cloud-backed
+environment and thus are not useful use in such
 scenarios. Furthermore, most modern cloud infrastructure is
 bootstrapped automatically by developers using systems like
-Puppet~\cite{puppet} or Chef~\cite{chef}. Thus
+Puppet~\cite{puppet} or Chef~\cite{chef}. Thus, modern security and
+privacy enhancing technologies must also offer support for automated
+configuration.
 
-Assumptions about a developers ability to physically access a machine,
-to interactively provide input to a machine, or to manually deploy
-each machine no longer hold under the current practice of using
-cloud-backed infrastructure. As such. it's important that any
-developer-targeted privacy or security enhancing technology avoids
-making such assumptions, enduring that it can operate effectively even
+Assumptions about a developer's ability to physically access a
+machine, to interactively provide input to a machine, or to manually
+deploy each machine no longer hold under the current practice of using
+ephemeral cloud-backed infrastructure. As such. it's important that
+any developer-targeted privacy or security enhancing technology avoids
+making such assumptions, ensuring that it can operate effectively even
 atop IaaS and PaaS infrastructure.
 
 \section{Threats to Security and Privacy}
