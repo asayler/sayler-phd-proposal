@@ -223,16 +223,16 @@ protect it (see the discussion in Section~\ref{chap:ssaas:trust}).
 \end{figure}
 
 The applications of SSaaS are not limited to data storage. Another
-potential area of applications involves secure communication between
+potential area of application involves secure communication between
 two or more parties. Such secure messaging systems are in growing
-demand, especially after the Edward Snowden revelations related to US
+demand, especially after the Snowden revelations related to US
 Government monitoring of email and associated digital communication
 systems~\cite{gellman-muscular, greenwald-collect,
   greenwald-prism}. While solutions like GnuPG~\cite{gnupg} exist to
 allow users to secure the contents of their mail, their complexity
 tends to limit their use to a small subset of advanced
 users~\cite{green-challenge, whitten1999}. The secure communication
-paradigm could be simplified through the use of SSPs in the SSaaS
+paradigm could be simplified through the use of SSPs and the SSaaS
 model.
 
 Figure~\ref{fig:apps-secureemail} illustrates a potential SSaaS secure
@@ -249,7 +249,7 @@ system would be capable of supporting multi-recipient systems like
 newsgroups and would also allow the user to grant read access to
 additional users after the fact (e.g. should the recipient wish to
 forward the email to an additional trusted party), both capabilities
-that traditional public-key based email encryption struggle to
+that traditional public-key based email encryption systems struggle to
 support. Similar applications could be designed for real-time
 communication such as chat.
 
@@ -259,7 +259,8 @@ some degree of forward secrecy by having the SSP automatically expire
 and delete keys after a certain period of time -- something that
 traditional email encryption systems struggle to support. Such designs
 have the potential to raise the default level of security inherent in
-mass digital communication with significantly inconveniencing users.
+mass digital communication without significantly inconveniencing
+users.
 
 \section{Authentication}
 
