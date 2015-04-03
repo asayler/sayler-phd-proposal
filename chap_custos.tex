@@ -1,14 +1,13 @@
 \chapter{Custos: An SSaaS Prototype}
 \label{chap:custos}
 
-Custos\footnote{Custos is Latin for ``guard''.}~\cite{custos-trios,
-  custos-masters} is a prototype SSP server, SSaaS protocol, and SSaaS
-client ecosystem used to demonstrate and explore SSaaS
-concepts. Custos is optimized for cryptographic key storage, making it
-primarily a Key Storage as a Service (KSaaS) implementation. I provide
-an overview of Custos and some of its design insights here. Additional
-information is available at \cite{custos-masters} and
-\cite{custos-trios}.
+Custos\footnote{Custos is Latin for ``guard''.} is a prototype SSP
+server, SSaaS protocol, and SSaaS client ecosystem used to demonstrate
+and explore SSaaS concepts. Custos is optimized for cryptographic key
+storage, making it primarily a Key Storage as a Service (KSaaS)
+implementation. I provide an overview of Custos and some of its design
+insights here. Additional information is available at
+\cite{custos-masters} and \cite{custos-trios}.
 
 \section{Architecture}
 \label{chap:custos:arch}
@@ -25,25 +24,25 @@ bulk of Custos's functionality is handled on the SSP server side. The
 Custos SSP server implements the following components:
 
 \begin{packed_desc}
-\item[API] Handles all Custos requests, including requests for
+\item[API:] Handles all Custos requests, including requests for
   key:value objects, requests for audit data, and requests to modify
   access control parameters. The API is designed to promote a variety
   of Custos-compliant server implementations.
-\item[Access Control] Compares the set of provided authentication
+\item[Access Control:] Compares the set of provided authentication
   attributes (calling into the authentication system to verify them)
   to the set of required authentication attributes to determine if a
   Custos request should be allowed or denied.
-\item[Authentication] Verifies the validity of any authentication
+\item[Authentication:] Verifies the validity of any authentication
   attributes associated with a given Custos request via a pluggable
   authentication module interface capable of supporting a variety of
   authentication primitives.
-\item[Data] Handles data API requests (e.g. get, set, create, and
+\item[Data:] Handles data requests (e.g. get, set, create, and
   delete of key:value objects).
-\item[Auditing] Handles audit API requests and logs all Custos
-  requests and their corresponding responses.
-\item[Management] Handles management API requests (e.g. the
-  manipulation of access control parameters).
-\item[Key-Value Secret Store] Stores persistent data such as end-user
+\item[Auditing:] Handles audit requests and logs all Custos
+  requests.
+\item[Management:] Handles management requests (e.g. the
+  manipulating access control parameters).
+\item[Key-Value Secret Store:] Stores persistent data such as end-user
   secrets (e.g. encryption keys) as well as internal state
   (e.g. access control requirements).
 \end{packed_desc}
@@ -101,7 +100,7 @@ ACC consists of an ordered list of \emph{authentication attributes}.
 \subsubsection{Permissions}
 \label{chap:custos:arch:ac:perms}
 
-\begin{table}[!t]
+\begin{table}[!thb]
   \footnotesize
   \centering
   \tabulinesep = 2pt
@@ -331,7 +330,7 @@ following set of transactions would occur:
 \subsubsection{Authentication Attributes}
 \label{chap:custos:arch:ac:aa}
 
-\begin{table}[!t]
+\begin{table}[thb]
   \footnotesize
   \centering
   \tabulinesep = 2pt
