@@ -420,39 +420,37 @@ dedicated crypto processing and key storage on behalf of other
 services. Such systems ensure that cryptographic keys are never
 exposed outside of the secure hardware module. Programs communicate
 with the HSM via a standard protocol like
-PKCS\#11~\cite{pcks11-standard}, sending the HSM clear-text data to
-encrypt and getting back the encrypted ciphertext in
-return. Unfortunately, most existing HSM solutions don't scale to the
-levels required for high-volume services. This has led some to suggest
-moving to a software-based ``HSM'' model~\cite{lorier-pkcs11}. Such
-softHSM systems would still ensure cryptographic keys remain stored in
-separate isolated memory spaces while also out-performing traditional
-HSM systems.
+PKCS\#11~\cite{pcks11-standard}. In such systems, an application sends
+the HSM clear-text data to encrypt and gets back the encrypted
+ciphertext in return. Unfortunately, most existing HSM solutions don't
+scale to the performance levels required by high-volume services. This
+has led some to suggest moving to a software-based ``HSM''
+model~\cite{lorier-pkcs11}. Such softHSM systems would still ensure
+cryptographic keys remain stored in separate isolated memory spaces
+while also out-performing traditional HSM systems.
 
 A software-based dedicated crypto processing system is an ideal use
 case an SSaaS-backed system. Figure~\ref{fig:app-pkcs11} shows the
 potential design of such a system. Here, a Secret Storage Provider
-provider supplies the back-end key storage for a dedicated crypto
-processing server which performs cryptographic operations (e.g. SSL
-encryption and authentication) on behalf of a web-server. In this
-setup, the web-server never accesses any private cryptographic keys
-directly, mitigating one of the major risks Heartbleed
-exposed. Furthermore, the logically centralized nature of an SSaaS SSP
-allows dedicated crypto processing servers to scale horizontally
-(e.g. multiple load-balancing instances) as demand requires. Storing
-all keys via one or more SSPs allows new crypto processing instances
-to immediately access these keys without the need to utilize ad-hoc
-key-syncing or configuration management interfaces. Furthermore, The
-SSP's auditing functionality ensures that you always know which keys
-have been accessed by which systems, placing hard bounds on what an
-attacker may or may not have had access too: a luxury that
-Heartbleed-prone servers did not have.
+supplies the back-end key storage for a dedicated crypto processing
+server which performs cryptographic operations (e.g. SSL encryption
+and authentication) on behalf of a web-server. In this setup, the
+web-server never accesses any private cryptographic keys directly,
+mitigating one of the major risks Heartbleed exposed. Furthermore, the
+logically centralized nature of an SSaaS SSP allows dedicated crypto
+processing servers to scale horizontally (e.g. multiple load-balancing
+instances) as demand requires: storing all keys via one or more SSPs
+allows new crypto processing instances to immediately access these
+keys without the need to utilize ad-hoc key-syncing or configuration
+management interfaces. Furthermore, The SSP's auditing functionality
+ensures that you always know which keys have been accessed by which
+systems, placing hard bounds on what an attacker may or may not have
+had access too: a luxury that Heartbleed-prone servers did not have.
 
-Such a design combines the benefits of a dedicated crypto-processor,
-separate from any front-end system, with the third-party trust liming
-nature of the SSaaS ecosystem. This combination allows for high speed
-cryptographic processing without placing a high degree of trust in any
-single system or party.
+Such a design combines the benefits of a dedicated crypto-processor
+with the third-party trust limiting nature of the SSaaS model. This
+combination allows for high speed cryptographic processing without
+placing a high degree of trust in any single system or party.
 
 %%  LocalWords:  SSaaS CMAC SSPs SSP's SSP FDE iOS Repo Snowden IaaS
 %%  LocalWords:  JumpCloud Heartbleed PKCS softHSM
