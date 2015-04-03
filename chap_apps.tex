@@ -266,24 +266,24 @@ users.
 
 SSaaS also has applications in the authentication realm. Cryptographic
 authentication systems (i.e. certificate-based authentication) are
-considered to be some of the most sure forms of digital authentication
--- far better then the more commonly deployed shard-secret
+considered to be some of the most secure forms of digital
+authentication -- far better then more commonly deployed shared-secret
 (i.e. password) authentication systems. Where as shared secret
 authentication merely relies on both the user and the verifier
-(i.e. server) knowing a common secret such as a pass-phrase,
+(e.g. server) knowing a common secret such as a pass-phrase,
 certificate-based authentication systems rely on a user to be able to
 cryptographically prove they posses the private key corresponding to a
 specific public key. Such systems have a range of applications, from
-user authentication n websites to user authentication on compute
-servers and workstations. In the latter case, SSH~\cite{ylonen1996} is
-one of the more common remote-access protocols for Unix-like computing
-systems such as Linux and OSX. SSH uses keys on both the server side,
-where they provide authentication and encryption for connecting
+authentication on websites to authentication on servers and
+workstations. In the latter case, SSH~\cite{ylonen1996} is one of the
+more common remote-access protocols for Unix-like computing systems
+such as Linux and OSX. SSH uses keys on both the server side, where
+they provide server verification and encryption for connecting
 clients, as well as on the client side, where they can (optionally) be
 used to authenticate users instead of passwords. SSH is thus a useful
-example to show the potential benefits of the SSaaS model to
+example to demonstrate the potential benefits of the SSaaS model to
 authentication systems. SSaaS can provide usability and security
-benefits to SSH in both the client and server use cases.
+benefits to SSH on both the client and server.
 
 \subsection{Client Side: SSaaS-Backed SSH Agent}
 
@@ -313,13 +313,13 @@ cryptographic agent programs can be overcome by using an SSaaS-backed
 agent. Figure~\ref{fig:app-sshagent} shows the basic design for an
 SSaaS-backed SSH-agent. Instead of storing private keys locally, such
 an agent would defer private key storage to one or more dedicated
-SSPs. When the agent requires the user's keys, it requests them from
-the SSP. Thus, the user and any associated agent programs are able to
-securely access the necessary private keys from multiple devices
-(e.g. laptop, desktop, tablet). Furthermore, if the user ever loses
-one of their devices, they can greatly reduce the risk of exposing any
-of their private keys but revoking the lost device's access to the
-off-site SSaaS data (e.g. similar to~\cite{geambasu2011}
+SSPs. When the agent requires the user's private keys, it requests
+them from the SSP. Thus, the user and any associated agent programs
+are able to securely access the necessary private keys from multiple
+devices (e.g. laptop, desktop, tablet). Furthermore, if the user ever
+loses one of their devices, they can greatly reduce the risk of
+exposing any of their private keys by revoking the lost device's
+access to the off-site SSaaS data (e.g. similar to~\cite{geambasu2011}
 and~\cite{tang2012}). Such a system would also allow large
 organizations to manage SSH or other cryptographic keys for all their
 users from a centralized SSaaS management applications.
@@ -339,54 +339,54 @@ the usability overhead required to manually manage their private keys.
 \end{figure}
 
 Similarly, the SSaaS model can provided benefits when applied to the
-server side. SSH servers must manage both their own server keys pairs,
-used to prove the servers identity to a user and to bootstrap the
-negotiation of a session key for further communication, as well as the
-public keys for any users to which the server administrator wishes to
-grant server access. Unfortunately, managing both sets of keys
-manually poses a number of challenges. Integrating server-side key
-management with an SSaaS system can help alleviate these challenges.
+server side of SSH. An SSH server must manage both a server key pair,
+used to prove the server's identity to a user and to bootstrap the
+negotiation of a session key, as well as a list of user public keys
+for any users granted server access. Unfortunately, managing both sets
+of keys manually poses a number of challenges. Integrating server-side
+SSH key management with an SSaaS system can help alleviate these
+challenges.
 
 In the server key case, the ephemeral nature of modern IaaS-based
 systems causes issues with locally manged keys. For instance, what the
 user perceives of as a single server may actually be multiple
 load-balanced servers, or may be a single virtual server that is
-destroyed and recreated frequently in response to upgrade needs and
-changes in load demand. In either case, it's important that the user
-be able to properly authenticate that the server they are accessing is
-in fact the correct server and not malicious man-in-the-middle
+destroyed and recreated frequently in response to upgrades and changes
+in demand. In either case, it's important that the user be able to
+properly authenticate that the server they are accessing is in fact
+the correct server and not malicious man-in-the-middle
 attacker. Unlike SSL, however, SSH does not rely on a central
-authority structure for the verification of keys. Instead it uses a
-``trust on first use'' model that fingerprints a server key the first
-time the user connects and then assumes that this key will remain
-associated with a given server address indefinitely. If a cloud-backed
-server generate a new server SSH key each time it's recreated, or if
-multiple logically equivalent load-balanced servers all have different
-SSH keys, it is difficult, a user will be unable to verify that the
-server is logically equivalent to the one they originally
-accessed. This issue could be overcome by storing the SSH keys for a
-server with one or more SSPs as shown in
+certificate authority structure for the verification of keys. Instead
+it uses a ``trust on first use'' model that fingerprints a server key
+the first time the user connects and then assumes that this key will
+remain associated with a given server address indefinitely. If an
+ephemeral cloud server generates a new server SSH key each time it's
+recreated, or if multiple logically equivalent, load-balanced servers
+all have different SSH keys, a user will be unable to verify that the
+server is equivalent to the one they originally accessed. This issue
+could be overcome by storing the SSH verification keys for a server
+with one or more SSPs as shown in
 Figure~\ref{fig:apps-sshserver}. Then, when a server is recreated, or
 when a single logical server is balanced between multiple instances,
-it still has access to the same SSH keys originally is use, ensuring
-the user can properly authenticate the server as valid.
+it still has access to the same SSH keys originally in use, ensuring
+that previous users can properly authenticate the server as valid.
 
 The server's list of authorized user keys poses similar
 challenges. These lists contain the public keys of all users
-authorized to access a server. Maintaining such lists across large
-number of servers, and ensuring they stay up to date even as
-individual server instances are add, removed, and upgraded is
-challenging. Failing to poorly manage such lists can either lead to
+authorized to access a given server. Maintaining such lists across
+large numbers of servers, and ensuring they stay up to date even as
+individual server instances are added, removed, and upgraded is
+challenging. Failing to properly manage such lists can either lead to
 legitimate users being locked out of systems, or worse, allowing
 illegitimate users (e.g. a previous employee) to access systems they
 should not. Indeed, such misconfiguration errors are one of the
-primary security failures seen today~\cite{bishop1996,
+leading causes of security failures today~\cite{bishop1996,
   kerravala2002}. Centralizing the management of such authorized keys
 lists with an SSP allows administrators to manage and audit server
 access across a wide collection of infrastructure from a single
 place. Such a solution is the SSaaS equivalent of cloud user
 management solutions such as JumpCloud~\cite{jumpcloud}. But unlike
-existing servers, an SSaaS-backed SSH user management system avoid
+existing services, an SSaaS-backed SSH user management system avoids
 trusting any single third party by leveraging the key-sharding
 possibilities available in an SSaaS ecosystem.
 
@@ -396,8 +396,8 @@ servers. In many ways, SSaaS represents a more secure variant of
 traditional configuration management solutions such as
 Chef~\cite{chef} or Puppet~\cite{puppet}. But unlike such solutions,
 the SSaaS model is deigned with the security and privacy of the
-configuration data it might store as a first principle, not a
-secondary concern.
+configuration data it stores as a first principle, not a secondary
+concern.
 
 \section{Dedicated Crypto Processor}
 
