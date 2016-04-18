@@ -30,8 +30,8 @@ $ make
 Final Copy
 ----------
 
-+ Proposal: [proposal-final.pdf](./proposal-final.pdf).
-+ Slides: [proposal-slides-final.pdf](./proposal-slides-final.pdf).
++ Proposal: [proposal-final.pdf](./proposal-final.pdf)
++ Slides: [proposal-slides-final.pdf](./proposal-slides-final.pdf)
 
 See Also
 --------
